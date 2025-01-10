@@ -1,0 +1,15 @@
+{# templates/registration/register.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Registro{% endblock %}
+
+{% block content %}
+    <h1>Registrarse</h1>
+    {{ form_start(form) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.password.first) }}
+    {{ form_row(form.password.second) }}
+    {# Renderizamos el botón de envío #}
+    <button type="submit" class="btn btn-primary">Register</button>
+    {{ form_end(form) }}
+{% endblock %}
