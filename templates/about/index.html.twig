@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">{{ title }}</h1>
+    <p class="text-center">{{ description }}</p>
+
+    <section class="mt-5">
+        <h3 class="text-center">Conoce a Nuestro Equipo</h3>
+        <div class="row justify-content-center mt-4">
+            {% for member in team %}
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">{{ member.name }}</h5>
+                            <p class="card-text">{{ member.role }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <div class="text-center mt-5">
+        <a href="{{ path('app_home') }}" class="btn btn-primary">Volver al Inicio</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,43 +1,44 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Página de Inicio{% endblock %}
+{% block title %}Página Principal{% endblock %}
 
 {% block content %}
-    <h1>Bienvenidos a la Página de Inicio</h1>
-    <p>Esta es la página principal de nuestro sitio web. Aquí puedes encontrar información importante.</p>
+    <div class="container mt-5">
 
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card">
-                <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Imagen 1">
+        <!-- Zona de Información -->
+        <section class="mb-5">
+            <div class="p-4 bg-light rounded">
+                <h2 class="text-center mb-3">Bienvenido a Nuestra Plataforma</h2>
+                <p class="text-center">
+                    Aquí encontrarás información útil sobre cómo usar nuestras herramientas y servicios.
+                    ¡Explora las diferentes secciones para aprender más!
+                </p>
+            </div>
+        </section>
+
+        <!-- Zona de Perfil -->
+        <section class="mb-5">
+            <div class="card shadow-sm">
                 <div class="card-body">
-                    <h5 class="card-title">Título de la sección 1</h5>
-                    <p class="card-text">Descripción corta de la sección 1.</p>
-                    <a href="#" class="btn btn-primary">Leer más</a>
+                    <h3 class="card-title text-center">Tu Perfil</h3>
+                    <p class="card-text text-center">
+                        Accede a tus datos, edita tu información o consulta tu progreso.
+                    </p>
+                    <div class="text-center">
+                        <a href="{{ path('app_profile') }}" class="btn btn-primary">Gestionar Perfil</a>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div class="col-md-4">
-            <div class="card">
-                <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Imagen 2">
-                <div class="card-body">
-                    <h5 class="card-title">Título de la sección 2</h5>
-                    <p class="card-text">Descripción corta de la sección 2.</p>
-                    <a href="#" class="btn btn-primary">Leer más</a>
-                </div>
+        <!-- Zona de Empezar Cuestionario -->
+        <section class="text-center">
+            <div class="p-5 bg-primary text-white rounded">
+                <h3 class="mb-3">¿Listo para empezar?</h3>
+                <p>Haz clic en el botón a continuación para iniciar tu cuestionario.</p>
+                <a href="{{ path('app_quiz_start') }}" class="btn btn-light btn-lg">Empezar Cuestionario</a>
             </div>
-        </div>
+        </section>
 
-        <div class="col-md-4">
-            <div class="card">
-                <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Imagen 3">
-                <div class="card-body">
-                    <h5 class="card-title">Título de la sección 3</h5>
-                    <p class="card-text">Descripción corta de la sección 3.</p>
-                    <a href="#" class="btn btn-primary">Leer más</a>
-                </div>
-            </div>
-        </div>
     </div>
 {% endblock %}

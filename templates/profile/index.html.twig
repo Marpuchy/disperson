@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Perfil de Usuario{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Perfil de Usuario</h1>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <p><strong>Nombre: </strong> {{ user.username }}</p>
+            <p><strong>Correo Electrónico: </strong> {{ user.email }}</p>
+            <hr>
+            <a href="{{ path('app_home') }}" class="btn btn-primary">Volver al Inicio</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

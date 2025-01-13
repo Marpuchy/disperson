@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Mi Sitio Web{% endblock %}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.0/css/bootstrap.min.css">
+    <!-- Modo oscuro personalizado -->
+    <link href="{{ asset('css/dark_mode.css') }}" rel="stylesheet">
 </head>
 <body>
 <!-- Barra de navegación -->
@@ -25,9 +27,17 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/contact">Contacto</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/login">Login</a>
-                </li>
+                {% if app.user %}
+                    <!-- Si el usuario está autenticado -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_profile') }}">{{ app.user.username }}</a> <!-- Muestra el nombre del usuario -->
+                    </li>
+                {% else %}
+                    <!-- Si el usuario NO está autenticado -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('login') }}">Login</a> <!-- Redirige al login -->
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </div>
