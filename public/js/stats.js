@@ -16,10 +16,10 @@ function main() {
         neuroticismo: "#993333",
     };
 
-    var statOrder = Object.keys(player);
+    var statOrder = Object.keys(player);  // Asegurándonos de que statOrder tiene las propiedades del objeto player
     var polygonX = 240;
     var polygonY = 240;
-    var polygonSize = 120;
+    var polygonSize = 120;  // Tamaño inicial del polígono
 
     // Directamente creamos el canvas y lo agregamos al contenedor
     var canvas = document.createElement("canvas");
@@ -29,6 +29,8 @@ function main() {
     document.getElementById("canvas-container").appendChild(canvas);
 
     var ctx = canvas.getContext("2d");
+
+    var animationFrameId;
 
     function drawRegularPolygon(x, y, fill, stroke, strokeWidth, sides, radius) {
         var vertices = [];
@@ -50,12 +52,12 @@ function main() {
         return vertices;
     }
 
-    function drawInnerPolygon(vertices, stats, fill, stroke) {
+    function drawInnerPolygon(vertices, stats, fill, stroke, progress) {
         ctx.beginPath();
         for (var i = 0; i < vertices.length; i++) {
-            var statValue = stats[statOrder[i]] / 100; // Normalize stat value
-            var x = polygonX + (vertices[i].x - polygonX) * statValue;
-            var y = polygonY + (vertices[i].y - polygonY) * statValue;
+            var statValue = stats[statOrder[i]] / 100; // Normalizar el valor de la estadística
+            var x = polygonX + (vertices[i].x - polygonX) * statValue * progress;
+            var y = polygonY + (vertices[i].y - polygonY) * statValue * progress;
             if (i === 0) ctx.moveTo(x, y);
             else ctx.lineTo(x, y);
         }
@@ -69,11 +71,13 @@ function main() {
         ctx.stroke();
     }
 
-    function redraw() {
+    function redraw(progress) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // El tamaño del polígono gris se mantiene constante
         var outerVertices = drawRegularPolygon(polygonX, polygonY, "#666", "#333", 4, statOrder.length, polygonSize);
 
-        // Draw radial lines
+        // Dibujar las líneas radiales para el polígono gris
         ctx.beginPath();
         for (var i = 0; i < outerVertices.length; i++) {
             ctx.moveTo(polygonX, polygonY);
@@ -82,25 +86,39 @@ function main() {
         ctx.strokeStyle = "#fff";
         ctx.stroke();
 
-        // Draw inner polygon for stats
-        drawInnerPolygon(outerVertices, player, "#b95ded", "#b700ff");
+        // Dibujar el polígono interior morado con animación
+        drawInnerPolygon(outerVertices, player, "#b95ded", "#b700ff", progress);
 
-        // Draw stat labels on top of each point
+        // Dibujar las etiquetas de las estadísticas encima de cada punto
         ctx.fillStyle = "#fff";
         ctx.font = "16px Lato";
         for (var i = 0; i < outerVertices.length; i++) {
-            var x = outerVertices[i].x;
-            var y = outerVertices[i].y;
+            if (statOrder[i]) {  // Verificamos que statOrder[i] no sea undefined
+                var x = outerVertices[i].x;
+                var y = outerVertices[i].y;
 
-            // Calculate offset for text to be positioned above the vertex
-            var angle = (Math.PI * 2 / statOrder.length) * i - Math.PI / 2;
-            var labelX = polygonX + (polygonSize + 68) * Math.cos(angle);
-            var labelY = polygonY + (polygonSize + 30) * Math.sin(angle);
+                // Calcular el desplazamiento para que el texto esté centrado sobre cada vértice
+                var angle = (Math.PI * 2 / statOrder.length) * i - Math.PI / 2;
+                var labelX = polygonX + (polygonSize + 68) * Math.cos(angle);
+                var labelY = polygonY + (polygonSize + 30) * Math.sin(angle);
 
-            // Draw text centered above each point
-            ctx.fillText(statOrder[i].toUpperCase(), labelX - ctx.measureText(statOrder[i].toUpperCase()).width / 2, labelY);
+                // Dibujar el texto centrado sobre cada punto
+                ctx.fillText(statOrder[i].toUpperCase(), labelX - ctx.measureText(statOrder[i].toUpperCase()).width / 2, labelY);
+            }
         }
     }
 
-    redraw();
+    function animate(progress) {
+        // Incrementar el progreso (para hacer crecer el polígono morado)
+        progress += 0.01;
+        if (progress <= 1) {
+            redraw(progress);
+            animationFrameId = requestAnimationFrame(function() {
+                animate(progress);
+            });
+        }
+    }
+
+    redraw(1);  // Dibujar el fondo (polígono gris) inmediatamente
+    animate(0);  // Iniciar la animación del polígono morado con progreso en 0
 }
