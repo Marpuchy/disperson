@@ -16,7 +16,6 @@ a:hover {
 .container {
     background-color: #2b2b3b; /* Gris más claro con una pizca de morado */
     padding: 20px;
-    padding-top: 5px;
     border-radius: 8px;
     box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5); /* Sombra ligera */
     color: #e4e4eb; /* Texto claro */
