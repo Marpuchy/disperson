@@ -122,3 +122,15 @@ h1, h2, h3, h4, h5, h6 {
 .navbar .nav-link:hover {
     color: #d8b9ff !important; /* Morado más suave */
 }
+#canvas-container {
+    position: relative;
+    width: 480px;
+    height: 480px;
+    margin: 0 auto;
+}
+/* Centrado absoluto del canvas dentro del contenedor */
+canvas.absolute-center {
+    position: absolute;
+    top: 0;
+    left: 0;
+}

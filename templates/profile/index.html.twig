@@ -3,16 +3,25 @@
 {% block title %}Perfil de Usuario{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <h1 class="text-center mb-4">Perfil de Usuario</h1>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Perfil de Usuario</h1>
 
-    <div class="card shadow-sm">
-        <div class="card-body">
-            <p><strong>Nombre: </strong> {{ user.username }}</p>
-            <p><strong>Correo Electrónico: </strong> {{ user.email }}</p>
-            <hr>
-            <a href="{{ path('app_home') }}" class="btn btn-primary">Volver al Inicio</a>
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <p><strong>Nombre: </strong> {{ user.username }}</p>
+                <p><strong>Correo Electrónico: </strong> {{ user.email }}</p>
+                <hr>
+                <a href="{{ path('app_home') }}" class="btn btn-primary">Volver al Inicio</a>
+            </div>
+        </div>
+        <div class="pentagono">
+            {% block javascripts %}
+                <!-- Asegúrate de que el archivo JS se carga al final -->
+                <script src="{{ asset('js/stats.js') }}"></script>
+                <div id="canvas-container"></div>
+            {% endblock %}
         </div>
     </div>
-</div>
 {% endblock %}
+
+

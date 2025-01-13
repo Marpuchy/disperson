@@ -2,10 +2,10 @@
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
     <data-source source="LOCAL" name="defaultdb@disperson-mibanezp0709-0b60.i.aivencloud.com" uuid="02b4ed4b-0036-45a9-8263-59a488830132">
-      <driver-ref>mysql_aurora.aws_wrapper</driver-ref>
+      <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
-      <jdbc-driver>software.amazon.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:aws-wrapper:mysql://disperson-mibanezp0709-0b60.i.aivencloud.com:26755/defaultdb</jdbc-url>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://disperson-mibanezp0709-0b60.i.aivencloud.com:26755/defaultdb</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>
