@@ -16,9 +16,6 @@ class Question
     #[ORM\Column(length: 2555)]
     private ?string $content = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $attribute = null;
-
     #[ORM\Column]
     private ?int $experiencia = null;
 
