@@ -14,14 +14,25 @@
                 <a href="{{ path('app_home') }}" class="btn btn-primary">Volver al Inicio</a>
             </div>
         </div>
+
         <div class="pentagono">
             {% block javascripts %}
-                <!-- Asegúrate de que el archivo JS se carga al final -->
+                <!-- Cargamos el archivo JS donde contiene la lógica para el gráfico -->
                 <script src="{{ asset('js/stats.js') }}"></script>
+
                 <div id="canvas-container"></div>
+
+                <!-- Bloque de datos JSON con las estadísticas del usuario -->
+                <script>
+                    window.userStats = {
+                        experiencia: {{ experiencia }},
+                        responsabilidad: {{ responsabilidad }},
+                        extraversion: {{ extraversion }},
+                        amabilidad: {{ amabilidad }},
+                        emocional: {{ emocional }}
+                    };
+                </script>
             {% endblock %}
         </div>
     </div>
 {% endblock %}
-
-

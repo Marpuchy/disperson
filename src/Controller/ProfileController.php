@@ -20,8 +20,21 @@ class ProfileController extends AbstractController
             return $this->redirectToRoute('login');
         }
 
+        // Obtener las estadísticas del usuario
+        $experiencia = $user->getExperiencia();
+        $responsabilidad = $user->getResponsabilidad();
+        $extraversion = $user->getExtraversion();
+        $amabilidad = $user->getAmabilidad();
+        $emocional = $user->getEmocional();
+
+        // Pasar las estadísticas del usuario junto con el objeto 'user'
         return $this->render('profile/index.html.twig', [
-            'user' => $user, // Pasamos el usuario autenticado a la plantilla
+            'user' => $user,
+            'experiencia' => $experiencia,
+            'responsabilidad' => $responsabilidad,
+            'extraversion' => $extraversion,
+            'amabilidad' => $amabilidad,
+            'emocional' => $emocional,
         ]);
     }
 }
