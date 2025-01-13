@@ -30,6 +30,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $username = null;
 
+    #[ORM\Column]
+    private ?int $experiencia = null;
+
+    #[ORM\Column]
+    private ?int $responsabilidad = null;
+
+    #[ORM\Column]
+    private ?int $extraversion = null;
+
+    #[ORM\Column]
+    private ?int $amabilidad = null;
+
+    #[ORM\Column]
+    private ?int $emocional = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -108,6 +123,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setUsername(string $username): static
     {
         $this->username = $username;
+
+        return $this;
+    }
+
+    public function getExperiencia(): ?int
+    {
+        return $this->experiencia;
+    }
+
+    public function setExperiencia(int $experiencia): static
+    {
+        $this->experiencia = $experiencia;
+
+        return $this;
+    }
+
+    public function getResponsabilidad(): ?int
+    {
+        return $this->responsabilidad;
+    }
+
+    public function setResponsabilidad(int $responsabilidad): static
+    {
+        $this->responsabilidad = $responsabilidad;
+
+        return $this;
+    }
+
+    public function getExtraversion(): ?int
+    {
+        return $this->extraversion;
+    }
+
+    public function setExtraversion(int $extraversion): static
+    {
+        $this->extraversion = $extraversion;
+
+        return $this;
+    }
+
+    public function getAmabilidad(): ?int
+    {
+        return $this->amabilidad;
+    }
+
+    public function setAmabilidad(int $amabilidad): static
+    {
+        $this->amabilidad = $amabilidad;
+
+        return $this;
+    }
+
+    public function getEmocional(): ?int
+    {
+        return $this->emocional;
+    }
+
+    public function setEmocional(int $emocional): static
+    {
+        $this->emocional = $emocional;
 
         return $this;
     }
