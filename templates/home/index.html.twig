@@ -3,42 +3,69 @@
 {% block title %}Página Principal{% endblock %}
 
 {% block content %}
-    <div class="container mt-5">
-
+    <div class="">
         <!-- Zona de Información -->
-        <section class="mb-5">
-            <div class="p-4 bg-light rounded">
-                <h2 class="text-center mb-3">Bienvenido a Nuestra Plataforma</h2>
-                <p class="text-center">
-                    Aquí encontrarás información útil sobre cómo usar nuestras herramientas y servicios.
-                    ¡Explora las diferentes secciones para aprender más!
-                </p>
+        <section class="py-5 bg-light">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6" data-aos="fade-right">
+                        <h2>Bienvenido a Nuestra Plataforma</h2>
+                        <p>Aquí encontrarás información útil sobre cómo usar nuestras herramientas y servicios.
+                            ¡Explora las diferentes secciones para aprender más!</p>
+                    </div>
+                    <div class="col-md-6 text-center" data-aos="fade-left">
+                        <img src="{{ asset('resources/brain.png') }}" class="img-fluid rounded"
+                             alt="Imagen de bienvenida">
+                    </div>
+                </div>
             </div>
         </section>
 
         <!-- Zona de Perfil -->
-        <section class="mb-5">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <h3 class="card-title text-center">Tu Perfil</h3>
-                    <p class="card-text text-center">
-                        Accede a tus datos, edita tu información o consulta tu progreso.
-                    </p>
-                    <div class="text-center">
+        <section class="py-5">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6 order-md-2" data-aos="fade-left">
+                        <h3>Tu Perfil</h3>
+                        <p>Accede a tus datos, edita tu información o consulta tu progreso.</p>
                         <a href="{{ path('app_profile') }}" class="btn btn-primary">Gestionar Perfil</a>
+                    </div>
+                    <div class="col-md-6 order-md-1 text-center" data-aos="fade-right">
+                        <img src="{{ asset('resources/profile.png') }}" class="img-fluid rounded"
+                             alt="Imagen de perfil">
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Zona de Empezar Cuestionario -->
-        <section class="text-center">
-            <div class="p-5 bg-primary text-white rounded">
-                <h3 class="mb-3">¿Listo para empezar?</h3>
-                <p>Haz clic en el botón a continuación para iniciar tu cuestionario.</p>
-                <a href="{{ path('app_quiz_start') }}" class="btn btn-light btn-lg">Empezar Cuestionario</a>
+        <section class="py-5 bg-primary text-white">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6" data-aos="fade-right">
+                        <h3>¿Listo para empezar?</h3>
+                        <p>Haz clic en el botón a continuación para iniciar tu cuestionario.</p>
+                        <a href="{{ path('app_quiz_start') }}" class="btn btn-light btn-lg">Empezar Cuestionario</a>
+                    </div>
+                    <div class="col-md-6 text-center" data-aos="fade-left">
+                        <img src="{{ asset('resources/quiz.png') }}" class="img-fluid rounded"
+                             alt="Imagen de cuestionario">
+                    </div>
+                </div>
             </div>
         </section>
-
     </div>
+
+    <!-- Include AOS Library -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        document.addEventListener('DOMContentLoaded', function () {
+            AOS.init({
+                duration: 1000, // Animation duration in ms
+                once: true     // Animate only once
+            });
+        });
+    </script>
 {% endblock %}

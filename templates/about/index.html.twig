@@ -3,28 +3,35 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <h1 class="text-center mb-4">{{ title }}</h1>
-    <p class="text-center">{{ description }}</p>
+    <!-- Contenedor Principal -->
+    <div class="container mt-5">
+        <!-- Título Principal -->
+        <h1 class="text-center mb-4">{{ title }}</h1>
+        <p class="text-center lead mb-5">{{ description }}</p>
 
-    <section class="mt-5">
-        <h3 class="text-center">Conoce a Nuestro Equipo</h3>
-        <div class="row justify-content-center mt-4">
-            {% for member in team %}
-                <div class="col-md-4 mb-4">
-                    <div class="card shadow-sm">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">{{ member.name }}</h5>
-                            <p class="card-text">{{ member.role }}</p>
+        <!-- Sección del equipo -->
+        <section class="mt-5">
+            <h3 class="text-center mb-4">Conoce a Nuestro Equipo</h3>
+            <div class="row justify-content-center">
+                {% for member in team %}
+                    <div class="col-md-4 col-sm-6 mb-4">
+                        <div class="card shadow-lg h-100">
+                            <div class="card-body text-center d-flex flex-column justify-content-between">
+                                <h5 class="card-title mb-3">{{ member.name }}</h5>
+                                <p class="card-text">{{ member.role }}</p>
+                                <div class="d-grid gap-2">
+                                    <a href="mailto: mibanezp0709@gmail.com" class="btn btn-primary">Contáctanos</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
-        </div>
-    </section>
+                {% endfor %}
+            </div>
+        </section>
 
-    <div class="text-center mt-5">
-        <a href="{{ path('app_home') }}" class="btn btn-primary">Volver al Inicio</a>
+        <!-- Botón para regresar al inicio -->
+        <div class="text-center mt-5">
+            <a href="{{ path('app_home') }}" class="btn btn-primary btn-lg">Volver al Inicio</a>
+        </div>
     </div>
-</div>
 {% endblock %}

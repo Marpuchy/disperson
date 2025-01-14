@@ -3,10 +3,11 @@
 {% block title %}Perfil de Usuario{% endblock %}
 
 {% block content %}
-    <div class="container mt-5">
+    <div class="container my-5">
         <h1 class="text-center mb-4">Perfil de Usuario</h1>
 
-        <div class="card shadow-sm">
+        <!-- Card de Información del Usuario -->
+        <div class="card shadow-sm mb-4">
             <div class="card-body">
                 <p><strong>Nombre: </strong> {{ user.username }}</p>
                 <p><strong>Correo Electrónico: </strong> {{ user.email }}</p>
@@ -15,12 +16,13 @@
             </div>
         </div>
 
-        <div class="pentagono">
+        <!-- Sección de Gráficos / Estadísticas -->
+        <div class="pentagono mb-5">
             {% block javascripts %}
                 <!-- Cargamos el archivo JS donde contiene la lógica para el gráfico -->
                 <script src="{{ asset('js/stats.js') }}"></script>
 
-                <div id="canvas-container"></div>
+                <div id="canvas-container" class="my-4"></div>
 
                 <!-- Bloque de datos JSON con las estadísticas del usuario -->
                 <script>

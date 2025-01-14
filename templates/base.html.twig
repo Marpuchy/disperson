@@ -6,14 +6,16 @@
     <title>{% block title %}Mi Sitio Web{% endblock %}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.0/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
     <!-- Modo oscuro personalizado -->
-    <link href="{{ asset('css/dark_mode.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
 </head>
 <body>
 <!-- Barra de navegación -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top py-3">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/">Mi Sitio</a>
+        <a class="navbar-brand fs-3" href="/">Mi Sitio</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -33,12 +35,11 @@
                     <!-- Si el usuario está autenticado -->
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_profile') }}">{{ app.user.username }}</a>
-                        <!-- Muestra el nombre del usuario -->
                     </li>
                 {% else %}
                     <!-- Si el usuario NO está autenticado -->
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('login') }}">Login</a> <!-- Redirige al login -->
+                        <a class="nav-link" href="{{ path('login') }}">Login</a>
                     </li>
                 {% endif %}
             </ul>
@@ -47,14 +48,21 @@
 </nav>
 
 <!-- Contenido principal -->
-<div class="container mt-4">
+<div class="container-fluid custom-margin-top p-0">
     {% block content %}
         <!-- Aquí irá el contenido específico de cada página -->
     {% endblock %}
 </div>
 
+
+<!-- Footer -->
+<footer class="text-center mt-5">
+    <div class="text-center" style="background-color: rgba(0, 0, 0, 0.05); padding: 10px;">
+        &copy; Marc Ibáñez. Todos los derechos reservados.
+    </div>
+</footer>
+
 <!-- Scripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.0/js/bootstrap.bundle.min.js"></script>
-
 </body>
 </html>
