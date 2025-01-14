@@ -144,7 +144,7 @@ h1, h2, h3, h4, h5, h6 {
     justify-self: center;
     position: relative;
     width: 100%;  /* Establece el ancho como 100% del contenedor */
-    max-width: 480px; /* Limita el ancho a 480px como máximo */
+    max-width: 510px; /* Limita el ancho a 480px como máximo */
     height: 100%;  /* Ocupa el 60% de la altura de la ventana */
     max-height: 380px;  /* Limita la altura máxima a 380px */
     margin: 0 auto;

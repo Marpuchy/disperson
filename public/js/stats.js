@@ -12,7 +12,7 @@ function main() {
     };
 
     var statOrder = Object.keys(player);
-    var polygonX = 240;
+    var polygonX = 255;
     var polygonY = 240;
     var polygonSize = 120;  // Tamaño inicial del polígono
 
