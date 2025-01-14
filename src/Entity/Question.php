@@ -13,7 +13,7 @@ class Question
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 2555)]
+    #[ORM\Column(length: 255)]
     private ?string $content = null;
 
     #[ORM\Column]
@@ -31,6 +31,7 @@ class Question
     #[ORM\Column]
     private ?int $amabilidad = null;
 
+    // Getters and setters
     public function getId(): ?int
     {
         return $this->id;
@@ -44,19 +45,6 @@ class Question
     public function setContent(string $content): static
     {
         $this->content = $content;
-
-        return $this;
-    }
-
-    public function getAttribute(): ?string
-    {
-        return $this->attribute;
-    }
-
-    public function setAttribute(string $attribute): static
-    {
-        $this->attribute = $attribute;
-
         return $this;
     }
 
@@ -68,7 +56,6 @@ class Question
     public function setExperiencia(int $experiencia): static
     {
         $this->experiencia = $experiencia;
-
         return $this;
     }
 
@@ -80,7 +67,6 @@ class Question
     public function setResponsabilidad(int $responsabilidad): static
     {
         $this->responsabilidad = $responsabilidad;
-
         return $this;
     }
 
@@ -92,7 +78,6 @@ class Question
     public function setExtraversion(int $extraversion): static
     {
         $this->extraversion = $extraversion;
-
         return $this;
     }
 
@@ -104,7 +89,6 @@ class Question
     public function setEmocional(int $emocional): static
     {
         $this->emocional = $emocional;
-
         return $this;
     }
 
@@ -116,7 +100,6 @@ class Question
     public function setAmabilidad(int $amabilidad): static
     {
         $this->amabilidad = $amabilidad;
-
         return $this;
     }
 }

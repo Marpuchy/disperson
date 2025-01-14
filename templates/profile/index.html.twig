@@ -3,38 +3,75 @@
 {% block title %}Perfil de Usuario{% endblock %}
 
 {% block content %}
-    <div class="container my-5">
+    <div class="container my-5 custom-width">
         <h1 class="text-center mb-4">Perfil de Usuario</h1>
 
-        <!-- Card de Información del Usuario -->
-        <div class="card shadow-sm mb-4">
-            <div class="card-body">
-                <p><strong>Nombre: </strong> {{ user.username }}</p>
-                <p><strong>Correo Electrónico: </strong> {{ user.email }}</p>
-                <hr>
-                <a href="{{ path('app_home') }}" class="btn btn-primary">Volver al Inicio</a>
+        <!-- Botón de Volver al Inicio -->
+        <a href="{{ path('app_home') }}" class="btn btn-primary mb-3">Volver al Inicio</a>
+
+        <!-- Fila para las dos columnas: estadísticas a la izquierda y gráfico a la derecha -->
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <!-- Card de Información de las Estadísticas -->
+                <div class="card shadow-sm mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Experiencia</h5>
+                        <p>{{ experiencia }}</p>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Responsabilidad</h5>
+                        <p>{{ responsabilidad }}</p>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Extraversion</h5>
+                        <p>{{ extraversion }}</p>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Amabilidad</h5>
+                        <p>{{ amabilidad }}</p>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Emocional</h5>
+                        <p>{{ emocional }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-4">
+                <div class="pentagono mb-5">
+                    {% block javascripts %}
+                        <script src="{{ asset('js/stats.js') }}"></script>
+
+                        <div id="canvas-container" class="my-4"></div>
+
+                        <script>
+                            window.userStats = {
+                                experiencia: {{ experiencia }},
+                                responsabilidad: {{ responsabilidad }},
+                                extraversion: {{ extraversion }},
+                                amabilidad: {{ amabilidad }},
+                                emocional: {{ emocional }}
+                            };
+                        </script>
+                    {% endblock %}
+                </div>
             </div>
         </div>
 
-        <!-- Sección de Gráficos / Estadísticas -->
-        <div class="pentagono mb-5">
-            {% block javascripts %}
-                <!-- Cargamos el archivo JS donde contiene la lógica para el gráfico -->
-                <script src="{{ asset('js/stats.js') }}"></script>
-
-                <div id="canvas-container" class="my-4"></div>
-
-                <!-- Bloque de datos JSON con las estadísticas del usuario -->
-                <script>
-                    window.userStats = {
-                        experiencia: {{ experiencia }},
-                        responsabilidad: {{ responsabilidad }},
-                        extraversion: {{ extraversion }},
-                        amabilidad: {{ amabilidad }},
-                        emocional: {{ emocional }}
-                    };
-                </script>
-            {% endblock %}
-        </div>
+        <form method="post" action="{{ path('app_logout') }}">
+            <button type="submit" class="btn btn-danger w-100">Cerrar Sesión</button>
+        </form>
     </div>
 {% endblock %}

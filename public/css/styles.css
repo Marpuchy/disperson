@@ -24,6 +24,9 @@ a:hover {
 .custom-margin-top {
     margin-top: 140px; /* O el valor que necesites */
 }
+.custom-width{
+    min-width: 90vw !important;
+}
 
 /* Encabezados */
 h1, h2, h3, h4, h5, h6 {
@@ -133,14 +136,21 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Pentágono */
+.pentagono{
+    height: 98%;
+}
 #canvas-container {
     align-self: center;
     justify-self: center;
     position: relative;
-    width: 480px;
-    height: 400px;
+    width: 100%;  /* Establece el ancho como 100% del contenedor */
+    max-width: 480px; /* Limita el ancho a 480px como máximo */
+    height: 100%;  /* Ocupa el 60% de la altura de la ventana */
+    max-height: 380px;  /* Limita la altura máxima a 380px */
     margin: 0 auto;
+    display: block; /* Asegura que se mantenga centrado */
 }
+
 
 /* Centrado absoluto del canvas dentro del contenedor */
 canvas.absolute-center {

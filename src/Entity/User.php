@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Entity;
 
 use App\Repository\UserRepository;
@@ -30,20 +29,32 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $username = null;
 
+    // Atributos de los cuales se almacenan los valores
     #[ORM\Column]
-    private ?int $experiencia = null;
+    private ?int $experiencia = 0;
 
     #[ORM\Column]
-    private ?int $responsabilidad = null;
+    private ?int $responsabilidad = 0;
 
     #[ORM\Column]
-    private ?int $extraversion = null;
+    private ?int $extraversion = 0;
 
     #[ORM\Column]
-    private ?int $amabilidad = null;
+    private ?int $amabilidad = 0;
 
     #[ORM\Column]
-    private ?int $emocional = null;
+    private ?int $emocional = 0;
+
+
+    public function __construct()
+    {
+        // Asignar valores predeterminados a los atributos
+        $this->experiencia = 0;
+        $this->responsabilidad = 0;
+        $this->extraversion = 0;
+        $this->amabilidad = 0;
+        $this->emocional = 0;
+    }
 
     public function getId(): ?int
     {
@@ -58,42 +69,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmail(string $email): static
     {
         $this->email = $email;
-
         return $this;
     }
 
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
     public function getUserIdentifier(): string
     {
         return (string) $this->email;
     }
 
-    /**
-     * @see UserInterface
-     */
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
+        $roles[] = 'ROLE_USER'; // Asegurando que el usuario tenga al menos el rol "ROLE_USER"
         return array_unique($roles);
     }
 
     public function setRoles(array $roles): static
     {
         $this->roles = $roles;
-
         return $this;
     }
 
-    /**
-     * @see PasswordAuthenticatedUserInterface
-     */
     public function getPassword(): string
     {
         return $this->password;
@@ -102,17 +98,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPassword(string $password): static
     {
         $this->password = $password;
-
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
     public function eraseCredentials(): void
     {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+        // Borrar cualquier dato sensible que se almacene temporalmente en el usuario
     }
 
     public function getUsername(): ?string
@@ -123,10 +114,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setUsername(string $username): static
     {
         $this->username = $username;
-
         return $this;
     }
 
+    // Métodos para "experiencia"
     public function getExperiencia(): ?int
     {
         return $this->experiencia;
@@ -135,10 +126,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setExperiencia(int $experiencia): static
     {
         $this->experiencia = $experiencia;
-
         return $this;
     }
 
+    // Métodos para "responsabilidad"
     public function getResponsabilidad(): ?int
     {
         return $this->responsabilidad;
@@ -147,10 +138,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setResponsabilidad(int $responsabilidad): static
     {
         $this->responsabilidad = $responsabilidad;
-
         return $this;
     }
 
+    // Métodos para "extraversion"
     public function getExtraversion(): ?int
     {
         return $this->extraversion;
@@ -159,10 +150,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setExtraversion(int $extraversion): static
     {
         $this->extraversion = $extraversion;
-
         return $this;
     }
 
+    // Métodos para "amabilidad"
     public function getAmabilidad(): ?int
     {
         return $this->amabilidad;
@@ -171,10 +162,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAmabilidad(int $amabilidad): static
     {
         $this->amabilidad = $amabilidad;
-
         return $this;
     }
 
+    // Métodos para "emocional"
     public function getEmocional(): ?int
     {
         return $this->emocional;
@@ -183,7 +174,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmocional(int $emocional): static
     {
         $this->emocional = $emocional;
-
         return $this;
     }
+
 }

@@ -1,6 +1,5 @@
-// stats.js
+window.onload = main;
 
-onload = main;
 function main() {
     var player = window.userStats; // Obtenemos las estadísticas del objeto global
 
@@ -18,10 +17,22 @@ function main() {
     var polygonSize = 120;  // Tamaño inicial del polígono
 
     var canvas = document.createElement("canvas");
-    canvas.width = 500;
-    canvas.height = 480;
     canvas.classList.add("absolute-center");
-    document.getElementById("canvas-container").appendChild(canvas);
+
+    // Ajustar dinámicamente el tamaño del canvas según su contenedor
+    var canvasContainer = document.getElementById("canvas-container");
+
+    // Asegurarse de que el contenedor esté disponible
+    if (!canvasContainer) return;
+
+    var containerWidth = canvasContainer.clientWidth;
+    var containerHeight = canvasContainer.clientHeight;
+
+    // Definir el tamaño del canvas igual al contenedor
+    canvas.width = containerWidth;
+    canvas.height = containerHeight;
+
+    canvasContainer.appendChild(canvas);
 
     var ctx = canvas.getContext("2d");
 

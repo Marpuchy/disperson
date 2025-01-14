@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Resultados del Cuestionario{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Tus Resultados</h1>
+
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Puntuación en cada dimensión</h5>
+                <ul>
+                    <li><strong>Experiencia:</strong> {{ user.experiencia }}</li>
+                    <li><strong>Responsabilidad:</strong> {{ user.responsabilidad }}</li>
+                    <li><strong>Extraversion:</strong> {{ user.extraversion }}</li>
+                    <li><strong>Emocional:</strong> {{ user.emocional }}</li>
+                    <li><strong>Amabilidad:</strong> {{ user.amabilidad }}</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="text-center mt-4">
+            <a href="{{ path('app_home') }}" class="btn btn-primary">Volver al Inicio</a>
+        </div>
+    </div>
+{% endblock %}

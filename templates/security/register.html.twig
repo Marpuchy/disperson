@@ -1,15 +1,42 @@
-{# templates/registration/register.html.twig #}
 {% extends 'base.html.twig' %}
 
 {% block title %}Registro{% endblock %}
 
+{% block navbar %}{% endblock %}  {# Sobrescribimos el bloque de la barra de navegación para no mostrarla #}
+
 {% block content %}
-    <h1>Registrarse</h1>
-    {{ form_start(form) }}
-    {{ form_row(form.email) }}
-    {{ form_row(form.password.first) }}
-    {{ form_row(form.password.second) }}
-    {# Renderizamos el botón de envío #}
-    <button type="submit" class="btn btn-primary">Register</button>
-    {{ form_end(form) }}
+    <div class="container custom-margin-top">
+        <form method="post">
+            <h1 class="h3 mb-4 text-center text-light">Registrarse</h1>
+
+            {{ form_start(form) }}
+
+            <div class="mb-3">
+                {{ form_label(form.email, 'Email Address', {'label_attr': {'class': 'text-light'}}) }}
+                {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.email) }}
+            </div>
+
+            <div class="mb-3">
+                {{ form_label(form.username, 'Username', {'label_attr': {'class': 'text-light'}}) }}
+                {{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.username) }}
+            </div>
+
+            <div class="mb-3">
+                {{ form_label(form.password.first, 'Password', {'label_attr': {'class': 'text-light'}}) }}
+                {{ form_widget(form.password.first, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.password.first) }}
+            </div>
+
+            <div class="mb-3">
+                {{ form_label(form.password.second, 'Repeat Password', {'label_attr': {'class': 'text-light'}}) }}
+                {{ form_widget(form.password.second, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.password.second) }}
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Register</button>
+            {{ form_end(form) }}
+        </form>
+    </div>
 {% endblock %}
