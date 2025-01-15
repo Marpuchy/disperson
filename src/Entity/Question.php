@@ -102,4 +102,15 @@ class Question
         $this->amabilidad = $amabilidad;
         return $this;
     }
+
+    // Método que determina si la pregunta es inversa
+    public function isInverse(): bool
+    {
+        // Verificamos si alguna de las columnas tiene el valor -1
+        if ($this->experiencia === -1 || $this->responsabilidad === -1 || $this->extraversion === -1 || $this->emocional === -1 || $this->amabilidad === -1) {
+            return true; // La pregunta es inversa
+        }
+
+        return false; // La pregunta no es inversa
+    }
 }

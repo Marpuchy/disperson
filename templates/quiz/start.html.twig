@@ -7,8 +7,8 @@
         <h1 class="text-center mb-4">Cuestionario de Personalidad</h1>
 
         <form action="{{ path('app_quiz_submit') }}" method="POST">
-            <!-- Carrusel de preguntas -->
-            <div id="quizCarousel" class="carousel slide" data-bs-ride="carousel">
+            <!-- Carrusel de preguntas sin movimiento automático -->
+            <div id="quizCarousel" class="carousel slide">
                 <div class="carousel-inner">
                     {% set questionChunks = questions|batch(5) %}
                     {% for chunk in questionChunks %}
@@ -18,36 +18,38 @@
                                     <div class="mb-4">
                                         <h5>{{ question.content }}</h5>
 
-                                        <!-- Opciones de respuesta -->
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="question_{{ question.id }}_experiencia" value="1" id="experiencia_{{ question.id }}">
-                                            <label class="form-check-label" for="experiencia_{{ question.id }}">
-                                                Estoy muy de acuerdo
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="question_{{ question.id }}_responsabilidad" value="1" id="responsabilidad_{{ question.id }}">
-                                            <label class="form-check-label" for="responsabilidad_{{ question.id }}">
-                                                De acuerdo
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="question_{{ question.id }}_extraversion" value="1" id="extraversion_{{ question.id }}">
-                                            <label class="form-check-label" for="extraversion_{{ question.id }}">
-                                                Indiferente
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="question_{{ question.id }}_emocional" value="1" id="emocional_{{ question.id }}">
-                                            <label class="form-check-label" for="emocional_{{ question.id }}">
-                                                En desacuerdo
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="question_{{ question.id }}_amabilidad" value="1" id="amabilidad_{{ question.id }}">
-                                            <label class="form-check-label" for="amabilidad_{{ question.id }}">
-                                                Muy en desacuerdo
-                                            </label>
+                                        <!-- Opciones de respuesta (ordenadas visualmente de -2 a 2) -->
+                                        <div class="d-flex justify-content-around">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="question_{{ question.id }}" value="-2" id="question_{{ question.id }}_-2">
+                                                <label class="form-check-label" for="question_{{ question.id }}_-2">
+                                                    Muy en desacuerdo
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="question_{{ question.id }}" value="-1" id="question_{{ question.id }}_-1">
+                                                <label class="form-check-label" for="question_{{ question.id }}_-1">
+                                                    En desacuerdo
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="question_{{ question.id }}" value="0" id="question_{{ question.id }}_0">
+                                                <label class="form-check-label" for="question_{{ question.id }}_0">
+                                                    Me da igual
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="question_{{ question.id }}" value="1" id="question_{{ question.id }}_1">
+                                                <label class="form-check-label" for="question_{{ question.id }}_1">
+                                                    De acuerdo
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="question_{{ question.id }}" value="2" id="question_{{ question.id }}_2">
+                                                <label class="form-check-label" for="question_{{ question.id }}_2">
+                                                    Muy de acuerdo
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
                                 {% endfor %}
