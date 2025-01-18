@@ -21,10 +21,12 @@ a:hover {
     box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5); /* Sombra ligera */
     color: #ccccf6; /* Texto claro */
 }
+
 .custom-margin-top {
     margin-top: 140px; /* O el valor que necesites */
 }
-.custom-width{
+
+.custom-width {
     min-width: 90vw !important;
 }
 
@@ -136,17 +138,18 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Pentágono */
-.pentagono{
+.pentagono {
     height: 98%;
 }
+
 #canvas-container {
     align-self: center;
     justify-self: center;
     position: relative;
-    width: 100%;  /* Establece el ancho como 100% del contenedor */
+    width: 100%; /* Establece el ancho como 100% del contenedor */
     max-width: 510px; /* Limita el ancho a 480px como máximo */
-    height: 100%;  /* Ocupa el 60% de la altura de la ventana */
-    max-height: 380px;  /* Limita la altura máxima a 380px */
+    height: 100%; /* Ocupa el 60% de la altura de la ventana */
+    max-height: 380px; /* Limita la altura máxima a 380px */
     margin: 0 auto;
     display: block; /* Asegura que se mantenga centrado */
 }
@@ -208,8 +211,77 @@ footer {
     max-width: 80%; /* Reducir el tamaño de la imagen */
     height: auto;
 }
+
 /* Fondo detrás de las imágenes */
 .position-relative {
     position: relative;
 }
 
+.form-check {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-items: center;
+    padding: 10px;
+}
+
+.form-check label, .form-check input {
+    align-self: center;
+    margin: 0 !important;
+}
+.customContainer{
+    background-color: rgba(43, 43, 59, 0.9); /* Gris más claro con transparencia */
+    padding: 20px;
+    border-radius: 8px;
+    color: #ccccf6; /* Texto claro */
+}
+
+.owl-nav {
+    display: none !important;
+}
+
+.owl-carousel-wrapper {
+    position: relative;
+    z-index: 10;
+    pointer-events: auto;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.owl-nav-container {
+    position: relative;
+    z-index: 5;
+}
+
+.owl-prev, .owl-next {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    font-size: 32px;
+    padding: 10px;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: none; /* Quitamos las sombras */
+}
+
+.owl-prev {
+    left: 0;
+}
+
+.owl-next {
+    right: 0;
+}
+
+.question-text {
+    font-size: 18px;
+}
+
+button[type="submit"] {
+    z-index: 20;
+    position: relative;
+    margin-top: 20px;
+    pointer-events: auto;
+}

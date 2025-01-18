@@ -12,7 +12,6 @@
             {% endif %}
 
             <h1 class="h3 mb-4 text-center">Please sign in</h1>
-
             <div class="mb-3">
                 <label for="inputEmail" class="form-label text-light">Email</label>
                 <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
@@ -24,13 +23,15 @@
             </div>
 
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-
+            <div>
+                <label class="form-label">Si quieres hacer el test 1 vez solo, puedes iniciar sesión con "prueba@prueba.com" con contraseña "prueba".</label>
+            </div>
             <button class="btn btn-primary w-100" type="submit">
                 Sign in
             </button>
 
             <div class="text-center mt-3">
-                <p class="mb-0">¿No tienes una cuenta? <a href="{{ path('app_register') }}" class="text-decoration-none text-primary">Registrate aquí</a></p>
+                <p class="mb-0 form-label">¿No tienes una cuenta? <a href="{{ path('app_register') }}" class="text-decoration-none text-primary">Registrate aquí</a></p>
             </div>
         </form>
     </div>
