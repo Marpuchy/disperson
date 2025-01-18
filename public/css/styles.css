@@ -20,6 +20,7 @@ a:hover {
     border-radius: 8px;
     box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5); /* Sombra ligera */
     color: #ccccf6; /* Texto claro */
+    max-width: 900px; /* Limitar el ancho de la sección */
 }
 
 .custom-margin-top {
@@ -47,11 +48,13 @@ h1, h2, h3, h4, h5, h6 {
     color: #ccccf6;
 }
 
-/* Tarjetas: Estilos compatibles con el sistema Bootstrap */
+/* Tarjetas */
 .card {
-    background-color: rgba(41, 41, 61, 0.5); /* Gris púrpura oscuro con transparencia */
+    border-radius: 10px;
+    background-color: rgba(43, 43, 59, 0.9); /* Gris claro con transparencia */
     border: 1px solid #3c3c50;
     color: #ccccf6;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5); /* Sombra ligera */
 }
 
 .card-title {
@@ -137,25 +140,27 @@ h1, h2, h3, h4, h5, h6 {
     color: #A4A4E0 !important; /* Morado más suave */
 }
 
-/* Pentágono */
+/* Sección Pentágono */
 .pentagono {
+    background-color: #252533; /* Fondo gris oscuro */
+    padding: 30px;
+    border-radius: 8px;
     height: 98%;
 }
 
+/* Ajustar el contenedor del gráfico */
 #canvas-container {
     align-self: center;
     justify-self: center;
     position: relative;
     width: 100%; /* Establece el ancho como 100% del contenedor */
-    max-width: 510px; /* Limita el ancho a 480px como máximo */
+    max-width: 510px; /* Limita el ancho a 510px como máximo */
     height: 100%; /* Ocupa el 60% de la altura de la ventana */
     max-height: 380px; /* Limita la altura máxima a 380px */
-    margin: 0 auto;
+    margin: 20px auto 0;
     display: block; /* Asegura que se mantenga centrado */
 }
 
-
-/* Centrado absoluto del canvas dentro del contenedor */
 canvas.absolute-center {
     position: absolute;
     top: 0;
@@ -171,52 +176,17 @@ footer {
     background: none;
 }
 
-/* Añadir márgenes y espaciado a elementos de usuario */
-.container {
-    max-width: 900px; /* Limitar el ancho de la sección */
-}
-
-/* Card */
-.card {
-    border-radius: 10px;
-    background-color: rgba(43, 43, 59, 0.9); /* Gris claro con transparencia */
-    color: #ccccf6; /* Color de texto */
-}
-
-/* Botones */
-.btn-primary {
-    background-color: #5a4fcf !important; /* Morado principal */
-    border: none !important;
-    color: #ffffff !important; /* Texto blanco */
-}
-
-.btn-primary:hover {
-    background-color: #7864ff !important; /* Morado más claro */
-}
-
-/* Sección Pentágono */
-.pentagono {
-    background-color: #252533; /* Fondo gris oscuro */
-    padding: 30px;
-    border-radius: 8px;
-}
-
-/* Ajustar el contenedor del gráfico */
-#canvas-container {
-    margin-top: 20px;
-}
-
-/* Ajuste de tamaño para las imágenes */
+/* Imágenes */
 .img-fluid {
     max-width: 80%; /* Reducir el tamaño de la imagen */
     height: auto;
 }
 
-/* Fondo detrás de las imágenes */
 .position-relative {
     position: relative;
 }
 
+/* Formulario */
 .form-check {
     display: flex;
     align-items: center;
@@ -229,11 +199,15 @@ footer {
     align-self: center;
     margin: 0 !important;
 }
-.customContainer{
+
+/* Personalización adicional */
+.customContainer {
     background-color: rgba(43, 43, 59, 0.9); /* Gris más claro con transparencia */
     padding: 20px;
     border-radius: 8px;
     color: #ccccf6; /* Texto claro */
+    align-self: center;
+    justify-self: center;
 }
 
 .owl-nav {
@@ -246,25 +220,33 @@ footer {
     pointer-events: auto;
     width: 90%;
     margin: 0 auto;
+    height: 100%; /* Asegura que el contenedor ocupe el 100% de la altura */
 }
 
 .owl-nav-container {
-    position: relative;
     z-index: 5;
+    top: 0;
+    bottom: 0;
+    width: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: auto;
 }
 
 .owl-prev, .owl-next {
     background-color: rgba(0, 0, 0, 0.5);
     border: none;
+    border-radius: 10px;
+    margin: 5px;
     color: white;
     font-size: 32px;
     padding: 10px;
     width: 60px;
-    height: 60px;
+    height: 100%;  /* Los botones ocupan el 100% de la altura del contenedor */
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: none; /* Quitamos las sombras */
 }
 
 .owl-prev {
@@ -284,4 +266,19 @@ button[type="submit"] {
     position: relative;
     margin-top: 20px;
     pointer-events: auto;
+}
+
+.allitem {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;  /* Centra los elementos horizontalmente */
+}
+
+.quizContainer {
+    background-color: rgba(43, 43, 59, 0.9); /* Gris más claro con transparencia */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5); /* Sombra ligera */
+    color: #ccccf6; /* Texto claro */
+    max-width: 1100px !important;
 }

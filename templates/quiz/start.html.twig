@@ -3,7 +3,7 @@
 {% block title %}Iniciar Cuestionario{% endblock %}
 
 {% block content %}
-    <div class="container mt-5">
+    <div class="container quizContainer mt-5">
         <h1 class="text-center mb-4">Cuestionario de Personalidad</h1>
 
         <form action="{{ path('app_quiz_submit') }}" method="POST">
@@ -12,6 +12,11 @@
                     {% set questionChunks = questions|batch(4) %} <!-- Se dividen las preguntas en bloques -->
                     {% for chunk in questionChunks %}
                         <div class="allitem">
+                            <div class="owl-nav-container d-flex justify-content-between">
+                                <button type="button" class="btn btn-primary owl-prev">
+                                    <img src="{{ asset('resources/arrow-left.svg') }}">
+                                </button>
+                            </div>
                             <div class="blog-allof">
                                 <div class="discretion-blog">
                                     <div class="customContainer">
@@ -54,25 +59,20 @@
                                                 </div>
                                             {% endfor %}
                                         </div>
-
-                                        <!-- Nuevo contenedor para los botones de navegación -->
-                                        <div class="owl-nav-container d-flex justify-content-between mt-3" style="margin: 0;">
-                                            <button type="button" class="btn btn-primary owl-prev">
-                                                <i class="fas fa-chevron-left"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-primary owl-next">
-                                                <i class="fas fa-chevron-right"></i>
-                                            </button>
-                                        </div>
-
                                     </div>
                                 </div>
+                            </div>
+                            <!-- Nuevo contenedor para los botones de navegación -->
+                            <div class="owl-nav-container d-flex justify-content-between">
+                                <button type="button" class="btn btn-primary owl-next">
+                                    <img src="{{ asset('resources/arrow-right.svg') }}">
+                                </button>
                             </div>
                         </div>
                     {% endfor %}
 
                     <!-- Diapositiva final con el botón de enviar respuestas -->
-                    <div class="allitem">
+                    <div>
                         <div class="blog-allof">
                             <div class="discretion-blog">
                                 <div class="customContainer">
@@ -109,6 +109,7 @@
                 autoplay: false,
                 dots: false,
                 items: 1,
+                autoHeight: true, // Esto asegura que cada diapositiva ajuste su altura automáticamente.
                 responsiveClass: true,
                 responsive: {
                     0: {
