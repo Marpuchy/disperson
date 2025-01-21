@@ -5,9 +5,56 @@
 {% block content %}
     <!-- Contenedor Principal -->
     <div class="container mt-5">
-        <!-- Título Principal -->
-        <h1 class="text-center mb-4">{{ title }}</h1>
-        <p class="text-center lead mb-5">{{ description }}</p>
+        <!-- Sección Nuestra Misión -->
+        <section class="mission">
+            <h1 class="text-center mt-5 mb-4">Sobre nosotros</h1>
+
+            <!-- Primer Bloque de Texto con Imagen -->
+            <div class="aboutBlock row align-items-center mb-4 order-md-1">
+                <!-- Imagen a la derecha -->
+                <div class="col-md-8">
+                    <p class="lead ">
+                        En nuestra plataforma, nuestro objetivo trasciende el simple entretenimiento. Nos proponemos
+                        brindar una herramienta que permita a cada persona conocerse a sí misma de una manera profunda y
+                        significativa.
+                    </p>
+                    <p class="lead">
+                        Hemos trabajado arduamente para ofrecer la versión más profesional y fiable de un test de
+                        personalidad. Para lograrlo, hemos unido fuerzas con el equipo de psicología de la Universitat
+                        Jaume I (UJI), cuyo conocimiento ha sido fundamental para garantizar la
+                        rigurosidad científica de este proyecto.
+                    </p>
+                </div>
+                <div class="col-md-4 order-md-2">
+                    <div class="card p-2 h-100 bg-white">
+                        <img src="{{ asset('../resources/uji.png') }}" class="img-fluid rounded"
+                             alt="Colaboración profesional">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Segundo Bloque de Texto con Imagen -->
+            <div class="row align-items-center mb-4">
+                <!-- Imagen a la izquierda -->
+                <div class="col-md-4 order-md-1">
+                    <img src="{{ asset('../resources/big5.png') }}" class="img-fluid rounded"
+                         alt="Colaboración profesional">
+                </div>
+                <div class="col-md-8 order-md-2">
+                    <p class="lead">
+                        Gracias a esta colaboración, hemos podido crear una experiencia intuitiva, accesible y basada en
+                        estándares profesionales. Creemos que el autoconocimiento es una herramienta poderosa para el
+                        crecimiento personal, y nuestra misión es acercarlo a todas las personas de una manera ética,
+                        profesional y eficaz.
+                    </p>
+                    <p class="lead">
+                        Estamos convencidos de que esta plataforma puede marcar una diferencia real en la vida de
+                        quienes la utilizan, proporcionando una experiencia enriquecedora que fomente el desarrollo
+                        personal y el bienestar emocional.
+                    </p>
+                </div>
+            </div>
+        </section>
 
         <!-- Sección del equipo -->
         <section class="mt-5">
@@ -20,7 +67,7 @@
                                 <h5 class="card-title mb-3">{{ member.name }}</h5>
                                 <p class="card-text">{{ member.role }}</p>
                                 <div class="d-grid gap-2">
-                                    <a href="mailto: mibanezp0709@gmail.com" class="btn btn-primary">Contáctanos</a>
+                                    <a href="mailto:{{ member.email }}" class="btn btn-primary mt-auto">Contáctanos</a>
                                 </div>
                             </div>
                         </div>
