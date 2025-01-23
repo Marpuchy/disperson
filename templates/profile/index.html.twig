@@ -10,52 +10,85 @@
         <a href="{{ path('app_home') }}" class="btn btn-primary mb-3">Volver al Inicio</a>
 
         <!-- Fila para las dos columnas: estadísticas a la izquierda y gráfico a la derecha -->
-        <div class="row">
+        <div class="row customRow">
+            <!-- Accordion para las estadísticas -->
             <div class="col-md-6 mb-4">
-                <!-- Card de Información de las Estadísticas -->
-                <div class="card shadow-sm mb-3">
-                    <div class="card-body">
-                        <h5 class="card-title">Experiencia</h5>
-                        <p>{{ experiencia }}</p>
+                <div class="accordion custom-accordion" id="accordionExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingExperiencia">
+                            <button class="accordion-button shadow-sm mb-3 custom-accordion-header firstElement" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExperiencia" aria-expanded="true" aria-controls="collapseExperiencia">
+                                Experiencia
+                            </button>
+                        </h2>
+                        <div id="collapseExperiencia" class="accordion-collapse collapse show" aria-labelledby="headingExperiencia" data-bs-parent="#accordionExample">
+                            <div class="accordion-body custom-accordion-body">
+                                <h5 class="card-title">Experiencia</h5>
+                                <p>{{ experiencia }}</p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-
-                <div class="card shadow-sm mb-3">
-                    <div class="card-body">
-                        <h5 class="card-title">Responsabilidad</h5>
-                        <p>{{ responsabilidad }}</p>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingResponsabilidad">
+                            <button class="accordion-button collapsed shadow-sm mb-3 custom-accordion-header" type="button" data-bs-toggle="collapse" data-bs-target="#collapseResponsabilidad" aria-expanded="false" aria-controls="collapseResponsabilidad">
+                                Responsabilidad
+                            </button>
+                        </h2>
+                        <div id="collapseResponsabilidad" class="accordion-collapse collapse" aria-labelledby="headingResponsabilidad" data-bs-parent="#accordionExample">
+                            <div class="accordion-body custom-accordion-body">
+                                <h5 class="card-title">Responsabilidad</h5>
+                                <p>{{ responsabilidad }}</p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-
-                <div class="card shadow-sm mb-3">
-                    <div class="card-body">
-                        <h5 class="card-title">Extraversion</h5>
-                        <p>{{ extraversion }}</p>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingExtraversion">
+                            <button class="accordion-button collapsed shadow-sm mb-3 custom-accordion-header" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExtraversion" aria-expanded="false" aria-controls="collapseExtraversion">
+                                Extraversion
+                            </button>
+                        </h2>
+                        <div id="collapseExtraversion" class="accordion-collapse collapse" aria-labelledby="headingExtraversion" data-bs-parent="#accordionExample">
+                            <div class="accordion-body custom-accordion-body">
+                                <h5 class="card-title">Extraversion</h5>
+                                <p>{{ extraversion }}</p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-
-                <div class="card shadow-sm mb-3">
-                    <div class="card-body">
-                        <h5 class="card-title">Amabilidad</h5>
-                        <p>{{ amabilidad }}</p>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingAmabilidad">
+                            <button class="accordion-button collapsed shadow-sm mb-3 custom-accordion-header" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAmabilidad" aria-expanded="false" aria-controls="collapseAmabilidad">
+                                Amabilidad
+                            </button>
+                        </h2>
+                        <div id="collapseAmabilidad" class="accordion-collapse collapse" aria-labelledby="headingAmabilidad" data-bs-parent="#accordionExample">
+                            <div class="accordion-body custom-accordion-body">
+                                <h5 class="card-title">Amabilidad</h5>
+                                <p>{{ amabilidad }}</p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-
-                <div class="card shadow-sm mb-3">
-                    <div class="card-body">
-                        <h5 class="card-title">Emocional</h5>
-                        <p>{{ emocional }}</p>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingEmocional">
+                            <button class="accordion-button collapsed shadow-sm mb-3 custom-accordion-header" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEmocional" aria-expanded="false" aria-controls="collapseEmocional">
+                                Emocional
+                            </button>
+                        </h2>
+                        <div id="collapseEmocional" class="accordion-collapse collapse" aria-labelledby="headingEmocional" data-bs-parent="#accordionExample">
+                            <div class="accordion-body custom-accordion-body">
+                                <h5 class="card-title">Emocional</h5>
+                                <p>{{ emocional }}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
+            <!-- Gráfico pentágono a la derecha -->
             <div class="col-md-6 mb-4">
                 <div class="pentagono mb-5">
+                    <div id="canvas-container" class="my-4"></div>
+
                     {% block javascripts %}
                         <script src="{{ asset('js/stats.js') }}"></script>
-
-                        <div id="canvas-container" class="my-4"></div>
-
                         <script>
                             window.userStats = {
                                 experiencia: {{ experiencia }},
@@ -70,6 +103,7 @@
             </div>
         </div>
 
+        <!-- Botón de cerrar sesión -->
         <form method="post" action="{{ path('app_logout') }}">
             <button type="submit" class="btn btn-danger w-100">Cerrar Sesión</button>
         </form>
