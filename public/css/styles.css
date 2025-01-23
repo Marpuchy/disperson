@@ -278,7 +278,7 @@ button[type="submit"] {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5); /* Sombra ligera */
-    color: #ccccf6; /* Texto claro */
+    color: #A4A4E0; /* Texto claro */
     max-width: 1100px !important;
 }
 
@@ -293,7 +293,7 @@ button[type="submit"] {
 
 .custom-accordion-header {
     background-color: rgba(43, 43, 59, 0.9); /* Gris más claro con transparencia */
-    color: #ccccf6; /* Texto claro */
+    color: #A4A4E0; /* Texto claro */
     border-radius: 8px; /* Bordes redondeados */
     font-weight: bold;
     box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5); /* Sombra ligera */
@@ -312,14 +312,14 @@ button[type="submit"] {
 
 .custom-accordion-header.collapsed {
     background-color: rgba(43, 43, 59, 0.9); /* Mantén el fondo inicial para los colapsados */
-    color: #ccccf6; /* Texto claro */
+    color: #A4A4E0; /* Texto claro */
     border-radius: 8px; /* Bordes redondeados */
 
 }
 
 .custom-accordion-body {
     background-color: rgba(50, 50, 70, 0.9); /* Fondo gris oscuro con transparencia */
-    color: #ccccf6; /* Texto claro */
+    color: #A4A4E0; /* Texto claro */
     border-radius: 8px; /* Bordes redondeados */
     padding: 20px; /* Espaciado interno */
     box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5); /* Sombra ligera */
@@ -349,7 +349,7 @@ button[type="submit"] {
 .accordion-button {
     transition: all 0.3s ease-in-out; /* Transición suave */
     background-color: #252533 !important; /* Gris claro con transparencia */
-    color: #ccccf6 !important; /* Texto claro */
+    color: #A4A4E0 !important; /* Texto claro */
     padding: 20px !important;
     border-radius: 8px !important; /* Bordes redondeados */
     border: none !important;
