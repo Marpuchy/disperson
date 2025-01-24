@@ -394,12 +394,12 @@ button[type="submit"] {
 /* Cuando el primer acordeón está colapsado, la flecha debe ir hacia abajo */
 .firstElement.collapsed::before {
     content: '▼' !important; /* Flecha hacia abajo */
-    color: var(--color-flecha, #7864ff) !important; /* Color de la flecha cuando está colapsado */
+    color: #7864ff !important; /* Color de la flecha cuando está colapsado */
     transform: rotate(0deg); /* Rotación hacia abajo */
 }
 
 /* Cuando el primer acordeón no está colapsado, rotar la flecha hacia arriba */
 .firstElement:not(.collapsed)::before {
-    color: var(--color-flecha, #5a4fcf) !important; /* Color de la flecha cuando está expandido */
+    color: #5a4fcf !important; /* Color de la flecha cuando está expandido */
     transform: rotate(180deg); /* Rotación hacia arriba */
 }
