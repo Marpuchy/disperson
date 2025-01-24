@@ -356,7 +356,7 @@ button[type="submit"] {
     box-shadow: none !important;
 }
 .customRow{
-    height: 580px;
+    height: 600px;
 }
 /* Eliminar completamente la flecha predeterminada de Bootstrap */
 .accordion-button::after {

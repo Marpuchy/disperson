@@ -27,7 +27,7 @@
                             <div class="accordion-body custom-accordion-body">
                                 <h5 class="card-title">Apertura a la experiencia: {{ experiencia }}</h5>
                                 <div id="descriptionExperiencia"></div>
-                                <div id="characterExperiencia"></div>
+                                <div id="characterContainer">Tu personaje es {{ experienciaCharacter.name }}, {{ experienciaCharacter.description }}</div>
                             </div>
                         </div>
                     </div>
@@ -44,7 +44,7 @@
                             <div class="accordion-body custom-accordion-body">
                                 <h5 class="card-title">Responsabilidad: {{ responsabilidad }}</h5>
                                 <div id="descriptionResponsabilidad"></div>
-                                <div id="characterResponsabilidad"></div>
+                                <div id="characterContainer">Tu personaje es {{ responsabilidadCharacter.name }}, {{ responsabilidadCharacter.description }}</div>
                             </div>
                         </div>
                     </div>
@@ -61,7 +61,7 @@
                             <div class="accordion-body custom-accordion-body">
                                 <h5 class="card-title">Extraversión: {{ extraversion }}</h5>
                                 <div id="descriptionExtraversion"></div>
-                                <div id="characterExtraversion"></div>
+                                <div id="characterContainer">Tu personaje es {{ extraversionCharacter.name }}, {{ extraversionCharacter.description }}</div>
                             </div>
                         </div>
                     </div>
@@ -78,7 +78,7 @@
                             <div class="accordion-body custom-accordion-body">
                                 <h5 class="card-title">Amabilidad: {{ amabilidad }}</h5>
                                 <div id="descriptionAmabilidad"></div>
-                                <div id="characterAmabilidad"></div>
+                                <div id="characterContainer">Tu personaje es {{ amabilidadCharacter.name }}, {{ amabilidadCharacter.description }}</div>
                             </div>
                         </div>
                     </div>
@@ -95,7 +95,7 @@
                             <div class="accordion-body custom-accordion-body">
                                 <h5 class="card-title">Estabilidad emocional: {{ emocional }}</h5>
                                 <div id="descriptionEmocional"></div>
-                                <div id="characterEmocional"></div>
+                                <div id="characterContainer">Tu personaje es {{ emocionalCharacter.name }}, {{ emocionalCharacter.description }}</div>
 
                             </div>
                         </div>
@@ -127,7 +127,7 @@
 
         <!-- Botón de cerrar sesión -->
         <form method="post" action="{{ path('app_logout') }}">
-            <button type="submit" class="btn btn-danger w-100">Cerrar Sesión</button>
+            <button type="submit" class="btn btn-danger w-100 mt-5">Cerrar Sesión</button>
         </form>
     </div>
 {% endblock %}
