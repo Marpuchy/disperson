@@ -321,11 +321,12 @@ button[type="submit"] {
 
 .custom-accordion-body {
     background-color: rgba(50, 50, 70, 0.9); /* Fondo gris oscuro con transparencia */
-    color: #A4A4E0; /* Texto claro */
+    color: #ccccf6; /* Texto claro */
     border-radius: 8px; /* Bordes redondeados */
     padding: 20px; /* Espaciado interno */
     box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5); /* Sombra ligera */
     font-size: 15px; /* Tamaño del texto */
+    margin-bottom: 10px;
 }
 
 .custom-accordion-body h5 {
@@ -364,53 +365,14 @@ button[type="submit"] {
 .accordion-button::after {
     content: none !important; /* Elimina la flecha predeterminada */
 }
-
-/* Flecha personalizada para todos los botones de acordeón */
-.accordion-button::before {
-    content: '▼'; /* Flecha hacia abajo por defecto */
-    color: #7864ff; /* Color de la flecha */
-    font-size: 1rem;
-    transform: rotate(0deg); /* Flecha hacia abajo por defecto */
-    transition: transform 0.3s ease, color 0.3s ease; /* Transición suave para la rotación y el color */
-}
-
-/* Flecha cuando el acordeón está expandido */
-.accordion-button:not(.collapsed)::before {
-    color: #5a4fcf; /* Color de la flecha cuando está expandido */
-    transform: rotate(180deg); /* Rotación de la flecha hacia arriba */
-}
-
-/* Cuando el acordeón está en foco (al interactuar con el acordeón) */
-.accordion-button:focus::before {
-    filter: brightness(0.8) saturate(1.5); /* Efecto al estar en foco */
-}
-
-/* Flecha personalizada para el primer acordeón */
-.firstElement::before {
-    color: #5a4fcf !important; /* Color de la flecha cuando está expandido */
-    font-size: 1rem;
-    transform: rotate(180deg); /* Rotación de la flecha hacia arriba */
-    transition: transform 0.3s ease, color 0.3s ease; /* Transición suave para la rotación y el color */
-}
-
-/* Cuando el primer acordeón está colapsado, la flecha debe ir hacia abajo */
-.firstElement.collapsed::before {
-    content: '▼' !important; /* Flecha hacia abajo */
-    color: #7864ff !important; /* Color de la flecha cuando está colapsado */
-    transform: rotate(0deg); /* Rotación hacia abajo */
-}
-
-/* Cuando el primer acordeón no está colapsado, rotar la flecha hacia arriba */
-.firstElement:not(.collapsed)::before {
-    color: #5a4fcf !important; /* Color de la flecha cuando está expandido */
-    transform: rotate(180deg); /* Rotación hacia arriba */
-}
 .characterImage {
-    height: 300px;
-    width: 300px; /* Fija el ancho igual a la altura para garantizar 1:1 */
+    height: 250px;
+    width: 250px; /* Fija el ancho igual a la altura para garantizar 1:1 */
     object-fit: cover; /* Asegura que la imagen se ajuste sin distorsión */
     border-radius: 50%; /* Hace que la imagen sea redonda */
     overflow: hidden; /* Es importante para cortar los bordes excedentes */
+    margin-top: 10px;
+    border: #3e3e5c solid 2px;
 }
 .usercard{
     display: flex;
@@ -419,12 +381,12 @@ button[type="submit"] {
 }
 .usercard-body{
     padding: 5px;
-    flex: 3;
+    flex: 4;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
 }
 .descriptions{
-    flex: 2;
+    flex: 3;
+    margin-top: 10px;
 }

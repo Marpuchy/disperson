@@ -3,6 +3,30 @@
 {% block title %}Perfil de Usuario{% endblock %}
 
 {% block content %}
+    {% block javascripts %}
+        <script src="{{ asset('js/stats.js') }}"></script>
+        <script src="{{ asset('js/description.js') }}"></script>
+        <script>
+            window.userStats = {
+                experiencia: {{ experiencia }},
+                responsabilidad: {{ responsabilidad }},
+                extraversion: {{ extraversion }},
+                amabilidad: {{ amabilidad }},
+                emocional: {{ emocional }}
+            };
+        </script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+
+        <script>
+            $(document).ready(function () {
+                $("#jquery-accordion").accordion({
+                    heightStyle: "content",
+                    collapsible: true
+                });
+            });
+        </script>
+    {% endblock %}
     <div class="container my-5 custom-width">
         <h1 class="text-center mb-4">Perfil de Usuario</h1>
 
@@ -13,139 +37,79 @@
         <div class="row customRow">
             <!-- Accordion para las estadísticas -->
             <div class="col-md-6 mb-4">
-                <div class="accordion custom-accordion" id="accordionExample">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingExperiencia">
-                            <button class="accordion-button shadow-sm mb-3 custom-accordion-header firstElement"
-                                    type="button" data-bs-toggle="collapse" data-bs-target="#collapseExperiencia"
-                                    aria-expanded="true" aria-controls="collapseExperiencia">
-                                Apertura a la Experiencia
-                            </button>
-                        </h2>
-                        <div id="collapseExperiencia" class="accordion-collapse collapse show"
-                             aria-labelledby="headingExperiencia" data-bs-parent="#accordionExample">
-                            <div class="accordion-body custom-accordion-body">
-                                <h5 class="card-title">Apertura a la experiencia: {{ experiencia }}</h5>
-                                <div class="usercard">
-                                    <div id="descriptionExperiencia" class="descriptions"></div>
-                                    <div class="usercard-body">
-                                        <div id="characterContainer">Tu personaje es {{ experienciaCharacter.name }}
-                                            , {{ experienciaCharacter.description }}</div>
-                                        <div>
-                                            <img src="{{ asset('resources/characters/' ~ experienciaCharacter.id ~ '.jpg') }}"
-                                                 alt="Character Image" class="characterImage">
-                                        </div>
-                                    </div>
+                <div id="jquery-accordion" class="custom-accordion">
+                    <h3 class="accordion-button firstElement">Apertura a la Experiencia</h3>
+                    <div class="custom-accordion-body">
+                        <h5 class="card-title">Apertura a la experiencia: {{ experiencia }}</h5>
+                        <div class="usercard">
+                            <div class="usercard-body">
+                                <div id="characterContainer">
+                                    <h2>Tu personaje es: {{ experienciaCharacter.name }}</h2>
+                                    <p>{{ experienciaCharacter.description }}</p>
                                 </div>
+                                <img src="{{ asset('resources/characters/' ~ experienciaCharacter.id ~ '.jpg') }}" alt="Character Image" class="characterImage">
                             </div>
+                            <div id="descriptionExperiencia" class="descriptions"></div>
                         </div>
                     </div>
 
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingResponsabilidad">
-                            <button class="accordion-button shadow-sm mb-3 custom-accordion-header"
-                                    type="button" data-bs-toggle="collapse" data-bs-target="#collapseResponsabilidad"
-                                    aria-expanded="false" aria-controls="collapseResponsabilidad">
-                                Responsabilidad
-                            </button>
-                        </h2>
-                        <div id="collapseResponsabilidad" class="accordion-collapse collapse"
-                             aria-labelledby="headingResponsabilidad" data-bs-parent="#accordionExample">
-                            <div class="accordion-body custom-accordion-body">
-                                <h5 class="card-title">Responsabilidad: {{ responsabilidad }}</h5>
-                                <div class="usercard">
-                                    <div id="descriptionResponsabilidad" class="descriptions"></div>
-                                    <div class="usercard-body">
-                                        <div id="characterContainer">Tu personaje es {{ responsabilidadCharacter.name }}
-                                            , {{ responsabilidadCharacter.description }}</div>
-                                        <div>
-                                            <img src="{{ asset('resources/characters/' ~ responsabilidadCharacter.id ~ '.jpg') }}"
-                                                 alt="Character Image" class="characterImage">
-                                        </div>
-                                    </div>
+                    <h3 class="accordion-button">Responsabilidad</h3>
+                    <div class="custom-accordion-body">
+                        <h5 class="card-title">Responsabilidad: {{ responsabilidad }}</h5>
+                        <div class="usercard">
+                            <div class="usercard-body">
+                                <div id="characterContainer">
+                                    <h2>Tu personaje es: {{ responsabilidadCharacter.name }}</h2>
+                                    <p>{{ responsabilidadCharacter.description }}</p>
                                 </div>
+                                <img src="{{ asset('resources/characters/' ~ responsabilidadCharacter.id ~ '.jpg') }}" alt="Character Image" class="characterImage">
                             </div>
+                            <div id="descriptionResponsabilidad" class="descriptions"></div>
                         </div>
                     </div>
 
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingExtraversion">
-                            <button class="accordion-button shadow-sm mb-3 custom-accordion-header"
-                                    type="button" data-bs-toggle="collapse" data-bs-target="#collapseExtraversion"
-                                    aria-expanded="false" aria-controls="collapseExtraversion">
-                                Extraversión
-                            </button>
-                        </h2>
-                        <div id="collapseExtraversion" class="accordion-collapse collapse"
-                             aria-labelledby="headingExtraversion" data-bs-parent="#accordionExample">
-                            <div class="accordion-body custom-accordion-body">
-                                <h5 class="card-title">Extraversión: {{ extraversion }}</h5>
-                                <div class="usercard">
-                                    <div id="descriptionExtraversion" class="descriptions"></div>
-                                    <div class="usercard-body">
-                                        <div id="characterContainer">Tu personaje es {{ extraversionCharacter.name }}
-                                            , {{ extraversionCharacter.description }}</div>
-                                        <div>
-                                            <img src="{{ asset('resources/characters/' ~ extraversionCharacter.id ~ '.jpg') }}"
-                                                 alt="Character Image" class="characterImage">
-                                        </div>
-                                    </div>
+                    <h3 class="accordion-button">Extraversión</h3>
+                    <div class="custom-accordion-body">
+                        <h5 class="card-title">Extraversión: {{ extraversion }}</h5>
+                        <div class="usercard">
+                            <div class="usercard-body">
+                                <div id="characterContainer">
+                                    <h2>Tu personaje es: {{ extraversionCharacter.name }}</h2>
+                                    <p>{{ extraversionCharacter.description }}</p>
                                 </div>
+                                <img src="{{ asset('resources/characters/' ~ extraversionCharacter.id ~ '.jpg') }}" alt="Character Image" class="characterImage">
                             </div>
+                            <div id="descriptionExtraversion" class="descriptions"></div>
                         </div>
                     </div>
 
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingAmabilidad">
-                            <button class="accordion-button shadow-sm mb-3 custom-accordion-header"
-                                    type="button" data-bs-toggle="collapse" data-bs-target="#collapseAmabilidad"
-                                    aria-expanded="false" aria-controls="collapseAmabilidad">
-                                Amabilidad
-                            </button>
-                        </h2>
-                        <div id="collapseAmabilidad" class="accordion-collapse collapse"
-                             aria-labelledby="headingAmabilidad" data-bs-parent="#accordionExample">
-                            <div class="accordion-body custom-accordion-body">
-                                <h5 class="card-title">Amabilidad: {{ amabilidad }}</h5>
-                                <div class="usercard">
-                                    <div id="descriptionAmabilidad" class="descriptions"></div>
-                                    <div class="usercard-body">
-                                        <div id="characterContainer">Tu personaje es {{ amabilidadCharacter.name }}
-                                            , {{ amabilidadCharacter.description }}</div>
-                                        <div>
-                                            <img src="{{ asset('resources/characters/' ~ amabilidadCharacter.id ~ '.jpg') }}"
-                                                 alt="Character Image" class="characterImage">
-                                        </div>
-                                    </div>
+                    <h3 class="accordion-button">Amabilidad</h3>
+                    <div class="custom-accordion-body">
+                        <h5 class="card-title">Amabilidad: {{ amabilidad }}</h5>
+                        <div class="usercard">
+                            <div class="usercard-body">
+                                <div id="characterContainer">
+                                    <h2>Tu personaje es: {{ amabilidadCharacter.name }}</h2>
+                                    <p>{{ amabilidadCharacter.description }}</p>
                                 </div>
+                                <img src="{{ asset('resources/characters/' ~ amabilidadCharacter.id ~ '.jpg') }}" alt="Character Image" class="characterImage">
                             </div>
+                            <div id="descriptionAmabilidad" class="descriptions"></div>
                         </div>
                     </div>
 
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingEmocional">
-                            <button class="accordion-button shadow-sm mb-3 custom-accordion-header"
-                                    type="button" data-bs-toggle="collapse" data-bs-target="#collapseEmocional"
-                                    aria-expanded="false" aria-controls="collapseEmocional">
-                                Estabilidad emocional
-                            </button>
-                        </h2>
-                        <div id="collapseEmocional" class="accordion-collapse collapse"
-                             aria-labelledby="headingEmocional" data-bs-parent="#accordionExample">
-                            <div class="accordion-body custom-accordion-body">
-                                <h5 class="card-title">Estabilidad emocional: {{ emocional }}</h5>
-                                <div class="usercard">
-                                    <div id="descriptionEmocional" class="descriptions"></div>
-                                    <div class="usercard-body">
-                                        <div id="characterContainer">Tu personaje es {{ emocionalCharacter.name }}
-                                            , {{ emocionalCharacter.description }}</div>
-                                        <div>
-                                            <img src="{{ asset('resources/characters/' ~ emocionalCharacter.id ~ '.jpg') }}"
-                                                 alt="Character Image" class="characterImage">
-                                        </div>
-                                    </div>
+                    <h3 class="accordion-button">Estabilidad emocional</h3>
+                    <div class="custom-accordion-body">
+                        <h5 class="card-title">Estabilidad emocional: {{ emocional }}</h5>
+                        <div class="usercard">
+                            <div class="usercard-body">
+                                <div id="characterContainer">
+                                    <h2>Tu personaje es: {{ emocionalCharacter.name }}</h2>
+                                    <p>{{ emocionalCharacter.description }}</p>
                                 </div>
+                                <img src="{{ asset('resources/characters/' ~ emocionalCharacter.id ~ '.jpg') }}" alt="Character Image" class="characterImage">
                             </div>
+                            <div id="descriptionEmocional" class="descriptions"></div>
                         </div>
                     </div>
                 </div>
@@ -155,19 +119,6 @@
             <div class="col-md-6 mb-4">
                 <div class="pentagono mb-5">
                     <div id="canvas-container" class="my-4"></div>
-                    {% block javascripts %}
-                        <script src="{{ asset('js/stats.js') }}"></script>
-                        <script src="{{ asset('js/description.js') }}"></script>
-                        <script>
-                            window.userStats = {
-                                experiencia: {{ experiencia }},
-                                responsabilidad: {{ responsabilidad }},
-                                extraversion: {{ extraversion }},
-                                amabilidad: {{ amabilidad }},
-                                emocional: {{ emocional }}
-                            };
-                        </script>
-                    {% endblock %}
                 </div>
             </div>
         </div>

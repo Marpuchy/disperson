@@ -21,7 +21,7 @@ class ProfileController extends AbstractController
 
     function getLevelByValue($value): ?int
     {
-        if ($value >= 1 && $value <= 20) {
+        if ($value >= 0 && $value <= 20) {
             return 1;
         } elseif ($value >= 21 && $value <= 40) {
             return 2;
