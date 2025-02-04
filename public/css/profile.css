@@ -20,3 +20,116 @@
     max-height: 380px; /* Limita la altura máxima a 380px */
     margin: 20px auto 0;
 }
+canvas.absolute-center {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+
+/* Accordion */
+.custom-accordion .accordion-item {
+    border: none; /* Sin bordes */
+    margin-bottom: 10px; /* Separación entre items */
+    background: none;
+    border-radius: 8px; /* Bordes redondeados */
+
+}
+
+.custom-accordion-header {
+    background-color: rgba(43, 43, 59, 0.9); /* Gris más claro con transparencia */
+    color: #A4A4E0; /* Texto claro */
+    border-radius: 8px; /* Bordes redondeados */
+    font-weight: bold;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5); /* Sombra ligera */
+    padding: 10px 15px; /* Ajuste del padding */
+    font-size: 16px; /* Tamaño del texto */
+    justify-content: space-between;
+    text-align: right !important;
+}
+
+.custom-accordion-header:hover {
+    background-color: rgba(43, 43, 59, 1); /* Fondo más sólido */
+    color: #8F8FDD; /* Texto morado claro */
+    border-radius: 8px; /* Bordes redondeados */
+
+}
+
+.custom-accordion-header.collapsed {
+    background-color: rgba(43, 43, 59, 0.9); /* Mantén el fondo inicial para los colapsados */
+    color: #A4A4E0; /* Texto claro */
+    border-radius: 8px; /* Bordes redondeados */
+
+}
+
+.custom-accordion-body {
+    background-color: rgba(50, 50, 70, 0.9); /* Fondo gris oscuro con transparencia */
+    color: #ccccf6; /* Texto claro */
+    border-radius: 8px; /* Bordes redondeados */
+    padding: 20px; /* Espaciado interno */
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5); /* Sombra ligera */
+    font-size: 15px; /* Tamaño del texto */
+    margin-bottom: 10px;
+}
+
+.custom-accordion-body h5 {
+    color: #6f6fb1; /* Color del título */
+    font-weight: bold;
+    margin-bottom: 10px; /* Espaciado debajo del título */
+    border-radius: 8px; /* Bordes redondeados */
+
+}
+
+.custom-accordion-body p {
+    color: #ccccf6; /* Texto claro */
+    margin: 0;
+
+}
+
+/* Ajustes de transición */
+.accordion-button:not(.collapsed) {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6); /* Mayor sombra al expandir */
+    color: #A4A4E0; /* Texto más suave al expandir */
+}
+
+.accordion-button {
+    transition: all 0.3s ease-in-out; /* Transición suave */
+    background-color: #252533 !important; /* Gris claro con transparencia */
+    color: #A4A4E0 !important; /* Texto claro */
+    padding: 20px !important;
+    border-radius: 8px !important; /* Bordes redondeados */
+    border: none !important;
+    box-shadow: none !important;
+}
+.customRow{
+    min-height: 570px;
+}
+/* Eliminar completamente la flecha predeterminada de Bootstrap */
+.accordion-button::after {
+    content: none !important; /* Elimina la flecha predeterminada */
+}
+.characterImage {
+    height: 250px;
+    width: 250px; /* Fija el ancho igual a la altura para garantizar 1:1 */
+    object-fit: cover; /* Asegura que la imagen se ajuste sin distorsión */
+    border-radius: 50%; /* Hace que la imagen sea redonda */
+    overflow: hidden; /* Es importante para cortar los bordes excedentes */
+    margin-top: 10px;
+    border: #3e3e5c solid 2px;
+}
+.usercard{
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+}
+.usercard-body{
+    padding: 5px;
+    flex: 4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.descriptions{
+    flex: 3;
+    margin-top: 10px;
+}
