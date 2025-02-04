@@ -5,6 +5,8 @@
 {% block navbar %}{% endblock %}  {# Sobrescribimos el bloque de la barra de navegación para no mostrarla #}
 
 {% block content %}
+    <link href="{{ asset('css/security.css') }}" rel="stylesheet">
+
     <div class="container custom-margin-top">
         <form method="post">
             <h1 class="h3 mb-4 text-center">Registrarse</h1>
