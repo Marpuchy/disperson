@@ -1,0 +1,38 @@
+@media (max-width: 768px) {
+    .fixed-top {
+        position: relative;
+    }
+
+    .custom-margin-top {
+        margin-top: 10px;
+    }
+
+    .row {
+        display: flex;
+        flex-direction: row;
+    }
+
+    section .container {
+        border-radius: 0;
+    }
+
+    .img-fluid {
+        max-width: 100% !important;
+    }
+
+    .image-section {
+        flex: 2;
+    }
+
+    .text-section {
+        flex: 3;
+    }
+
+    h2 {
+        font-size: 1.325rem;
+    }
+
+    p {
+        font-size: 0.8rem;
+    }
+}

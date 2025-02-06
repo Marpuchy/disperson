@@ -5,18 +5,18 @@
 {% block content %}
     <link href="{{ asset('css/home.css') }}" rel="stylesheet">
 
-    <div class="">
+    <div class="contenedorPrincipal">
         <!-- Zona de Información -->
         <section class="py-5 bg-light">
             <div class="container">
                 <div class="row align-items-center">
-                    <div class="col-md-6" data-aos="fade-right">
+                    <div class="col-md-6 text-section" data-aos="fade-right">
                         <h2>Bienvenido a Nuestra Plataforma Web</h2>
                         <p>¡Aquí podras realizar un test de personalidad preciso y profesional,
                             con preguntas validadas y creadas por investigadores de la facultad de psicologia
                             de la Universitat Jaume I!</p>
                     </div>
-                    <div class="col-md-6 text-center" data-aos="fade-left">
+                    <div class="col-md-6 text-center image-section" data-aos="fade-left">
                         <!-- Imagen de bienvenida con tamaño ajustado -->
                         <img src="{{ asset('resources/brain.png') }}" class="img-fluid" style="max-width: 60%;" alt="Imagen de bienvenida">
                     </div>
@@ -28,13 +28,13 @@
         <section class="py-5">
             <div class="container">
                 <div class="row align-items-center">
-                    <div class="col-md-6 order-md-2" data-aos="fade-left">
-                        <h3>Tu Perfil</h3>
+                    <div class="col-md-6 order-md-2 text-section" data-aos="fade-left">
+                        <h2>Tu Perfil</h2>
                         <p>Consulta tus datos y entiendete más a ti mismo, aprende sobre qué són las siglas OCEAN y
                             con que personajes te asemejas.</p>
                         <a href="{{ path('app_profile') }}" class="btn btn-primary">Gestionar Perfil</a>
                     </div>
-                    <div class="col-md-6 order-md-1 text-center" data-aos="fade-right">
+                    <div class="col-md-6 order-md-1 text-center image-section" data-aos="fade-right">
                         <!-- Imagen de perfil con tamaño ajustado -->
                         <img src="{{ asset('resources/profile.png') }}" class="img-fluid" style="max-width: 60%;" alt="Imagen de perfil">
                     </div>
@@ -46,13 +46,13 @@
         <section class="py-5 bg-primary text-white">
             <div class="container">
                 <div class="row align-items-center">
-                    <div class="col-md-6" data-aos="fade-right">
-                        <h3>¿Listo para empezar?</h3>
+                    <div class="col-md-6 text-section" data-aos="fade-right">
+                        <h2>¿Listo para empezar?</h2>
                         <p>Haz clic en el botón a continuación para iniciar tu cuestionario, recuerda ser completamente sincero para que
                             el cuestionario sea preciso.</p>
                         <a href="{{ path('app_quiz_start') }}" class="btn btn-light btn-lg">Empezar Cuestionario</a>
                     </div>
-                    <div class="col-md-6 text-center" data-aos="fade-left">
+                    <div class="col-md-6 text-center image-section" data-aos="fade-left">
                         <!-- Imagen de cuestionario con tamaño ajustado -->
                         <img src="{{ asset('resources/quiz.png') }}" class="img-fluid" style="max-width: 60%;" alt="Imagen de cuestionario">
                     </div>
