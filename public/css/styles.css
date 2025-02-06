@@ -154,10 +154,6 @@ footer {
     height: auto;
 }
 
-.position-relative {
-    position: relative;
-}
-
 /* Formulario */
 .form-check {
     display: flex;
