@@ -30,6 +30,10 @@
     &:hover {
       color: #ddd;
     }
+    .switch input:checked + .switch__label {
+      visibility: hidden;
+    }
+
   }
 
   &__indicator {

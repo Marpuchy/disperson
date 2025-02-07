@@ -31,6 +31,9 @@
 .switch__label:hover {
   color: #ddd;
 }
+.switch__label .switch input:checked + .switch__label {
+  visibility: hidden;
+}
 .switch__indicator {
   width: 4rem;
   height: 4rem;

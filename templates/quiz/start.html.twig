@@ -3,6 +3,85 @@
 {% block title %}Iniciar Cuestionario{% endblock %}
 
 {% block content %}
+    <!-- Estilos y scripts de Owl Carousel -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".switch").forEach(switchContainer => {
+                const radios = switchContainer.querySelectorAll("input[type='radio']");
+
+                // Ocultar la etiqueta de la opción marcada por defecto
+                const checkedRadio = switchContainer.querySelector("input[type='radio']:checked");
+                if (checkedRadio) {
+                    const selectedLabel = checkedRadio.nextElementSibling;
+                    if (selectedLabel) {
+                        selectedLabel.style.visibility = "hidden";
+                    }
+                }
+
+                // Evento para ocultar la etiqueta al seleccionar una nueva opción
+                radios.forEach(radio => {
+                    radio.addEventListener("change", function () {
+                        // Mostrar todas las etiquetas en este grupo de preguntas
+                        switchContainer.querySelectorAll(".switch__label").forEach(label => {
+                            label.style.visibility = "visible";
+                        });
+
+                        // Ocultar solo la etiqueta del input seleccionado
+                        const selectedLabel = this.nextElementSibling;
+                        if (selectedLabel) {
+                            selectedLabel.style.visibility = "hidden";
+                        }
+                    });
+                });
+            });
+        });
+
+
+        $(document).ready(function () {
+            var owl = $("#owl-demo1");
+
+            owl.owlCarousel({
+                loop: false,
+                margin: 0,
+                nav: false,
+                autoplay: false,
+                dots: false,
+                items: 1,
+                autoHeight: true, // Esto asegura que cada diapositiva ajuste su altura automáticamente.
+                responsiveClass: true,
+                responsive: {
+                    0: {
+                        items: 1,
+                        nav: false,
+                    },
+                    600: {
+                        items: 1,
+                        nav: false,
+                    },
+                    1000: {
+                        items: 1,
+                        nav: true,
+                        loop: false,
+                    }
+                }
+            });
+
+            // Conectar los botones personalizados con la funcionalidad de Owl Carousel
+            $(".owl-prev").click(function () {
+                owl.trigger('prev.owl.carousel');
+            });
+
+            $(".owl-next").click(function () {
+                owl.trigger('next.owl.carousel');
+            });
+        });
+    </script>
     <link href="{{ asset('css/quiz.css') }}" rel="stylesheet">
 
     <div class="container quizContainer mt-5">
@@ -41,7 +120,7 @@
 
                                                         <input name="question_{{ question.id }}"
                                                                id="question_{{ question.id }}_0" type="radio" value="0"
-                                                               class="question-radio-0"/>
+                                                               class="question-radio-0" checked/>
                                                         <label for="question_{{ question.id }}_0" class="switch__label">Indiferente</label>
 
                                                         <input name="question_{{ question.id }}"
@@ -96,51 +175,4 @@
         </form>
     </div>
 
-    <!-- Estilos y scripts de Owl Carousel -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-
-    <script>
-        $(document).ready(function () {
-            var owl = $("#owl-demo1");
-
-            owl.owlCarousel({
-                loop: false,
-                margin: 0,
-                nav: false,
-                autoplay: false,
-                dots: false,
-                items: 1,
-                autoHeight: true, // Esto asegura que cada diapositiva ajuste su altura automáticamente.
-                responsiveClass: true,
-                responsive: {
-                    0: {
-                        items: 1,
-                        nav: false,
-                    },
-                    600: {
-                        items: 1,
-                        nav: false,
-                    },
-                    1000: {
-                        items: 1,
-                        nav: true,
-                        loop: false,
-                    }
-                }
-            });
-
-            // Conectar los botones personalizados con la funcionalidad de Owl Carousel
-            $(".owl-prev").click(function () {
-                owl.trigger('prev.owl.carousel');
-            });
-
-            $(".owl-next").click(function () {
-                owl.trigger('next.owl.carousel');
-            });
-        });
-    </script>
 {% endblock %}
