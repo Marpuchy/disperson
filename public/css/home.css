@@ -1,9 +1,5 @@
 @media (max-width: 768px) {
-    .fixed-top {
-        position: relative;
-    }
-
-    .custom-margin-top {
+        .custom-margin-top {
         margin-top: 10px;
     }
 

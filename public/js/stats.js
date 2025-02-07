@@ -1,7 +1,8 @@
 window.onload = main;
+window.onresize = main; // Redibuja cuando cambia el tamaño de la ventana
 
 function main() {
-    var player = window.userStats; // Obtenemos las estadísticas del objeto global
+    var player = window.userStats; // Obtenemos las estadísticas del usuario
 
     var statColors = {
         experiencia: "#339933",
@@ -12,31 +13,26 @@ function main() {
     };
 
     var statOrder = Object.keys(player);
-    var polygonX = 255;
-    var polygonY = 240;
-    var polygonSize = 120;  // Tamaño inicial del polígono
 
-    var canvas = document.createElement("canvas");
-    canvas.classList.add("absolute-center");
-
-    // Ajustar dinámicamente el tamaño del canvas según su contenedor
     var canvasContainer = document.getElementById("canvas-container");
-
-    // Asegurarse de que el contenedor esté disponible
     if (!canvasContainer) return;
 
-    var containerWidth = canvasContainer.clientWidth;
-    var containerHeight = canvasContainer.clientHeight;
+    // Crear o reutilizar el canvas
+    var canvas = canvasContainer.querySelector("canvas");
+    if (!canvas) {
+        canvas = document.createElement("canvas");
+        canvas.classList.add("absolute-center");
+        canvasContainer.appendChild(canvas);
+    }
 
-    // Definir el tamaño del canvas igual al contenedor
-    canvas.width = containerWidth;
-    canvas.height = containerHeight;
-
-    canvasContainer.appendChild(canvas);
+    // Ajustar el tamaño del canvas dinámicamente
+    canvas.width = canvasContainer.clientWidth;
+    canvas.height = canvasContainer.clientHeight;
 
     var ctx = canvas.getContext("2d");
-
-    var animationFrameId;
+    var polygonSize = Math.min(canvas.width, canvas.height) * 0.3; // 40% del menor lado
+    var polygonX = canvas.width / 2;
+    var polygonY = canvas.height / 2;
 
     function drawRegularPolygon(x, y, fill, stroke, strokeWidth, sides, radius) {
         var vertices = [];
@@ -93,27 +89,28 @@ function main() {
         drawInnerPolygon(outerVertices, player, "#b95ded", "#b700ff", progress);
 
         ctx.fillStyle = "#fff";
-        ctx.font = "16px Lato";
+        ctx.font = `${Math.max(12, polygonSize * 0.1)}px Lato`; // Ajusta tamaño del texto
+
         for (var i = 0; i < outerVertices.length; i++) {
             if (statOrder[i]) {
-                var x = outerVertices[i].x;
-                var y = outerVertices[i].y;
-
                 var angle = (Math.PI * 2 / statOrder.length) * i - Math.PI / 2;
-                var labelX = polygonX + (polygonSize + 68) * Math.cos(angle);
-                var labelY = polygonY + (polygonSize + 30) * Math.sin(angle);
+                var labelX = polygonX + (polygonSize + 30) * Math.cos(angle);
+                var labelY = polygonY + (polygonSize + 20) * Math.sin(angle);
 
-                ctx.fillText(statOrder[i].toUpperCase(), labelX - ctx.measureText(statOrder[i].toUpperCase()).width / 2, labelY);
+                ctx.fillText(
+                    statOrder[i].toUpperCase(),
+                    labelX - ctx.measureText(statOrder[i].toUpperCase()).width / 2,
+                    labelY
+                );
             }
         }
     }
 
     function animate(progress) {
-        progress += 0.01;
         if (progress <= 1) {
             redraw(progress);
-            animationFrameId = requestAnimationFrame(function() {
-                animate(progress);
+            requestAnimationFrame(function () {
+                animate(progress + 0.01);
             });
         }
     }

@@ -1,31 +1,33 @@
 /* Sección Pentágono */
 .pentagono {
-    background-color: #252533; /* Fondo gris oscuro */
+    background-color: #252533;
     border-radius: 8px;
     height: 100%;
+    width: 100%;
     display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* Ajustar el contenedor del gráfico */
+/* Contenedor del canvas */
 #canvas-container {
-    align-self: center;
-    justify-self: center;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%; /* Establece el ancho como 100% del contenedor */
-    max-width: 510px; /* Limita el ancho a 510px como máximo */
-    height: 100%; /* Ocupa el 60% de la altura de la ventana */
-    max-height: 380px; /* Limita la altura máxima a 380px */
-    margin: 20px auto 0;
-}
-canvas.absolute-center {
-    position: absolute;
-    top: 0;
-    left: 0;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1/1; /* Mantiene el canvas cuadrado */
+    overflow: hidden; /* Evita desbordamientos */
 }
 
+/* Evita que el canvas se deforme */
+canvas.absolute-center {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1 / 1; /* Asegura que el canvas mantenga sus proporciones */
+}
 
 /* Accordion */
 .custom-accordion .accordion-item {
@@ -109,8 +111,10 @@ canvas.absolute-center {
     content: none !important; /* Elimina la flecha predeterminada */
 }
 .characterImage {
-    height: 250px;
-    width: 250px; /* Fija el ancho igual a la altura para garantizar 1:1 */
+    max-width: 250px;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1/1;
     object-fit: cover; /* Asegura que la imagen se ajuste sin distorsión */
     border-radius: 50%; /* Hace que la imagen sea redonda */
     overflow: hidden; /* Es importante para cortar los bordes excedentes */
@@ -132,4 +136,24 @@ canvas.absolute-center {
 .descriptions{
     flex: 3;
     margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+    .custom-width{
+        min-width: 0;
+        width: 100%;
+        border-radius: 0px;
+    }
+    .characterImage{
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1/1;
+    }
+    .usercard{
+        flex-direction: column;
+    }
+    canvas.absolute-center{
+        width: 90%;
+        height: 90%;
+    }
 }

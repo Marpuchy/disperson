@@ -26,6 +26,13 @@
                 });
             });
         </script>
+        <script>
+            $(document).ready(function(){
+                $("#btnVolver").click(function(){
+                    window.history.back();
+                });
+            });
+        </script>
     {% endblock %}
     <link href="{{ asset('css/profile.css') }}" rel="stylesheet">
 
@@ -33,7 +40,7 @@
         <h1 class="text-center mb-4">Perfil de Usuario</h1>
 
         <!-- Botón de Volver al Inicio -->
-        <a href="{{ path('app_home') }}" class="btn btn-primary mb-3">Volver al Inicio</a>
+        <a href="#" class="btn btn-primary mb-3" id="btnVolver">Volver Atrás</a>
 
         <!-- Fila para las dos columnas: estadísticas a la izquierda y gráfico a la derecha -->
         <div class="row customRow">

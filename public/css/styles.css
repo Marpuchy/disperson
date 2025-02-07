@@ -167,3 +167,12 @@ footer {
     align-self: center;
     margin: 0 !important;
 }
+
+@media (max-width: 768px) {
+    .fixed-top {
+        position: relative;
+    }
+    .custom-margin-top {
+        margin-top: 10px;
+    }
+}
