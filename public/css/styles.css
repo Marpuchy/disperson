@@ -163,10 +163,6 @@ footer {
     padding: 10px;
 }
 
-.form-check label, .form-check input {
-    align-self: center;
-    margin: 0 !important;
-}
 
 @media (max-width: 768px) {
     .fixed-top {
@@ -176,3 +172,5 @@ footer {
         margin-top: 10px;
     }
 }
+
+

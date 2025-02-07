@@ -1,0 +1,78 @@
+.switch {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 1rem;
+  margin: auto;
+  font-family: Verdana, sans-serif;
+
+  &:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 3rem;
+    border-radius: 30px;
+  }
+
+  &__label {
+    display: inline-block;
+    width: 100%;
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: color 200ms ease-out;
+    color: white;
+    position: relative; /* Asegura que el círculo se posicione sobre el texto */
+
+    &:hover {
+      color: #ddd;
+    }
+  }
+
+  &__indicator {
+    width: 4rem;
+    height: 4rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: yellow;
+    border-radius: 50%;
+    transition: transform 600ms cubic-bezier(0.02, 0.94, 0.09, 0.97),
+    background 300ms cubic-bezier(0.17, 0.67, 0.14, 1.03);
+    transform: translateX(22.9rem); /* Inicialmente está a la izquierda */
+    z-index: 1; /* Para que el círculo esté encima del texto */
+  }
+
+  input[type="radio"] {
+    display: none;
+  }
+
+  /* Colores y desplazamiento del círculo según la opción seleccionada */
+  .question-radio-_-2:checked ~ .switch__indicator {
+    background: red;
+    transform: translateX(3.6rem); /* Ajustado al primer texto */
+  }
+
+  .question-radio-_-1:checked ~ .switch__indicator {
+    background: orange;
+    transform: translateX(13.5rem); /* Ajuste según el texto */
+  }
+
+  .question-radio-0:checked ~ .switch__indicator {
+    background: yellow;
+    transform: translateX(22.9rem); /* Ajuste según el texto */
+  }
+
+  .question-radio-1:checked ~ .switch__indicator {
+    background: green;
+    transform: translateX(32.5rem); /* Ajuste según el texto */
+  }
+
+  .question-radio-2:checked ~ .switch__indicator {
+    background: blue;
+    transform: translateX(42rem); /* Ajuste según el texto */
+  }
+}

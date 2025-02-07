@@ -80,3 +80,9 @@ button[type="submit"] {
     color: #A4A4E0; /* Texto claro */
     max-width: 1100px !important;
 }
+.form-check label, .form-check input {
+    align-self: center;
+    margin: 0 !important;
+}
+
+
