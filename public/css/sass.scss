@@ -56,27 +56,27 @@
 
   /* Colores y desplazamiento del círculo según la opción seleccionada */
   .question-radio-_-2:checked ~ .switch__indicator {
-    background: red;
+    background: #4B0082;
     transform: translateX(3.6rem); /* Ajustado al primer texto */
   }
 
   .question-radio-_-1:checked ~ .switch__indicator {
-    background: orange;
+    background: #4B0082;
     transform: translateX(13.5rem); /* Ajuste según el texto */
   }
 
   .question-radio-0:checked ~ .switch__indicator {
-    background: yellow;
+    background: #9A33CD;
     transform: translateX(22.9rem); /* Ajuste según el texto */
   }
 
   .question-radio-1:checked ~ .switch__indicator {
-    background: green;
+    background: #BA55D3;
     transform: translateX(32.5rem); /* Ajuste según el texto */
   }
 
   .question-radio-2:checked ~ .switch__indicator {
-    background: blue;
+    background: #DDA0DD;
     transform: translateX(42rem); /* Ajuste según el texto */
   }
 }

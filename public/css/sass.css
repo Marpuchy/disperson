@@ -54,7 +54,7 @@
   transform: translateX(3.6rem); /* Ajustado al primer texto */
 }
 .switch .question-radio-_-1:checked ~ .switch__indicator {
-  background: #6E2593;
+  background: #4B0082;
   transform: translateX(13.5rem); /* Ajuste según el texto */
 }
 .switch .question-radio-0:checked ~ .switch__indicator {
@@ -66,7 +66,7 @@
   transform: translateX(32.5rem); /* Ajuste según el texto */
 }
 .switch .question-radio-2:checked ~ .switch__indicator {
-  background: blue;
+  background: #DDA0DD;
   transform: translateX(42rem); /* Ajuste según el texto */
 }
 
