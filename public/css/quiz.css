@@ -84,5 +84,19 @@ button[type="submit"] {
     align-self: center;
     margin: 0 !important;
 }
+i {
+    font-size: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color: #5a4fcf;
+}
+#face1 { color: #5C0FA5; } /* Un poco más claro que #4B0082 */
+#face2 { color: #8140A8; } /* Un poco más claro que #6E2593 */
+#face3 { color: #B04BDF; } /* Un poco más claro que #9A33CD */
+#face4 { color: #CA6EE0; } /* Un poco más claro que #BA55D3 */
+#face5 { color: #E8B5E8; } /* Un poco más claro que #DDA0DD */
+
 
 

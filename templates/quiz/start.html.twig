@@ -53,8 +53,14 @@
                 autoplay: false,
                 dots: false,
                 items: 1,
-                autoHeight: true, // Esto asegura que cada diapositiva ajuste su altura automáticamente.
+                autoHeight: true,
                 responsiveClass: true,
+                touchDrag: true,
+                mouseDrag: true,
+                pullDrag: true,
+                smartSpeed: 300,
+                preventClicks: true, // Evita que el click dispare la acción de cambio de página de forma no deseada
+                preventClicksPropagation: true, // Evita la propagación del click hacia otros elementos
                 responsive: {
                     0: {
                         items: 1,
@@ -72,6 +78,8 @@
                 }
             });
 
+
+
             // Conectar los botones personalizados con la funcionalidad de Owl Carousel
             $(".owl-prev").click(function () {
                 owl.trigger('prev.owl.carousel');
@@ -83,6 +91,7 @@
         });
     </script>
     <link href="{{ asset('css/quiz.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <div class="container quizContainer mt-5">
         <h1 class="text-center mb-4">Cuestionario de Personalidad</h1>
@@ -110,30 +119,28 @@
                                                                id="question_{{ question.id }}_-2" type="radio"
                                                                value="-2" class="question-radio-_-2"/>
                                                         <label for="question_{{ question.id }}_-2"
-                                                               class="switch__label">Muy en desacuerdo</label>
+                                                               class="switch__label"><i class="fa-solid fa-face-sad-tear" id="face1"></i></label>
 
                                                         <input name="question_{{ question.id }}"
                                                                id="question_{{ question.id }}_-1" type="radio"
                                                                value="-1" class="question-radio-_-1"/>
                                                         <label for="question_{{ question.id }}_-1"
-                                                               class="switch__label">En desacuerdo</label>
+                                                               class="switch__label"><i class="fa-solid fa-face-frown" id="face2"></i></label>
 
                                                         <input name="question_{{ question.id }}"
                                                                id="question_{{ question.id }}_0" type="radio" value="0"
                                                                class="question-radio-0" checked/>
-                                                        <label for="question_{{ question.id }}_0" class="switch__label">Indiferente</label>
+                                                        <label for="question_{{ question.id }}_0" class="switch__label"><i class="fa-solid fa-face-meh" id="face3"></i></label>
 
                                                         <input name="question_{{ question.id }}"
                                                                id="question_{{ question.id }}_1" type="radio" value="1"
                                                                class="question-radio-1"/>
-                                                        <label for="question_{{ question.id }}_1" class="switch__label">De
-                                                            acuerdo</label>
+                                                        <label for="question_{{ question.id }}_1" class="switch__label"><i class="fa-solid fa-face-smile" id="face4"></i></label>
 
                                                         <input name="question_{{ question.id }}"
                                                                id="question_{{ question.id }}_2" type="radio" value="2"
                                                                class="question-radio-2"/>
-                                                        <label for="question_{{ question.id }}_2" class="switch__label">Muy
-                                                            de acuerdo</label>
+                                                        <label for="question_{{ question.id }}_2" class="switch__label"><i class="fa-solid fa-face-grin" id="face5" ></i></label>
 
                                                         <div class="switch__indicator"></div>
                                                     </div>
