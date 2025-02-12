@@ -43,7 +43,7 @@ class ProfileController extends AbstractController
 
         if (!$user) {
             // Si no hay usuario autenticado, redirigir al login
-            return $this->redirectToRoute('login');
+            return $this->redirectToRoute('app_login');
         }
 
         // Obtener las estadísticas del usuario

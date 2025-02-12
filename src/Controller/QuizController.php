@@ -9,12 +9,20 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Core\Security;
 
 class QuizController extends AbstractController
 {
     #[Route('/quiz/start', name: 'app_quiz_start')]
-    public function start(EntityManagerInterface $entityManager): Response
+    public function start(EntityManagerInterface $entityManager, Security $security): Response
     {
+        // Obtener el usuario actual
+        $user = $security->getUser(); // Obtener el usuario autenticado
+
+        if (!$user) {
+            // Si no hay usuario autenticado, redirigir al login
+            return $this->redirectToRoute('app_login');
+        }
         // Obtener las preguntas desde la base de datos
         $questions = $entityManager->getRepository(Question::class)->findAll();
 
@@ -24,13 +32,13 @@ class QuizController extends AbstractController
     }
 
     #[Route('/quiz/submit', name: 'app_quiz_submit', methods: ['POST'])]
-    public function submit(Request $request, EntityManagerInterface $entityManager): Response
+    public function submit(Request $request, EntityManagerInterface $entityManager, Security $security): Response
     {
         // Obtener el usuario actual
-        $user = $this->getUser();
+        $user = $security->getUser(); // Obtener el usuario autenticado
 
-        // Validar que el usuario está autenticado
         if (!$user) {
+            // Si no hay usuario autenticado, redirigir al login
             return $this->redirectToRoute('app_login');
         }
 
