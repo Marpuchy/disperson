@@ -50,19 +50,19 @@
   display: none;
 }
 .switch .question-radio-_-2:checked ~ .switch__indicator {
-  background: red;
+  background: #4B0082;
   transform: translateX(3.6rem); /* Ajustado al primer texto */
 }
 .switch .question-radio-_-1:checked ~ .switch__indicator {
-  background: orange;
+  background: #6E2593;
   transform: translateX(13.5rem); /* Ajuste según el texto */
 }
 .switch .question-radio-0:checked ~ .switch__indicator {
-  background: yellow;
+  background: #9A33CD;
   transform: translateX(22.9rem); /* Ajuste según el texto */
 }
 .switch .question-radio-1:checked ~ .switch__indicator {
-  background: green;
+  background: #BA55D3;
   transform: translateX(32.5rem); /* Ajuste según el texto */
 }
 .switch .question-radio-2:checked ~ .switch__indicator {
