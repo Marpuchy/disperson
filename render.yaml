@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: disperson
+    runtime: docker
+    dockerContext: .
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /
+    autoDeploy: true
+    envVars:
+      - key: APP_ENV
+        value: prod
+      - key: APP_DEBUG
+        value: "0"
+      - key: APP_SECRET
+        generateValue: true
+      - key: DATABASE_URL
+        sync: false
+      - key: AUTO_MIGRATE
+        value: "1"
