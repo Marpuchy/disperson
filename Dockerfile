@@ -2,6 +2,9 @@ FROM composer:2 AS vendor
 
 WORKDIR /app
 
+# Symfony framework-bundle and security-bundle require ext-xml during composer install.
+RUN docker-php-ext-install xml
+
 COPY composer.json composer.lock symfony.lock ./
 RUN composer install \
     --no-dev \
@@ -21,7 +24,7 @@ RUN apt-get update && apt-get install -y \
     libicu-dev \
     libpq-dev \
     libzip-dev \
-    && docker-php-ext-install intl pdo_pgsql opcache zip \
+    && docker-php-ext-install intl pdo_pgsql opcache xml zip \
     && a2enmod rewrite headers expires \
     && rm -rf /var/lib/apt/lists/*
 
