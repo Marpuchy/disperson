@@ -52,7 +52,9 @@ COPY . .
 COPY --from=vendor /app/vendor ./vendor
 COPY docker/entrypoint.sh /usr/local/bin/disperson-entrypoint
 
-RUN chmod +x /usr/local/bin/disperson-entrypoint \
+RUN sed -i 's/\r$//' /usr/local/bin/disperson-entrypoint \
+    && chmod +x /usr/local/bin/disperson-entrypoint \
+    && mkdir -p var/cache var/log \
     && chown -R www-data:www-data var
 
 ENV APP_ENV=prod
