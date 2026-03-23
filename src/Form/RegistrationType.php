@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form;
 
 use App\Entity\User;
@@ -11,30 +13,43 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class RegistrationType extends AbstractType
+final class RegistrationType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('email', EmailType::class, [
-                'label' => 'Email Address',
+                'label' => 'Email',
+                'attr' => [
+                    'placeholder' => 'tu@email.com',
+                ],
             ])
             ->add('username', TextType::class, [
-                'label' => 'Username',
+                'label' => 'Nombre de usuario',
+                'attr' => [
+                    'placeholder' => 'Tu nombre visible',
+                ],
             ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'invalid_message' => 'The password fields must match.',
-                'options' => ['attr' => ['class' => 'password-field']],
+                'invalid_message' => 'Las contraseñas deben coincidir.',
                 'required' => true,
-                'first_options'  => ['label' => 'Password'],
-                'second_options' => ['label' => 'Repeat Password'],
-            ])
-            // Agregar más campos si es necesario
-        ;
+                'first_options' => [
+                    'label' => 'Contraseña',
+                    'attr' => [
+                        'placeholder' => 'Mínimo 8 caracteres',
+                    ],
+                ],
+                'second_options' => [
+                    'label' => 'Repite la contraseña',
+                    'attr' => [
+                        'placeholder' => 'Repite tu contraseña',
+                    ],
+                ],
+            ]);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => User::class,

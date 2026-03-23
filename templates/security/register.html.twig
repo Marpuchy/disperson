@@ -1,44 +1,55 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Registro{% endblock %}
+{% block title %}Disperson | Crear cuenta{% endblock %}
+{% block body_class %}page-auth{% endblock %}
 
-{% block navbar %}{% endblock %}  {# Sobrescribimos el bloque de la barra de navegación para no mostrarla #}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/pages/auth.css') }}">
+{% endblock %}
 
 {% block content %}
-    <link href="{{ asset('css/security.css') }}" rel="stylesheet">
+    <section class="auth-shell">
+        <div class="auth-panel auth-panel--copy" data-reveal>
+            <span class="section-tag">Registro</span>
+            <h1>Crea tu cuenta y guarda tu perfil.</h1>
+            <p>
+                El registro permite persistir resultados, revisar tu perfil interpretado y mantener una experiencia completa de usuario.
+            </p>
+        </div>
 
-    <div class="container custom-margin-top">
-        <form method="post">
-            <h1 class="h3 mb-4 text-center">Registrarse</h1>
+        <div class="auth-panel" data-reveal>
+            {{ form_start(registrationForm, { attr: { class: 'auth-form' } }) }}
+                <div class="form-field">
+                    {{ form_label(registrationForm.email) }}
+                    {{ form_widget(registrationForm.email) }}
+                    {{ form_errors(registrationForm.email) }}
+                </div>
 
-            {{ form_start(form) }}
+                <div class="form-field">
+                    {{ form_label(registrationForm.username) }}
+                    {{ form_widget(registrationForm.username) }}
+                    {{ form_errors(registrationForm.username) }}
+                </div>
 
-            <div class="mb-3">
-                {{ form_label(form.email, 'Email Address', {'label_attr': {'class': 'form-label'}}) }}
-                {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
-                {{ form_errors(form.email) }}
-            </div>
+                <div class="form-field">
+                    {{ form_label(registrationForm.password.first) }}
+                    {{ form_widget(registrationForm.password.first) }}
+                    {{ form_errors(registrationForm.password.first) }}
+                </div>
 
-            <div class="mb-3">
-                {{ form_label(form.username, 'Username', {'label_attr': {'class': 'form-label'}}) }}
-                {{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}
-                {{ form_errors(form.username) }}
-            </div>
+                <div class="form-field">
+                    {{ form_label(registrationForm.password.second) }}
+                    {{ form_widget(registrationForm.password.second) }}
+                    {{ form_errors(registrationForm.password.second) }}
+                </div>
 
-            <div class="mb-3">
-                {{ form_label(form.password.first, 'Password', {'label_attr': {'class': 'form-label'}}) }}
-                {{ form_widget(form.password.first, {'attr': {'class': 'form-control'}}) }}
-                {{ form_errors(form.password.first) }}
-            </div>
+                <button type="submit" class="btn btn-primary site-btn w-100">Crear cuenta</button>
 
-            <div class="mb-3">
-                {{ form_label(form.password.second, 'Repeat Password', {'label_attr': {'class': 'form-label'}}) }}
-                {{ form_widget(form.password.second, {'attr': {'class': 'form-control'}}) }}
-                {{ form_errors(form.password.second) }}
-            </div>
-
-            <button type="submit" class="btn btn-primary w-100">Register</button>
-            {{ form_end(form) }}
-        </form>
-    </div>
+                <p class="auth-footer">
+                    ¿Ya tienes cuenta?
+                    <a href="{{ path('app_login') }}">Inicia sesión</a>
+                </p>
+            {{ form_end(registrationForm) }}
+        </div>
+    </section>
 {% endblock %}

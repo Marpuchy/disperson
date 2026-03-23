@@ -1,26 +1,33 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
+use App\Service\Personality\PersonalityModelViewBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AboutPageController extends AbstractController
+final class AboutPageController extends AbstractController
 {
     #[Route('/about', name: 'app_about')]
-    public function index(): Response
+    public function __invoke(PersonalityModelViewBuilder $personalityModelViewBuilder): Response
     {
-        // Renderizar vista de información
         return $this->render('about/index.html.twig', [
-            'title' => 'Sobre Nosotros',
-            'description' => 'Descubre más sobre nuestra misión, visión y el equipo detrás de nuestra plataforma.',
+            'traits' => $personalityModelViewBuilder->buildOverview(),
             'team' => [
-                ['name' => 'Juan Perez', 'role' => 'Persona imaginaria para rellenar', 'email' => 'mibanezp0709@gmail.com'],
-                ['name' => 'Marc Ibáñez Puchol', 'role' => 'Estudiante de IES El Caminás', 'email' => 'mibanezp0709@gmail.com'],
-                ['name' => 'Maria Martinez', 'role' => 'Persona imaginaria para rellenar', 'email' => 'mibanezp0709@gmail.com'],
+                [
+                    'name' => 'Marc Ibáñez Puchol',
+                    'role' => 'Diseño, desarrollo del producto y experiencia web',
+                    'email' => 'mibanezp0709@gmail.com',
+                ],
+                [
+                    'name' => 'Colaboración académica',
+                    'role' => 'Apoyo en la formulación del cuestionario y revisión psicométrica desde UJI',
+                    'email' => 'mibanezp0709@gmail.com',
+                ],
             ],
-
         ]);
     }
 }

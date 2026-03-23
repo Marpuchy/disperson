@@ -1,0 +1,89 @@
+{# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
+{% trans_default_domain 'EasyAdminBundle' %}
+
+<!DOCTYPE html>
+<html lang="{{ ea.i18n.htmlLocale ?? app.request.locale ?? 'es' }}" dir="{{ ea.i18n.textDirection ?? 'ltr' }}" data-turbo="false">
+<head>
+    <meta charset="utf-8">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% set page_title_block_output %}{% block page_title %}{{ block('content_title') }}{% endblock %}{% endset %}
+    <title>{{ page_title_block_output|striptags|raw }}</title>
+
+    <link rel="stylesheet" href="{{ asset('app.css', ea.assets.defaultAssetPackageName) }}">
+
+    {% block configured_stylesheets %}
+        {{ include('@EasyAdmin/includes/_css_assets.html.twig', { assets: ea.assets.cssAssets ?? [] }, with_context = false) }}
+        {{ include('@EasyAdmin/includes/_encore_link_tags.html.twig', { assets: ea.assets.webpackEncoreAssets ?? [] }, with_context = false) }}
+    {% endblock %}
+
+    {% block head_javascript %}
+        <script src="{{ asset('app.js', ea.assets.defaultAssetPackageName) }}"></script>
+        {{ include('@EasyAdmin/includes/_importmap.html.twig', { assets: ea.assets.assetMapperAssets ?? [] }, with_context = false) }}
+    {% endblock %}
+
+    {% block configured_javascripts %}
+        {{ include('@EasyAdmin/includes/_js_assets.html.twig', { assets: ea.assets.jsAssets ?? [] }, with_context = false) }}
+        {{ include('@EasyAdmin/includes/_encore_script_tags.html.twig', { assets: ea.assets.webpackEncoreAssets ?? [] }, with_context = false) }}
+    {% endblock %}
+
+    {% block configured_head_contents %}
+        {% for htmlContent in ea.assets.headContents ?? [] %}
+            {{ htmlContent|raw }}
+        {% endfor %}
+    {% endblock %}
+</head>
+<body
+    id="{% block body_id %}{% endblock %}"
+    class="ea {% block body_class %}{% endblock %}"
+    data-ea-content-width="{{ ea.crud.contentWidth ?? ea.dashboardContentWidth ?? 'normal' }}"
+    data-ea-sidebar-width="{{ ea.crud.sidebarWidth ?? ea.dashboardSidebarWidth ?? 'normal' }}"
+>
+    <script src="{{ asset('page-layout.js', ea.assets.defaultAssetPackageName) }}"></script>
+    <script src="{{ asset('page-color-scheme.js', ea.assets.defaultAssetPackageName) }}"></script>
+
+    {{ include(ea.templatePath('flash_messages')) }}
+
+    <div class="wrapper">
+        <div class="sidebar-wrapper">
+            <aside class="sidebar">
+                <header class="main-header">
+                    <nav class="navbar">
+                        <div id="header-logo">
+                            <a class="logo" title="{{ ea.dashboardTitle|striptags }}" href="{{ path(ea.dashboardRouteName) }}">
+                                <span class="logo-custom">{{ ea.dashboardTitle|raw }}</span>
+                            </a>
+                        </div>
+                    </nav>
+                </header>
+
+                {{ include(ea.templatePath('main_menu')) }}
+            </aside>
+        </div>
+
+        <section class="main-content">
+            <div class="content-wrapper">
+                <article class="content">
+                    <section class="content-header">
+                        <div class="content-header-title">
+                            <h1 class="title">{% block content_title %}{% endblock %}</h1>
+                        </div>
+                        <div class="page-actions">{% block page_actions %}{% endblock %}</div>
+                    </section>
+
+                    <section id="main" class="content-body">
+                        {% block main %}{% endblock %}
+                    </section>
+                </article>
+            </div>
+        </section>
+    </div>
+
+    {% block configured_body_contents %}
+        {% for htmlContent in ea.assets.bodyContents ?? [] %}
+            {{ htmlContent|raw }}
+        {% endfor %}
+    {% endblock %}
+</body>
+</html>

@@ -1,28 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Resultados del Cuestionario{% endblock %}
+{% block title %}Disperson | Resultados{% endblock %}
+{% block body_class %}page-results{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/pages/quiz.css') }}">
+{% endblock %}
 
 {% block content %}
-    <link href="{{ asset('css/quiz.css') }}" rel="stylesheet">
-
-    <div class="container mt-5">
-        <h1 class="text-center mb-4">Tus Resultados</h1>
-
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <h5 class="card-title">Puntuación en cada dimensión</h5>
-                <ul>
-                    <li><strong>Experiencia:</strong> {{ user.experiencia }}</li>
-                    <li><strong>Responsabilidad:</strong> {{ user.responsabilidad }}</li>
-                    <li><strong>Extraversion:</strong> {{ user.extraversion }}</li>
-                    <li><strong>Emocional:</strong> {{ user.emocional }}</li>
-                    <li><strong>Amabilidad:</strong> {{ user.amabilidad }}</li>
-                </ul>
-            </div>
+    <section class="results-shell">
+        <div class="results-header" data-reveal>
+            <span class="section-tag">Resultados</span>
+            <h1>Ya tienes una lectura inicial de tu perfil OCEAN.</h1>
+            <p>
+                Estas son tus puntuaciones actuales por dimensión. El perfil completo añade interpretación por rasgo, lectura visual y personajes asociados.
+            </p>
         </div>
 
-        <div class="text-center mt-4">
-            <a href="{{ path('app_home') }}" class="btn btn-primary">Volver al Inicio</a>
+        <div class="results-grid">
+            {% for trait in traits %}
+                {% include '_components/trait_metric.html.twig' with { trait: trait } %}
+            {% endfor %}
         </div>
-    </div>
+
+        <div class="results-actions" data-reveal>
+            <a href="{{ path('app_profile') }}" class="btn btn-primary site-btn">Abrir perfil completo</a>
+            <a href="{{ path('app_quiz_start') }}" class="btn btn-outline-primary site-btn site-btn--ghost">Repetir test</a>
+        </div>
+    </section>
 {% endblock %}

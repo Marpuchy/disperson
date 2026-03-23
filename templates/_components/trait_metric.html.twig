@@ -1,0 +1,25 @@
+<article class="trait-metric" data-reveal>
+    <div class="trait-metric__header">
+        <div>
+            <p class="trait-metric__eyebrow">{{ trait.ocean_letter }} · {{ trait.navigation_label }}</p>
+            <h3 class="trait-metric__title">{{ trait.label }}</h3>
+        </div>
+
+        <div class="trait-metric__score-group">
+            <span class="trait-metric__score">{{ trait.score }}</span>
+            <span class="trait-metric__level">Nivel {{ trait.level }}</span>
+        </div>
+    </div>
+
+    <div class="trait-metric__bar" aria-hidden="true">
+        <span style="width: {{ trait.score }}%"></span>
+    </div>
+
+    <p class="trait-metric__description">{{ trait.summary }}</p>
+    <p class="trait-metric__detail">{{ trait.description }}</p>
+
+    <div class="trait-metric__range" aria-label="Espectro del rasgo {{ trait.label }}">
+        <span>{{ trait.low_anchor }}</span>
+        <span>{{ trait.high_anchor }}</span>
+    </div>
+</article>

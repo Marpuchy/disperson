@@ -1,0 +1,69 @@
+{# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
+{# @var entities \EasyCorp\Bundle\EasyAdminBundle\Collection\EntityCollection #}
+{# @var paginator \EasyCorp\Bundle\EasyAdminBundle\Orm\EntityPaginator #}
+{% extends 'admin/easyadmin_layout.html.twig' %}
+
+{% block body_class 'ea-index' %}
+
+{% block page_title %}
+    {{ ea.crud.defaultPageTitle('index', null, ea.i18n.translationParameters)|trans({}, 'EasyAdminBundle')|striptags }}
+{% endblock %}
+
+{% block page_actions %}
+    <div class="global-actions">
+        {% for action in global_actions %}
+            {{ include(action.templatePath, { action: action }, with_context = false) }}
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block main %}
+    <div class="content-panel">
+        <table class="table datagrid">
+            <thead>
+                <tr>
+                    {% for field in entities|first.fields ?? [] %}
+                        <th>{{ field.label|trans({}, ea.i18n.translationDomain)|raw }}</th>
+                    {% endfor %}
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entity in entities %}
+                    {% if entity.isAccessible %}
+                        <tr>
+                            {% for field in entity.fields %}
+                                {% set value = field.formattedValue ?? field.value %}
+                                <td data-label="{{ field.label|trans({}, ea.i18n.translationDomain)|e('html_attr') }}" class="{{ field.cssClass }}">
+                                    {% if value is same as(true) %}
+                                        Sí
+                                    {% elseif value is same as(false) %}
+                                        No
+                                    {% elseif value is iterable %}
+                                        {{ value|join(', ') }}
+                                    {% elseif value is null %}
+                                        —
+                                    {% else %}
+                                        {{ value }}
+                                    {% endif %}
+                                </td>
+                            {% endfor %}
+                            <td class="actions">
+                                {% for action in entity.actions %}
+                                    {{ include(action.templatePath, { action: action, entity: entity, isIncludedInDropdown: false }, with_context = false) }}
+                                {% endfor %}
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% else %}
+                    <tr>
+                        <td colspan="100" class="text-center py-4">
+                            {{ 'datagrid.no_results'|trans({}, 'EasyAdminBundle') }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {{ include('@EasyAdmin/crud/includes/_delete_form.html.twig', with_context = false) }}
+{% endblock %}

@@ -1,22 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
+use App\Service\Personality\PersonalityModelViewBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Security;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
-class HomeController extends AbstractController
+final class HomeController extends AbstractController
 {
-
-    /**
-     * @Route("/", name="app_home")
-     */
-    public function index()
+    #[Route('/', name: 'app_home')]
+    public function __invoke(PersonalityModelViewBuilder $personalityModelViewBuilder): Response
     {
-
-        return $this->render('home/index.html.twig');
+        return $this->render('home/index.html.twig', [
+            'traits' => $personalityModelViewBuilder->buildOverview(),
+        ]);
     }
 }

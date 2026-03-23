@@ -1,155 +1,80 @@
 <?php
-// src/Controller/QuizController.php
+
+declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Entity\Question;
+use App\Repository\QuestionRepository;
+use App\Service\Profile\ProfileViewBuilder;
+use App\Service\Quiz\QuizQuestionCatalogBuilder;
+use App\Service\Quiz\QuizScoringService;
+use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Security\Core\Security;
 
-class QuizController extends AbstractController
+#[Route('/quiz', name: 'app_quiz_')]
+#[IsGranted('ROLE_USER')]
+final class QuizController extends AbstractController
 {
-    #[Route('/quiz/start', name: 'app_quiz_start')]
-    public function start(EntityManagerInterface $entityManager, Security $security): Response
-    {
-        // Obtener el usuario actual
-        $user = $security->getUser(); // Obtener el usuario autenticado
-
-        if (!$user) {
-            // Si no hay usuario autenticado, redirigir al login
-            return $this->redirectToRoute('app_login');
-        }
-        // Obtener las preguntas desde la base de datos
-        $questions = $entityManager->getRepository(Question::class)->findAll();
+    #[Route('/start', name: 'start', methods: ['GET'])]
+    public function start(
+        QuestionRepository $questionRepository,
+        QuizQuestionCatalogBuilder $quizQuestionCatalogBuilder,
+    ): Response {
+        $catalog = $quizQuestionCatalogBuilder->build($questionRepository->findForQuiz());
 
         return $this->render('quiz/start.html.twig', [
-            'questions' => $questions
+            'questions' => $catalog->getQuestions(),
+            'invalid_questions' => $catalog->getInvalidQuestions(),
+            'question_count' => $catalog->getValidCount(),
+            'invalid_question_count' => $catalog->getInvalidCount(),
         ]);
     }
 
-    #[Route('/quiz/submit', name: 'app_quiz_submit', methods: ['POST'])]
-    public function submit(Request $request, EntityManagerInterface $entityManager, Security $security): Response
-    {
-        // Obtener el usuario actual
-        $user = $security->getUser(); // Obtener el usuario autenticado
+    #[Route('/submit', name: 'submit', methods: ['POST'])]
+    public function submit(
+        Request $request,
+        QuestionRepository $questionRepository,
+        QuizQuestionCatalogBuilder $quizQuestionCatalogBuilder,
+        QuizScoringService $quizScoringService,
+        EntityManagerInterface $entityManager,
+    ): Response {
+        if (!$this->isCsrfTokenValid('quiz_submit', (string) $request->request->get('_token'))) {
+            $this->addFlash('danger', 'La sesión del formulario ha caducado. Vuelve a intentarlo.');
 
-        if (!$user) {
-            // Si no hay usuario autenticado, redirigir al login
-            return $this->redirectToRoute('app_login');
+            return $this->redirectToRoute('app_quiz_start');
         }
 
-        // Inicializar puntuaciones con 50 para cada atributo
-        $score = [
-            'experiencia' => 50,
-            'responsabilidad' => 50,
-            'extraversion' => 50,
-            'amabilidad' => 50,
-            'emocional' => 50
-        ];
+        $catalog = $quizQuestionCatalogBuilder->build($questionRepository->findForQuiz());
 
-        // Obtener todas las preguntas
-        $questions = $entityManager->getRepository(Question::class)->findAll();
+        if (!$catalog->hasQuestions()) {
+            $this->addFlash('danger', 'El cuestionario no está disponible porque el banco de preguntas no tiene elementos válidos.');
 
-        // Iterar a través de las preguntas
-        foreach ($questions as $question) {
-            $questionId = $question->getId();
-
-            // Definir la categoría basándonos en la columna que tiene el valor 1 o -1
-            $category = $this->getCategoryFromDatabase($question);
-
-            // Recoger la respuesta de cada pregunta
-            $response = $request->get('question_' . $questionId);
-
-            // Si se ha respondido, calcular el puntaje
-            if ($response !== null) {
-                // Comprobamos si la pregunta es inversa
-                $scoreValue = $this->calculateScore($response, $question->isInverse()); // Usamos el método isInverse
-                $score[$category] += $scoreValue;
-            }
+            return $this->redirectToRoute('app_quiz_start');
         }
 
-        // Normalizar las puntuaciones sobre 100
-        $score = array_map(function ($value) {
-            return max(0, min(100, $value));
-        }, $score);
+        $user = $this->getUser();
+        $scores = $quizScoringService->calculateScores(
+            $catalog->getQuestions(),
+            $request->request->all(),
+        );
 
-        // Actualizar los atributos del usuario con las puntuaciones obtenidas
-        $user->setExperiencia($score['experiencia']);
-        $user->setResponsabilidad($score['responsabilidad']);
-        $user->setExtraversion($score['extraversion']);
-        $user->setAmabilidad($score['amabilidad']);
-        $user->setEmocional($score['emocional']);
-
-        // Guardar los cambios en la base de datos
+        $quizScoringService->applyScores($user, $scores);
         $entityManager->flush();
 
-        // Redirigir a una página de resultados
+        $this->addFlash('success', 'Tus respuestas se han guardado correctamente.');
+
         return $this->redirectToRoute('app_quiz_results');
     }
 
-    // Función para calcular el puntaje en base a la respuesta
-    private function calculateScore($response, $isInverse = false)
+    #[Route('/results', name: 'results', methods: ['GET'])]
+    public function results(ProfileViewBuilder $profileViewBuilder): Response
     {
-        $multiplier = $isInverse ? -1 : 1; // Si la pregunta es inversa, multiplicamos por -1
-
-        switch ($response) {
-            case 2: // Muy de acuerdo
-                return 6 * $multiplier;
-            case 1: // De acuerdo
-                return 3 * $multiplier;
-            case 0: // Me da igual
-                return 0;
-            case -1: // En desacuerdo
-                return -3 * $multiplier;
-            case -2: // Muy en desacuerdo
-                return -6 * $multiplier;
-            default:
-                return 0;
-        }
-    }
-
-    // Método para determinar la categoría basándonos en las columnas que contienen el valor 1 o -1
-    private function getCategoryFromDatabase(Question $question)
-    {
-        // Obtenemos los valores de las columnas correspondientes
-        $categories = ['experiencia', 'responsabilidad', 'extraversion', 'amabilidad', 'emocional'];
-        $categoryValues = [
-            $question->getExperiencia(),
-            $question->getResponsabilidad(),
-            $question->getExtraversion(),
-            $question->getAmabilidad(),
-            $question->getEmocional(),
-        ];
-
-        // Verificamos qué columna tiene el valor distinto de 0 (1 o -1)
-        foreach ($categories as $index => $category) {
-            if ($categoryValues[$index] == 1 || $categoryValues[$index] == -1) {
-                return $category;
-            }
-        }
-
-        // Si no se encuentra ninguna, devolver una categoría predeterminada o lanzar un error
-        return 'experiencia';  // Por ejemplo, o puedes lanzar una excepción aquí
-    }
-
-    #[Route('/quiz/results', name: 'app_quiz_results')]
-    public function results(): Response
-    {
-        // Obtener el usuario actual
-        $user = $this->getUser();
-
-        // Validar que el usuario está autenticado
-        if (!$user) {
-            return $this->redirectToRoute('app_login');
-        }
-
-        // Mostrar los resultados del usuario
         return $this->render('quiz/results.html.twig', [
-            'user' => $user
+            'traits' => $profileViewBuilder->build($this->getUser()),
         ]);
     }
 }

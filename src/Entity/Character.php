@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\CharacterRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CharacterRepository::class)]
 #[ORM\Table(name: '`character`')]
@@ -14,17 +17,29 @@ class Character
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 255)]
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 2555)]
     #[ORM\Column(length: 2555)]
     private ?string $description = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 255)]
     #[ORM\Column(length: 255)]
     private ?string $stat = null;
 
+    #[Assert\Range(min: 1, max: 5)]
     #[ORM\Column]
     private ?int $level = null;
+
+    public function __toString(): string
+    {
+        return $this->name ?? 'Personaje';
+    }
 
     public function getId(): ?int
     {
@@ -36,9 +51,9 @@ class Character
         return $this->name;
     }
 
-    public function setName(string $name): static
+    public function setName(string $name): self
     {
-        $this->name = $name;
+        $this->name = trim($name);
 
         return $this;
     }
@@ -48,9 +63,9 @@ class Character
         return $this->description;
     }
 
-    public function setDescription(string $description): static
+    public function setDescription(string $description): self
     {
-        $this->description = $description;
+        $this->description = trim($description);
 
         return $this;
     }
@@ -60,7 +75,7 @@ class Character
         return $this->stat;
     }
 
-    public function setStat(string $stat): static
+    public function setStat(string $stat): self
     {
         $this->stat = $stat;
 
@@ -72,7 +87,7 @@ class Character
         return $this->level;
     }
 
-    public function setLevel(int $level): static
+    public function setLevel(int $level): self
     {
         $this->level = $level;
 

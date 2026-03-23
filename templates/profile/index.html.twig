@@ -1,140 +1,140 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Perfil de Usuario{% endblock %}
+{% block title %}Disperson | Perfil{% endblock %}
+{% block body_class %}page-profile{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/pages/profile.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        window.profileTraits = {{ traits|json_encode(constant('JSON_UNESCAPED_UNICODE'))|raw }};
+    </script>
+    <script src="{{ asset('js/pages/profile.js') }}"></script>
+{% endblock %}
 
 {% block content %}
-    {% block javascripts %}
-        <script src="{{ asset('js/stats.js') }}"></script>
-        <script src="{{ asset('js/description.js') }}"></script>
-        <script>
-            window.userStats = {
-                experiencia: {{ experiencia }},
-                responsabilidad: {{ responsabilidad }},
-                extraversion: {{ extraversion }},
-                amabilidad: {{ amabilidad }},
-                emocional: {{ emocional }}
-            };
-        </script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+    <section class="profile-shell">
+        <div class="profile-spotlight" data-reveal>
+            <div class="profile-spotlight__copy">
+                <span class="section-tag">Resultado principal</span>
+                {% if featured_trait %}
+                    <h1>{{ user.username }}, tu lectura dominante apunta a {{ featured_trait.label|lower }}.</h1>
+                    <p>
+                        Tu perfil combina puntuaciones del modelo Big Five con una lectura visual. El rasgo que primero define tu resultado es
+                        <strong>{{ featured_trait.label }}</strong>, con {{ featured_trait.score }}/100 y un nivel {{ featured_trait.level }}.
+                    </p>
+                {% else %}
+                    <h1>{{ user.username }}, ya tienes tu mapa de personalidad listo.</h1>
+                    <p>
+                        Tu perfil mezcla puntuaciones del modelo Big Five, niveles interpretados y personajes asociados. La base psicológica sigue siendo el
+                        centro; la capa Disney aporta memoria visual y una lectura más cercana.
+                    </p>
+                {% endif %}
 
-        <script>
-            $(document).ready(function () {
-                $("#jquery-accordion").accordion({
-                    heightStyle: "content",
-                    collapsible: true
-                });
-            });
-        </script>
-        <script>
-            $(document).ready(function(){
-                $("#btnVolver").click(function(){
-                    window.history.back();
-                });
-            });
-        </script>
-    {% endblock %}
-    <link href="{{ asset('css/profile.css') }}" rel="stylesheet">
+                <div class="profile-spotlight__stats">
+                    {% if featured_trait %}
+                        <article class="profile-kpi">
+                            <span class="profile-kpi__label">Rasgo dominante</span>
+                            <strong>{{ featured_trait.navigation_label }}</strong>
+                        </article>
+                        <article class="profile-kpi">
+                            <span class="profile-kpi__label">Puntuación</span>
+                            <strong>{{ featured_trait.score }}/100</strong>
+                        </article>
+                        <article class="profile-kpi">
+                            <span class="profile-kpi__label">Nivel</span>
+                            <strong>{{ featured_trait.level }}</strong>
+                        </article>
+                    {% endif %}
+                </div>
 
-    <div class="container my-5 custom-width">
-        <h1 class="text-center mb-4">Perfil de Usuario</h1>
-
-        <!-- Botón de Volver al Inicio -->
-        <a href="#" class="btn btn-primary mb-3" id="btnVolver">Volver Atrás</a>
-
-        <!-- Fila para las dos columnas: estadísticas a la izquierda y gráfico a la derecha -->
-        <div class="row customRow">
-            <!-- Accordion para las estadísticas -->
-            <div class="col-md-6 mb-4">
-                <div id="jquery-accordion" class="custom-accordion">
-                    <h3 class="accordion-button firstElement">Apertura a la Experiencia</h3>
-                    <div class="custom-accordion-body">
-                        <h5 class="card-title">Apertura a la experiencia: {{ experiencia }}</h5>
-                        <div class="usercard">
-                            <div class="usercard-body">
-                                <div id="characterContainer">
-                                    <h2>Tu personaje es: {{ experienciaCharacter.name }}</h2>
-                                    <p>{{ experienciaCharacter.description }}</p>
-                                </div>
-                                <img src="{{ asset('resources/characters/' ~ experienciaCharacter.id ~ '.jpg') }}" alt="Character Image" class="characterImage">
-                            </div>
-                            <div id="descriptionExperiencia" class="descriptions"></div>
-                        </div>
-                    </div>
-
-                    <h3 class="accordion-button">Responsabilidad</h3>
-                    <div class="custom-accordion-body">
-                        <h5 class="card-title">Responsabilidad: {{ responsabilidad }}</h5>
-                        <div class="usercard">
-                            <div class="usercard-body">
-                                <div id="characterContainer">
-                                    <h2>Tu personaje es: {{ responsabilidadCharacter.name }}</h2>
-                                    <p>{{ responsabilidadCharacter.description }}</p>
-                                </div>
-                                <img src="{{ asset('resources/characters/' ~ responsabilidadCharacter.id ~ '.jpg') }}" alt="Character Image" class="characterImage">
-                            </div>
-                            <div id="descriptionResponsabilidad" class="descriptions"></div>
-                        </div>
-                    </div>
-
-                    <h3 class="accordion-button">Extraversión</h3>
-                    <div class="custom-accordion-body">
-                        <h5 class="card-title">Extraversión: {{ extraversion }}</h5>
-                        <div class="usercard">
-                            <div class="usercard-body">
-                                <div id="characterContainer">
-                                    <h2>Tu personaje es: {{ extraversionCharacter.name }}</h2>
-                                    <p>{{ extraversionCharacter.description }}</p>
-                                </div>
-                                <img src="{{ asset('resources/characters/' ~ extraversionCharacter.id ~ '.jpg') }}" alt="Character Image" class="characterImage">
-                            </div>
-                            <div id="descriptionExtraversion" class="descriptions"></div>
-                        </div>
-                    </div>
-
-                    <h3 class="accordion-button">Amabilidad</h3>
-                    <div class="custom-accordion-body">
-                        <h5 class="card-title">Amabilidad: {{ amabilidad }}</h5>
-                        <div class="usercard">
-                            <div class="usercard-body">
-                                <div id="characterContainer">
-                                    <h2>Tu personaje es: {{ amabilidadCharacter.name }}</h2>
-                                    <p>{{ amabilidadCharacter.description }}</p>
-                                </div>
-                                <img src="{{ asset('resources/characters/' ~ amabilidadCharacter.id ~ '.jpg') }}" alt="Character Image" class="characterImage">
-                            </div>
-                            <div id="descriptionAmabilidad" class="descriptions"></div>
-                        </div>
-                    </div>
-
-                    <h3 class="accordion-button">Estabilidad emocional</h3>
-                    <div class="custom-accordion-body">
-                        <h5 class="card-title">Estabilidad emocional: {{ emocional }}</h5>
-                        <div class="usercard">
-                            <div class="usercard-body">
-                                <div id="characterContainer">
-                                    <h2>Tu personaje es: {{ emocionalCharacter.name }}</h2>
-                                    <p>{{ emocionalCharacter.description }}</p>
-                                </div>
-                                <img src="{{ asset('resources/characters/' ~ emocionalCharacter.id ~ '.jpg') }}" alt="Character Image" class="characterImage">
-                            </div>
-                            <div id="descriptionEmocional" class="descriptions"></div>
-                        </div>
-                    </div>
+                <div class="profile-hero__actions">
+                    <a href="{{ path('app_quiz_start') }}" class="btn btn-outline-primary site-btn site-btn--ghost">Repetir test</a>
+                    <a href="{{ path('app_about') }}" class="btn btn-primary site-btn">Ver modelo OCEAN</a>
                 </div>
             </div>
 
-            <!-- Gráfico pentágono a la derecha -->
-            <div class="col-md-6 mb-4">
-                <div class="pentagono mb-5">
-                    <div id="canvas-container" class="my-4"></div>
-                </div>
-            </div>
+            <aside class="profile-spotlight-card">
+                {% if featured_trait and featured_trait.character %}
+                    <div class="profile-spotlight-card__media">
+                        <img
+                            src="{{ asset('resources/characters/' ~ featured_trait.character.id ~ '.jpg') }}"
+                            alt="{{ featured_trait.character.name }}"
+                            width="380"
+                            height="380"
+                            decoding="async"
+                            fetchpriority="high"
+                        >
+                    </div>
+                    <div class="profile-spotlight-card__body">
+                        <p class="profile-character__eyebrow">Personaje asociado</p>
+                        <h2>{{ featured_trait.character.name }}</h2>
+                        <p>{{ featured_trait.character.description }}</p>
+
+                        <div class="profile-spotlight-card__meta">
+                            <span>{{ featured_trait.ocean_letter }} · {{ featured_trait.label }}</span>
+                            <span>Nivel {{ featured_trait.level }}</span>
+                        </div>
+                    </div>
+                {% elseif featured_trait %}
+                    <div class="profile-spotlight-card__body profile-spotlight-card__body--empty">
+                        <p class="profile-character__eyebrow">Lectura principal</p>
+                        <h2>{{ featured_trait.label }}</h2>
+                        <p>{{ featured_trait.description }}</p>
+                        <div class="profile-spotlight-card__meta">
+                            <span>{{ featured_trait.score }}/100</span>
+                            <span>Nivel {{ featured_trait.level }}</span>
+                        </div>
+                    </div>
+                {% endif %}
+            </aside>
         </div>
 
-        <!-- Botón de cerrar sesión -->
-        <form method="post" action="{{ path('app_logout') }}">
-            <button type="submit" class="btn btn-danger w-100 mt-5">Cerrar Sesión</button>
+        <div class="profile-layout">
+            <section class="profile-chart-card" data-reveal>
+                <div class="profile-chart-card__header">
+                    <span class="section-tag">Resumen visual</span>
+                    <h2>Radar de personalidad</h2>
+                    <p>Una vista rápida de cómo se reparten tus cinco dimensiones principales.</p>
+                </div>
+
+                <canvas id="profileChart" width="520" height="520" aria-label="Gráfico radar de rasgos"></canvas>
+
+                <div class="profile-chart-card__legend" aria-label="Leyenda de rasgos">
+                    {% for trait in traits %}
+                        <span class="profile-chart-card__legend-item profile-chart-card__legend-item--{{ loop.index }}">
+                            <span class="profile-chart-card__legend-dot"></span>
+                            {{ trait.navigation_label }}
+                        </span>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <section class="profile-summary-grid">
+                {% for trait in traits %}
+                    {% include '_components/trait_metric.html.twig' with { trait: trait } %}
+                {% endfor %}
+            </section>
+        </div>
+
+        <section class="profile-details">
+            <div class="section-heading" data-reveal>
+                <span class="section-tag">Detalle</span>
+                <h2>Interpretación por rasgo</h2>
+                <p>Abre cada bloque para ver el nivel, el espectro del rasgo y el personaje que acompaña la lectura de tu resultado.</p>
+            </div>
+
+            <div class="profile-panel-list">
+                {% for trait in traits %}
+                    {% include '_components/profile_trait_panel.html.twig' with { trait: trait } %}
+                {% endfor %}
+            </div>
+        </section>
+
+        <form method="post" action="{{ path('app_logout') }}" class="profile-logout" data-reveal>
+            <button type="submit" class="btn btn-outline-primary site-btn site-btn--ghost">Cerrar sesión</button>
         </form>
-    </div>
+    </section>
 {% endblock %}

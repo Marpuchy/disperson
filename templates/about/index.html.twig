@@ -1,86 +1,142 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ title }}{% endblock %}
+{% block title %}Disperson | Sobre el proyecto{% endblock %}
+{% block body_class %}page-about{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/pages/content.css') }}">
+{% endblock %}
 
 {% block content %}
-    <link href="{{ asset('css/about.css') }}" rel="stylesheet">
+    {% set visual_panels = ['24.jpg', '20.jpg'] %}
 
-    <!-- Contenedor Principal -->
-    <div class="container mt-5">
-        <!-- Sección Nuestra Misión -->
-        <section class="mission">
-            <h1 class="text-center mt-5 mb-4">Sobre nosotros</h1>
-
-            <!-- Primer Bloque de Texto con Imagen -->
-            <div class="aboutBlock row align-items-center mb-4 order-md-1">
-                <!-- Imagen a la derecha -->
-                <div class="col-md-8">
-                    <p class="lead ">
-                        En nuestra plataforma, nuestro objetivo trasciende el simple entretenimiento. Nos proponemos
-                        brindar una herramienta que permita a cada persona conocerse a sí misma de una manera profunda y
-                        significativa.
-                    </p>
-                    <p class="lead">
-                        Hemos trabajado arduamente para ofrecer la versión más profesional y fiable de un test de
-                        personalidad. Para lograrlo, hemos unido fuerzas con el equipo de psicología de la Universitat
-                        Jaume I (UJI), cuyo conocimiento ha sido fundamental para garantizar la
-                        rigurosidad científica de este proyecto.
-                    </p>
-                </div>
-                <div class="col-md-4 order-md-2">
-                    <div class="card p-2 h-100 bg-white">
-                        <img src="{{ asset('../resources/uji.png') }}" class="img-fluid rounded"
-                             alt="Colaboración profesional">
-                    </div>
-                </div>
+    <section class="content-hero">
+        <div class="container-xxl content-showcase">
+            <div class="content-intro" data-reveal>
+                <span class="section-tag">Proyecto</span>
+                <h1>Psicologia interpretativa, persistencia real y una narrativa visual que no tapa el modelo OCEAN.</h1>
+                <p class="lead-text">
+                    Disperson no se presenta como diagnostico clinico ni como quiz generico. El producto parte del Big Five,
+                    usa preguntas reales en base de datos y remata en un perfil visual mas facil de entender.
+                </p>
             </div>
 
-            <!-- Segundo Bloque de Texto con Imagen -->
-            <div class="row align-items-center mb-4">
-                <!-- Imagen a la izquierda -->
-                <div class="col-md-4 order-md-1">
-                    <img src="{{ asset('../resources/big5.png') }}" class="img-fluid rounded"
-                         alt="Colaboración profesional">
-                </div>
-                <div class="col-md-8 order-md-2">
-                    <p class="lead">
-                        Gracias a esta colaboración, hemos podido crear una experiencia intuitiva, accesible y basada en
-                        estándares profesionales. Creemos que el autoconocimiento es una herramienta poderosa para el
-                        crecimiento personal, y nuestra misión es acercarlo a todas las personas de una manera ética,
-                        profesional y eficaz.
-                    </p>
-                    <p class="lead">
-                        Estamos convencidos de que esta plataforma puede marcar una diferencia real en la vida de
-                        quienes la utilizan, proporcionando una experiencia enriquecedora que fomente el desarrollo
-                        personal y el bienestar emocional.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Sección del equipo -->
-        <section class="mt-5">
-            <h3 class="text-center mb-4">Conoce a Nuestro Equipo</h3>
-            <div class="row justify-content-center">
-                {% for member in team %}
-                    <div class="col-md-4 col-sm-6 mb-4">
-                        <div class="card shadow-lg h-100">
-                            <div class="card-body text-center d-flex flex-column justify-content-between">
-                                <h5 class="card-title mb-3">{{ member.name }}</h5>
-                                <p class="card-text">{{ member.role }}</p>
-                                <div class="d-grid gap-2">
-                                    <a href="mailto:{{ member.email }}" class="btn btn-primary mt-auto">Contáctanos</a>
-                                </div>
-                            </div>
+            <article class="content-card manifesto-card" data-reveal>
+                <div class="manifesto-card__thumbs">
+                    {% for image in visual_panels %}
+                        <div class="manifesto-card__thumb">
+                            <img
+                                src="{{ asset('resources/characters/' ~ image) }}"
+                                alt="Visual de Disperson"
+                                width="360"
+                                height="360"
+                                loading="lazy"
+                                decoding="async"
+                            >
                         </div>
+                    {% endfor %}
+                </div>
+
+                <div class="manifesto-card__stats">
+                    <div>
+                        <strong>Big Five</strong>
+                        <span>Modelo base</span>
                     </div>
+                    <div>
+                        <strong>BD</strong>
+                        <span>Banco editable</span>
+                    </div>
+                    <div>
+                        <strong>Perfil</strong>
+                        <span>Lectura visual</span>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="section-block section-block--dense" data-deferred>
+        <div class="container-xxl about-mosaic">
+            <article class="content-card about-pillar" data-reveal>
+                <p class="team-card__eyebrow">Base psicologica</p>
+                <h2>OCEAN sigue siendo el nucleo de toda la experiencia.</h2>
+                <p>La capa visual hace mas recordable el resultado, pero no reemplaza el modelo ni el sentido interpretativo del proyecto.</p>
+            </article>
+
+            <article class="content-card about-pillar" data-reveal>
+                <p class="team-card__eyebrow">Narrativa visual</p>
+                <h2>El personaje aparece como recompensa, no como maquillaje.</h2>
+                <p>Se ve pronto, se entiende rapido y convierte el perfil en algo mas facil de recordar y compartir.</p>
+            </article>
+
+            <article class="content-card about-pillar" data-reveal>
+                <p class="team-card__eyebrow">Contexto UJI</p>
+                <h2>La narrativa se apoya en el trabajo original del proyecto.</h2>
+                <p>Disperson comunica una lectura honesta, accesible y atractiva del Big Five sin venderlo como diagnostico clinico.</p>
+            </article>
+
+            <article class="content-card about-mosaic__wide" data-reveal>
+                <div class="section-heading section-heading--compact">
+                    <span class="section-tag">Dimensiones</span>
+                    <h2>Las cinco piezas del modelo siguen visibles en todo el producto.</h2>
+                </div>
+
+                <div class="trait-rail">
+                    {% for trait in traits %}
+                        <article class="trait-rail__item">
+                            <span class="trait-wall__letter">{{ trait.letter }}</span>
+                            <h3>{{ trait.label }}</h3>
+                            <p>{{ trait.summary }}</p>
+                        </article>
+                    {% endfor %}
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="section-block section-block--dense" data-deferred>
+        <div class="container-xxl workflow-board">
+            <article class="content-card workflow-board__lead" data-reveal>
+                <div class="section-heading section-heading--compact">
+                    <span class="section-tag">Arquitectura del recorrido</span>
+                    <h2>El producto esta pensado para pasar rapido de respuesta a interpretacion.</h2>
+                </div>
+
+                <div class="journey-strip">
+                    <article class="journey-step">
+                        <span class="journey-step__index">01</span>
+                        <div>
+                            <h3>Preguntas reales en base de datos</h3>
+                            <p>El banco se recupera con Doctrine para que siga siendo editable, restaurable y mantenible.</p>
+                        </div>
+                    </article>
+                    <article class="journey-step">
+                        <span class="journey-step__index">02</span>
+                        <div>
+                            <h3>Scoring fiel al proyecto</h3>
+                            <p>La logica conserva inversion de items, clamp y persistencia en el usuario.</p>
+                        </div>
+                    </article>
+                    <article class="journey-step">
+                        <span class="journey-step__index">03</span>
+                        <div>
+                            <h3>Perfil visual con personaje asociado</h3>
+                            <p>El resultado final mezcla lectura psicologica, radar y una recompensa visual mas inmediata.</p>
+                        </div>
+                    </article>
+                </div>
+            </article>
+
+            <div class="team-grid">
+                {% for member in team %}
+                    <article class="team-card" data-reveal>
+                        <p class="team-card__eyebrow">Equipo</p>
+                        <h3>{{ member.name }}</h3>
+                        <p>{{ member.role }}</p>
+                        <a href="mailto:{{ member.email }}" class="btn btn-outline-primary site-btn site-btn--ghost">Contactar</a>
+                    </article>
                 {% endfor %}
             </div>
-        </section>
-
-        <!-- Botón para regresar al inicio -->
-        <div class="text-center mt-5">
-            <a href="{{ path('app_home') }}" class="btn btn-primary btn-lg">Volver al Inicio</a>
         </div>
-    </div>
+    </section>
 {% endblock %}

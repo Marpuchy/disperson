@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repository;
 
 use App\Entity\Character;
@@ -8,11 +10,6 @@ use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @extends ServiceEntityRepository<Character>
- *
- * @method Character|null find($id, $lockMode = null, $lockVersion = null)
- * @method Character|null findOneBy(array $criteria, array $orderBy = null)
- * @method Character[]    findAll()
- * @method Character[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class CharacterRepository extends ServiceEntityRepository
 {
@@ -21,28 +18,38 @@ class CharacterRepository extends ServiceEntityRepository
         parent::__construct($registry, Character::class);
     }
 
-//    /**
-//     * @return Character[] Returns an array of Character objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('c.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @param array<string, int> $traitLevels
+     *
+     * @return array<string, Character>
+     */
+    public function findForTraitLevels(array $traitLevels): array
+    {
+        if ($traitLevels === []) {
+            return [];
+        }
 
-//    public function findOneBySomeField($value): ?Character
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        $queryBuilder = $this->createQueryBuilder('character');
+        $orX = $queryBuilder->expr()->orX();
+
+        foreach ($traitLevels as $trait => $level) {
+            $orX->add(sprintf('(character.stat = :trait_%1$s AND character.level = :level_%1$s)', $trait));
+            $queryBuilder
+                ->setParameter(sprintf('trait_%s', $trait), $trait)
+                ->setParameter(sprintf('level_%s', $trait), $level);
+        }
+
+        $matches = $queryBuilder
+            ->where($orX)
+            ->getQuery()
+            ->getResult();
+
+        $indexed = [];
+
+        foreach ($matches as $character) {
+            $indexed[$character->getStat()] = $character;
+        }
+
+        return $indexed;
+    }
 }

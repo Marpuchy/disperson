@@ -1,0 +1,20 @@
+<div class="ocean-grid">
+    {% for trait in traits %}
+        <article class="ocean-card" data-reveal>
+            <div class="ocean-card__header">
+                <span class="ocean-card__letter">{{ trait.letter }}</span>
+                <div>
+                    <p class="ocean-card__eyebrow">{{ trait.navigation_label }}</p>
+                    <h3>{{ trait.label }}</h3>
+                </div>
+            </div>
+
+            <p>{{ trait.summary }}</p>
+
+            <div class="ocean-card__range" aria-label="Espectro del rasgo {{ trait.label }}">
+                <span>{{ trait.low_anchor }}</span>
+                <span>{{ trait.high_anchor }}</span>
+            </div>
+        </article>
+    {% endfor %}
+</div>

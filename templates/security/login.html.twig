@@ -1,40 +1,53 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Login{% endblock %}
+{% block title %}Disperson | Entrar{% endblock %}
+{% block body_class %}page-auth{% endblock %}
 
-{% block navbar %}{% endblock %}  {# Sobrescribimos el bloque de la barra de navegación para no mostrarla #}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/pages/auth.css') }}">
+{% endblock %}
 
 {% block content %}
-    <link href="{{ asset('css/security.css') }}" rel="stylesheet">
-
-    <div class="container custom-margin-top">
-        <form method="post">
-            {% if error %}
-                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-            {% endif %}
-
-            <h1 class="h3 mb-4 text-center">Please sign in</h1>
-            <div class="mb-3">
-                <label for="inputEmail" class="form-label text-light">Email</label>
-                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+    <section class="auth-shell">
+        <div class="auth-panel auth-panel--copy" data-reveal>
+            <span class="section-tag">Acceso</span>
+            <h1>Vuelve a tu perfil.</h1>
+            <p>
+                Accede para continuar el cuestionario, revisar tus resultados o gestionar el contenido si eres administrador.
+            </p>
+            <div class="auth-note">
+                <strong>Cuenta demo</strong>
+                <span>`prueba@prueba.com` / `prueba`</span>
             </div>
+        </div>
 
-            <div class="mb-3">
-                <label for="inputPassword" class="form-label text-light">Password</label>
-                <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-            </div>
+        <div class="auth-panel" data-reveal>
+            <form method="post" class="auth-form">
+                {% if error %}
+                    <div class="flash flash--danger">
+                        {{ error.messageKey|trans(error.messageData, 'security') }}
+                    </div>
+                {% endif %}
 
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-            <div>
-                <label class="form-label">Si quieres hacer el test 1 vez solo, puedes iniciar sesión con "prueba@prueba.com" con contraseña "prueba".</label>
-            </div>
-            <button class="btn btn-primary w-100" type="submit">
-                Sign in
-            </button>
+                <div class="form-field">
+                    <label for="inputEmail">Email</label>
+                    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" autocomplete="email" required autofocus>
+                </div>
 
-            <div class="text-center mt-3">
-                <p class="mb-0 form-label">¿No tienes una cuenta? <a href="{{ path('app_register') }}" class="text-decoration-none text-primary">Registrate aquí</a></p>
-            </div>
-        </form>
-    </div>
+                <div class="form-field">
+                    <label for="inputPassword">Contraseña</label>
+                    <input type="password" name="password" id="inputPassword" autocomplete="current-password" required>
+                </div>
+
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                <button class="btn btn-primary site-btn w-100" type="submit">Entrar</button>
+
+                <p class="auth-footer">
+                    ¿No tienes cuenta?
+                    <a href="{{ path('app_register') }}">Crear cuenta</a>
+                </p>
+            </form>
+        </div>
+    </section>
 {% endblock %}

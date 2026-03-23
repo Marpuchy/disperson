@@ -9,6 +9,7 @@ APP_SECRET="${APP_SECRET:-change-me-in-production}"
 DATABASE_URL="${DATABASE_URL:-sqlite:///%kernel.project_dir%/var/data.db}"
 MAILER_DSN="${MAILER_DSN:-null://null}"
 MESSENGER_TRANSPORT_DSN="${MESSENGER_TRANSPORT_DSN:-sync://}"
+ASSET_VERSION="${ASSET_VERSION:-$(date +%Y%m%d%H%M%S)}"
 AUTO_MIGRATE=${AUTO_MIGRATE:-0}
 EOF
 fi

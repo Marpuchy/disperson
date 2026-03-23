@@ -1,59 +1,65 @@
 <?php
+
+declare(strict_types=1);
+
 namespace App\Entity;
 
+use App\Domain\Personality\PersonalityTrait;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[UniqueEntity(fields: ['email'], message: 'Ya existe una cuenta con este email.')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    public const ROLE_USER = 'ROLE_USER';
+    public const ROLE_ADMIN = 'ROLE_ADMIN';
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank(message: 'Introduce un email.')]
+    #[Assert\Email(message: 'Introduce un email válido.')]
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
 
     #[ORM\Column]
     private array $roles = [];
 
-    /**
-     * @var string The hashed password
-     */
+    #[Assert\NotBlank(message: 'Introduce una contraseña.')]
+    #[Assert\Length(min: 8, minMessage: 'La contraseña debe tener al menos {{ limit }} caracteres.')]
     #[ORM\Column]
     private ?string $password = null;
 
+    #[Assert\NotBlank(message: 'Introduce un nombre de usuario.')]
+    #[Assert\Length(min: 3, max: 255)]
     #[ORM\Column(length: 255)]
     private ?string $username = null;
 
-    // Atributos de los cuales se almacenan los valores
     #[ORM\Column]
-    private ?int $experiencia = 0;
-
-    #[ORM\Column]
-    private ?int $responsabilidad = 0;
+    private int $experiencia = 0;
 
     #[ORM\Column]
-    private ?int $extraversion = 0;
+    private int $responsabilidad = 0;
 
     #[ORM\Column]
-    private ?int $amabilidad = 0;
+    private int $extraversion = 0;
 
     #[ORM\Column]
-    private ?int $emocional = 0;
+    private int $amabilidad = 0;
 
+    #[ORM\Column]
+    private int $emocional = 0;
 
-    public function __construct()
+    public function __toString(): string
     {
-        // Asignar valores predeterminados a los atributos
-        $this->experiencia = 0;
-        $this->responsabilidad = 0;
-        $this->extraversion = 0;
-        $this->amabilidad = 0;
-        $this->emocional = 0;
+        return $this->username ?? $this->email ?? 'Usuario';
     }
 
     public function getId(): ?int
@@ -66,9 +72,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->email;
     }
 
-    public function setEmail(string $email): static
+    public function setEmail(string $email): self
     {
-        $this->email = $email;
+        $this->email = mb_strtolower(trim($email));
+
         return $this;
     }
 
@@ -80,30 +87,32 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        $roles[] = 'ROLE_USER'; // Asegurando que el usuario tenga al menos el rol "ROLE_USER"
-        return array_unique($roles);
+        $roles[] = self::ROLE_USER;
+
+        return array_values(array_unique($roles));
     }
 
-    public function setRoles(array $roles): static
+    public function setRoles(array $roles): self
     {
-        $this->roles = $roles;
+        $this->roles = array_values(array_unique($roles));
+
         return $this;
     }
 
     public function getPassword(): string
     {
-        return $this->password;
+        return (string) $this->password;
     }
 
-    public function setPassword(string $password): static
+    public function setPassword(string $password): self
     {
         $this->password = $password;
+
         return $this;
     }
 
     public function eraseCredentials(): void
     {
-        // Borrar cualquier dato sensible que se almacene temporalmente en el usuario
     }
 
     public function getUsername(): ?string
@@ -111,70 +120,89 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->username;
     }
 
-    public function setUsername(string $username): static
+    public function setUsername(string $username): self
     {
-        $this->username = $username;
+        $this->username = trim($username);
+
         return $this;
     }
 
-    // Métodos para "experiencia"
-    public function getExperiencia(): ?int
+    public function isAdmin(): bool
+    {
+        return in_array(self::ROLE_ADMIN, $this->getRoles(), true);
+    }
+
+    public function getExperiencia(): int
     {
         return $this->experiencia;
     }
 
-    public function setExperiencia(int $experiencia): static
+    public function setExperiencia(int $experiencia): self
     {
         $this->experiencia = $experiencia;
+
         return $this;
     }
 
-    // Métodos para "responsabilidad"
-    public function getResponsabilidad(): ?int
+    public function getResponsabilidad(): int
     {
         return $this->responsabilidad;
     }
 
-    public function setResponsabilidad(int $responsabilidad): static
+    public function setResponsabilidad(int $responsabilidad): self
     {
         $this->responsabilidad = $responsabilidad;
+
         return $this;
     }
 
-    // Métodos para "extraversion"
-    public function getExtraversion(): ?int
+    public function getExtraversion(): int
     {
         return $this->extraversion;
     }
 
-    public function setExtraversion(int $extraversion): static
+    public function setExtraversion(int $extraversion): self
     {
         $this->extraversion = $extraversion;
+
         return $this;
     }
 
-    // Métodos para "amabilidad"
-    public function getAmabilidad(): ?int
+    public function getAmabilidad(): int
     {
         return $this->amabilidad;
     }
 
-    public function setAmabilidad(int $amabilidad): static
+    public function setAmabilidad(int $amabilidad): self
     {
         $this->amabilidad = $amabilidad;
+
         return $this;
     }
 
-    // Métodos para "emocional"
-    public function getEmocional(): ?int
+    public function getEmocional(): int
     {
         return $this->emocional;
     }
 
-    public function setEmocional(int $emocional): static
+    public function setEmocional(int $emocional): self
     {
         $this->emocional = $emocional;
+
         return $this;
     }
 
+    /**
+     * @return array<string, int>
+     */
+    public function getTraitScores(): array
+    {
+        $scores = [];
+
+        foreach (PersonalityTrait::cases() as $trait) {
+            $scores[$trait->value] = $trait->scoreFor($this);
+        }
+
+        return $scores;
+    }
 }
