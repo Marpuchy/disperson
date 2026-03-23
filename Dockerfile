@@ -1,9 +1,20 @@
-FROM composer:2 AS vendor
+FROM composer:2 AS composer-bin
+
+FROM php:8.2-cli AS vendor
 
 WORKDIR /app
 
-# Symfony framework-bundle and security-bundle require ext-xml during composer install.
-RUN docker-php-ext-install xml
+RUN apt-get update && apt-get install -y \
+    git \
+    unzip \
+    libicu-dev \
+    libpq-dev \
+    libxml2-dev \
+    libzip-dev \
+    && docker-php-ext-install intl pdo_pgsql xml zip \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY --from=composer-bin /usr/bin/composer /usr/bin/composer
 
 COPY composer.json composer.lock symfony.lock ./
 RUN composer install \
@@ -23,6 +34,7 @@ RUN apt-get update && apt-get install -y \
     unzip \
     libicu-dev \
     libpq-dev \
+    libxml2-dev \
     libzip-dev \
     && docker-php-ext-install intl pdo_pgsql opcache xml zip \
     && a2enmod rewrite headers expires \
