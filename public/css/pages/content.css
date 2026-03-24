@@ -1,6 +1,6 @@
 .content-hero {
     position: relative;
-    padding: 4.1rem 0 2.2rem;
+    padding: clamp(3.1rem, 4.6vw, 4.4rem) 0 2.4rem;
 }
 
 .content-hero::after {
@@ -16,7 +16,7 @@
 }
 
 .section-block--dense {
-    padding: 3.2rem 0;
+    padding: clamp(3rem, 4vw, 4rem) 0;
 }
 
 .content-showcase,
@@ -30,23 +30,31 @@
 
 .content-showcase,
 .contact-stage {
-    grid-template-columns: minmax(0, 1fr) minmax(320px, 0.95fr);
-    align-items: center;
+    grid-template-columns: minmax(0, 0.84fr) minmax(0, 1.16fr);
+    align-items: start;
+}
+
+.content-intro {
+    display: grid;
+    align-content: start;
 }
 
 .content-intro h1 {
-    font-size: clamp(2.7rem, 5vw, 4.7rem);
+    max-width: 13ch;
+    font-size: clamp(2.7rem, 5vw, 4.5rem);
     margin-bottom: 1rem;
+    line-height: 0.98;
+    text-wrap: balance;
 }
 
 .content-intro .lead-text {
-    max-width: 42rem;
+    max-width: 58ch;
 }
 
 .hero-actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.9rem;
+    gap: 0.85rem;
 }
 
 .manifesto-card,
@@ -60,7 +68,7 @@
     position: relative;
     overflow: hidden;
     border-radius: var(--radius-lg);
-    background: linear-gradient(180deg, rgba(33, 18, 58, 0.82), rgba(13, 7, 24, 0.92));
+    background: linear-gradient(180deg, rgba(33, 18, 58, 0.84), rgba(13, 7, 24, 0.94));
     border: 1px solid var(--border);
     box-shadow: var(--shadow-md);
     backdrop-filter: blur(16px);
@@ -93,33 +101,25 @@
     padding: 1.4rem;
 }
 
-.manifesto-card,
-.contact-spotlight,
-.contact-board__aside {
+.manifesto-card {
     display: grid;
+    grid-template-columns: minmax(0, 1fr) 200px;
+    align-items: stretch;
     gap: 1rem;
 }
 
 .manifesto-card__thumbs,
-.manifesto-card__stats,
-.contact-spotlight__meta,
-.contact-board__aside-thumbs,
-.trait-rail,
-.contact-board__grid {
-    display: grid;
-    gap: 0.8rem;
-}
-
-.manifesto-card__thumbs,
 .contact-board__aside-thumbs {
+    display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.8rem;
 }
 
 .manifesto-card__thumb,
 .contact-board__aside-thumb {
     position: relative;
     overflow: hidden;
-    border-radius: 1.25rem;
+    border-radius: 1.2rem;
     aspect-ratio: 1 / 1;
 }
 
@@ -142,13 +142,14 @@
 
 .manifesto-card__stats,
 .contact-spotlight__meta {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    display: grid;
+    gap: 0.75rem;
 }
 
 .manifesto-card__stats > div,
 .contact-spotlight__meta > div {
     display: grid;
-    gap: 0.25rem;
+    gap: 0.2rem;
     padding: 0.85rem;
     border-radius: 1rem;
     border: 1px solid rgba(228, 205, 255, 0.12);
@@ -170,35 +171,13 @@
 
 .about-mosaic {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-rows: 1fr;
 }
 
-.about-mosaic__wide {
-    grid-column: span 2;
-}
-
-.trait-rail {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-}
-
-.trait-rail__item {
+.about-pillar {
     display: grid;
-    gap: 0.8rem;
-    padding: 1rem;
-    border-radius: 1.2rem;
-    border: 1px solid rgba(228, 205, 255, 0.12);
-    background: linear-gradient(180deg, rgba(42, 21, 70, 0.74), rgba(16, 9, 30, 0.92));
-    box-shadow: var(--shadow-sm);
-    transition: transform var(--transition), box-shadow var(--transition);
-}
-
-.section-heading--compact {
-    max-width: none;
-    margin-bottom: 1.05rem;
-}
-
-.section-heading--compact h2 {
-    margin-bottom: 0;
-    font-size: clamp(2rem, 3.2vw, 3rem);
+    grid-template-rows: auto auto 1fr;
+    gap: 0.75rem;
 }
 
 .about-pillar h2,
@@ -206,8 +185,8 @@
 .contact-spotlight h2,
 .workflow-board__lead h2,
 .about-mosaic__wide h2 {
-    margin-bottom: 0.75rem;
-    font-size: clamp(1.8rem, 3vw, 2.45rem);
+    margin-bottom: 0.7rem;
+    font-size: clamp(1.7rem, 2.7vw, 2.35rem);
 }
 
 .about-pillar p,
@@ -218,6 +197,39 @@
 .team-card p {
     color: var(--muted);
     line-height: 1.68;
+}
+
+.about-mosaic__wide {
+    grid-column: 1 / -1;
+    display: grid;
+    gap: 1rem;
+}
+
+.section-heading--compact {
+    max-width: none;
+    margin-bottom: 0;
+}
+
+.section-heading--compact h2 {
+    margin-bottom: 0;
+    font-size: clamp(2rem, 3.2vw, 3rem);
+}
+
+.trait-rail {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.8rem;
+}
+
+.trait-rail__item {
+    display: grid;
+    gap: 0.75rem;
+    padding: 1rem;
+    border-radius: 1.2rem;
+    border: 1px solid rgba(228, 205, 255, 0.12);
+    background: linear-gradient(180deg, rgba(42, 21, 70, 0.74), rgba(16, 9, 30, 0.92));
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition), box-shadow var(--transition);
 }
 
 .trait-wall__letter {
@@ -234,9 +246,16 @@
     box-shadow: 0 10px 28px rgba(109, 40, 217, 0.22);
 }
 
+.workflow-board {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    align-items: start;
+}
+
 .workflow-board__lead,
-.contact-board__aside,
-.contact-spotlight {
+.contact-spotlight,
+.contact-board__aside {
+    display: grid;
+    gap: 1rem;
     background:
         radial-gradient(circle at top right, rgba(244, 114, 255, 0.16), transparent 38%),
         linear-gradient(145deg, rgba(53, 24, 94, 0.9), rgba(14, 8, 24, 0.94));
@@ -244,14 +263,14 @@
 
 .journey-strip {
     display: grid;
-    gap: 0.45rem;
+    gap: 0.35rem;
 }
 
 .journey-step {
     display: grid;
     grid-template-columns: auto 1fr;
-    gap: 0.9rem;
-    padding: 0.95rem 0;
+    gap: 0.95rem;
+    padding: 1rem 0;
     border-top: 1px solid rgba(228, 205, 255, 0.1);
 }
 
@@ -264,8 +283,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 2.3rem;
-    height: 2.3rem;
+    width: 2.4rem;
+    height: 2.4rem;
     border-radius: 0.95rem;
     background: linear-gradient(145deg, rgba(244, 114, 255, 0.24), rgba(124, 58, 237, 0.18));
     color: var(--text-strong);
@@ -273,28 +292,58 @@
     font-weight: 700;
 }
 
-.contact-board {
-    grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
-    align-items: start;
-}
-
-.contact-board__grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
 .team-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: 1fr;
     gap: 1rem;
 }
 
+.team-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    padding: 1.25rem;
+}
+
 .team-card__eyebrow {
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.1rem;
     color: #f0c6ff;
     font-size: 0.78rem;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.12em;
+}
+
+.team-card .site-btn {
+    margin-top: auto;
+    align-self: flex-start;
+}
+
+.contact-stage {
+    grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+}
+
+.contact-board {
+    grid-template-columns: minmax(0, 1.02fr) minmax(320px, 0.98fr);
+    align-items: start;
+}
+
+.contact-board__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-auto-rows: 1fr;
+    gap: 1rem;
+}
+
+.contact-card {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 0.85rem;
+}
+
+.contact-board__aside-thumbs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .manifesto-card:hover,
@@ -315,21 +364,28 @@
     transform: scale(1.04);
 }
 
-@media (max-width: 1080px) {
+@media (max-width: 1180px) {
     .content-showcase,
     .contact-stage,
-    .about-mosaic,
+    .workflow-board,
     .contact-board {
         grid-template-columns: 1fr;
     }
+}
 
-    .about-mosaic__wide {
-        grid-column: auto;
+@media (max-width: 980px) {
+    .about-mosaic {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-auto-rows: auto;
     }
 
-    .trait-rail,
-    .contact-board__grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+    .manifesto-card {
+        grid-template-columns: 1fr;
+    }
+
+    .manifesto-card__stats,
+    .contact-spotlight__meta {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
 
@@ -338,13 +394,21 @@
         padding-top: 3rem;
     }
 
-    .manifesto-card__thumbs,
+    .content-intro h1 {
+        max-width: 12ch;
+        font-size: clamp(2.3rem, 9vw, 3.6rem);
+    }
+
+    .about-mosaic,
+    .team-grid,
     .manifesto-card__stats,
     .contact-spotlight__meta,
+    .contact-board__aside-thumbs {
+        grid-template-columns: 1fr;
+    }
+
     .trait-rail,
-    .contact-board__grid,
-    .contact-board__aside-thumbs,
-    .team-grid {
+    .contact-board__grid {
         grid-template-columns: 1fr;
     }
 }

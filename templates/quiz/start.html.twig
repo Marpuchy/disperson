@@ -13,27 +13,19 @@
 
 {% block content %}
     {% set questionChunks = questions|batch(2) %}
+    {% set answerPreview = [
+        {'label': 'Muy en desacuerdo', 'icon': '&#128557;'},
+        {'label': 'En desacuerdo', 'icon': '&#128533;'},
+        {'label': 'Neutral', 'icon': '&#128528;'},
+        {'label': 'De acuerdo', 'icon': '&#128578;'},
+        {'label': 'Muy de acuerdo', 'icon': '&#128515;'}
+    ] %}
 
     <section class="quiz-shell" data-quiz-root>
-        <div class="quiz-intro" data-reveal>
-            <span class="section-tag">Cuestionario</span>
-            <h1>Responde con honestidad y deja que tu mapa OCEAN tome forma.</h1>
-            <p>
-                Cada respuesta alimenta una de las cinco dimensiones del modelo Big Five. El cuestionario se recupera desde la base de datos
-                y conserva la lógica original de puntuación, inversión de ítems y persistencia del proyecto.
-            </p>
-
-            <div class="quiz-intro__meta">
-                <span>{{ question_count }} preguntas desde base de datos</span>
-                <span>Escala de -2 a 2</span>
-                <span>Resultado persistido por usuario</span>
-            </div>
-        </div>
-
         {% if question_count == 0 %}
             <div class="empty-state" data-reveal>
                 <span class="section-tag">Banco de preguntas</span>
-                <h2>No hay preguntas válidas disponibles.</h2>
+                <h2>No hay preguntas validas disponibles.</h2>
                 <p>
                     Disperson depende de preguntas guardadas en base de datos. Revisa el panel admin o ejecuta la semilla de datos para restaurar el banco.
                 </p>
@@ -44,91 +36,140 @@
                 {% endif %}
             </div>
         {% else %}
-            {% if invalid_question_count > 0 %}
-                <div class="status-panel status-panel--warning" data-reveal>
-                    <strong>Se omitieron {{ invalid_question_count }} preguntas mal configuradas.</strong>
-                    <p>
-                        El cuestionario sigue funcionando con las preguntas válidas. Revisa el panel admin para corregir rasgos duplicados, vacíos o pesos distintos de 1 / -1.
-                    </p>
+            <div class="quiz-experience">
+                <section class="quiz-welcome" data-quiz-intro data-reveal>
+                    <div class="quiz-welcome__copy">
+                        <span class="section-tag">Cuestionario</span>
+                        <h1>Responde con honestidad y deja que tu mapa OCEAN tome forma.</h1>
+                        <p>
+                            Cada respuesta alimenta una de las cinco dimensiones del modelo Big Five. El cuestionario se recupera desde la base de datos
+                            y conserva la logica original de puntuacion, inversion de items y persistencia del proyecto.
+                        </p>
 
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <ul class="status-panel__list">
-                            {% for question in invalid_questions %}
-                                <li>
-                                    <span>#{{ question.id ?? 'sin ID' }}</span>
-                                    <span>{{ question.reason }}</span>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    {% endif %}
-                </div>
-            {% endif %}
+                        <div class="quiz-intro__meta">
+                            <span>{{ question_count }} preguntas desde base de datos</span>
+                            <span>2 preguntas por bloque</span>
+                            <span>Resultado persistido por usuario</span>
+                        </div>
 
-            <div class="quiz-frame" data-reveal>
-                <div class="quiz-frame__top">
-                    <div>
-                        <p class="quiz-frame__eyebrow">Progreso emocional</p>
-                        <h2>Paso <span data-quiz-current-step>1</span> de {{ questionChunks|length }}</h2>
+                        <div class="quiz-welcome__actions">
+                            <button type="button" class="btn btn-primary site-btn" data-quiz-start>Comenzar cuestionario</button>
+                            <a href="{{ path('app_about') }}" class="btn btn-outline-primary site-btn site-btn--ghost">Ver modelo OCEAN</a>
+                        </div>
                     </div>
-                    <span class="quiz-frame__counter">{{ question_count }} preguntas válidas</span>
-                </div>
 
-                <div class="quiz-progress" aria-hidden="true">
-                    <span data-quiz-progress></span>
-                </div>
-
-                <form action="{{ path('app_quiz_submit') }}" method="post" data-quiz-form>
-                    <input type="hidden" name="_token" value="{{ csrf_token('quiz_submit') }}">
-
-                    {% for chunk in questionChunks %}
-                        {% set chunkIndex = loop.index0 %}
-                        <section class="quiz-step {% if loop.first %}is-active{% endif %}" data-quiz-step {% if not loop.first %}hidden{% endif %}>
-                            <div class="quiz-question-grid">
-                                {% for question in chunk %}
-                                    {% set questionNumber = chunkIndex * 2 + loop.index %}
-                                    <article class="question-card">
-                                        <div class="question-card__header">
-                                            <span class="question-card__number">Pregunta {{ questionNumber }}</span>
-                                            <h3>{{ question.content }}</h3>
-                                        </div>
-
-                                        <div class="answer-scale">
-                                            {% for option in [
-                                                {'value': -2, 'label': 'Muy en desacuerdo', 'detail': 'No me representa', 'icon': '&#128557;', 'tone': 1},
-                                                {'value': -1, 'label': 'En desacuerdo', 'detail': 'Me aleja', 'icon': '&#128533;', 'tone': 2},
-                                                {'value': 0, 'label': 'Neutral', 'detail': 'Depende', 'icon': '&#128528;', 'tone': 3},
-                                                {'value': 1, 'label': 'De acuerdo', 'detail': 'Se parece a mí', 'icon': '&#128578;', 'tone': 4},
-                                                {'value': 2, 'label': 'Muy de acuerdo', 'detail': 'Me representa', 'icon': '&#128515;', 'tone': 5}
-                                            ] %}
-                                                <label class="answer-scale__option answer-scale__option--tone-{{ option.tone }}">
-                                                    <input
-                                                        type="radio"
-                                                        name="question_{{ question.id }}"
-                                                        value="{{ option.value }}"
-                                                        {% if option.value == 0 %}checked{% endif %}
-                                                    >
-                                                    <span>
-                                                        <span class="answer-scale__face" aria-hidden="true">{{ option.icon|raw }}</span>
-                                                        <span class="answer-scale__copy">
-                                                            <strong>{{ option.label }}</strong>
-                                                            <small>{{ option.detail }}</small>
-                                                        </span>
-                                                    </span>
-                                                </label>
-                                            {% endfor %}
-                                        </div>
-                                    </article>
+                    <div class="quiz-welcome__aside">
+                        <article class="quiz-note-card">
+                            <p class="quiz-note-card__eyebrow">Escala emocional</p>
+                            <div class="quiz-scale-preview" aria-hidden="true">
+                                {% for option in answerPreview %}
+                                    <span class="quiz-scale-preview__item">
+                                        <span>{{ option.icon|raw }}</span>
+                                        <small>{{ option.label }}</small>
+                                    </span>
                                 {% endfor %}
                             </div>
-                        </section>
-                    {% endfor %}
+                        </article>
 
-                    <div class="quiz-actions">
-                        <button type="button" class="btn btn-outline-primary site-btn site-btn--ghost" data-quiz-prev disabled>Anterior</button>
-                        <button type="button" class="btn btn-primary site-btn" data-quiz-next>Siguiente bloque</button>
-                        <button type="submit" class="btn btn-primary site-btn" data-quiz-submit hidden>Ver resultados</button>
+                        <article class="quiz-note-card">
+                            <p class="quiz-note-card__eyebrow">Como se interpreta</p>
+                            <ul class="quiz-note-card__list">
+                                <li>Se mantiene la escala original de -2 a 2.</li>
+                                <li>Las preguntas invertidas corrigen su peso automaticamente.</li>
+                                <li>El resultado final se guarda en tu usuario y alimenta el perfil.</li>
+                            </ul>
+                        </article>
                     </div>
-                </form>
+                </section>
+
+                {% if invalid_question_count > 0 %}
+                    <div class="status-panel status-panel--warning" data-reveal>
+                        <strong>Se omitieron {{ invalid_question_count }} preguntas mal configuradas.</strong>
+                        <p>
+                            El cuestionario sigue funcionando con las preguntas validas. Revisa el panel admin para corregir rasgos duplicados, vacios o pesos distintos de 1 / -1.
+                        </p>
+
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <ul class="status-panel__list">
+                                {% for question in invalid_questions %}
+                                    <li>
+                                        <span>#{{ question.id ?? 'sin ID' }}</span>
+                                        <span>{{ question.reason }}</span>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                {% endif %}
+
+                <div class="quiz-stage" data-quiz-stage hidden>
+                    <div class="quiz-frame">
+                        <div class="quiz-frame__top">
+                            <div>
+                                <p class="quiz-frame__eyebrow">Progreso emocional</p>
+                                <h2>Paso <span data-quiz-current-step>1</span> de {{ questionChunks|length }}</h2>
+                            </div>
+                            <span class="quiz-frame__counter">{{ question_count }} preguntas validas</span>
+                        </div>
+
+                        <div class="quiz-progress" aria-hidden="true">
+                            <span data-quiz-progress></span>
+                        </div>
+
+                        <form action="{{ path('app_quiz_submit') }}" method="post" data-quiz-form>
+                            <input type="hidden" name="_token" value="{{ csrf_token('quiz_submit') }}">
+
+                            {% for chunk in questionChunks %}
+                                {% set chunkIndex = loop.index0 %}
+                                <section class="quiz-step {% if loop.first %}is-active{% endif %}" data-quiz-step {% if not loop.first %}hidden{% endif %}>
+                                    <div class="quiz-question-grid">
+                                        {% for question in chunk %}
+                                            {% set questionNumber = chunkIndex * 2 + loop.index %}
+                                            <article class="question-card">
+                                                <div class="question-card__header">
+                                                    <span class="question-card__number">Pregunta {{ questionNumber }}</span>
+                                                    <h3>{{ question.content }}</h3>
+                                                </div>
+
+                                                <div class="answer-scale">
+                                                    {% for option in [
+                                                        {'value': -2, 'label': 'Muy en desacuerdo', 'detail': 'No me representa', 'icon': '&#128557;', 'tone': 1},
+                                                        {'value': -1, 'label': 'En desacuerdo', 'detail': 'Me aleja', 'icon': '&#128533;', 'tone': 2},
+                                                        {'value': 0, 'label': 'Neutral', 'detail': 'Depende', 'icon': '&#128528;', 'tone': 3},
+                                                        {'value': 1, 'label': 'De acuerdo', 'detail': 'Se parece a mi', 'icon': '&#128578;', 'tone': 4},
+                                                        {'value': 2, 'label': 'Muy de acuerdo', 'detail': 'Me representa', 'icon': '&#128515;', 'tone': 5}
+                                                    ] %}
+                                                        <label class="answer-scale__option answer-scale__option--tone-{{ option.tone }}">
+                                                            <input
+                                                                type="radio"
+                                                                name="question_{{ question.id }}"
+                                                                value="{{ option.value }}"
+                                                                {% if option.value == 0 %}checked{% endif %}
+                                                            >
+                                                            <span>
+                                                                <span class="answer-scale__face" aria-hidden="true">{{ option.icon|raw }}</span>
+                                                                <span class="answer-scale__copy">
+                                                                    <strong>{{ option.label }}</strong>
+                                                                    <small>{{ option.detail }}</small>
+                                                                </span>
+                                                            </span>
+                                                        </label>
+                                                    {% endfor %}
+                                                </div>
+                                            </article>
+                                        {% endfor %}
+                                    </div>
+                                </section>
+                            {% endfor %}
+
+                            <div class="quiz-actions">
+                                <button type="button" class="btn btn-outline-primary site-btn site-btn--ghost" data-quiz-prev disabled>Anterior</button>
+                                <button type="button" class="btn btn-primary site-btn" data-quiz-next>Siguiente bloque</button>
+                                <button type="submit" class="btn btn-primary site-btn" data-quiz-submit hidden>Ver resultados</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         {% endif %}
     </section>

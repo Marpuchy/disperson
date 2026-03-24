@@ -47,8 +47,7 @@ final class SeedDemoDataCommand extends Command
         $refresh = (bool) $input->getOption('refresh');
 
         if ($refresh) {
-            $this->entityManager->createQuery('DELETE FROM App\Entity\Question question')->execute();
-            $this->entityManager->createQuery('DELETE FROM App\Entity\Character character')->execute();
+            $this->resetSeedData();
             $io->note('Se han limpiado preguntas y personajes existentes.');
         }
 
@@ -99,6 +98,30 @@ final class SeedDemoDataCommand extends Command
         $io->note('Si quieres restaurar el set oficial de preguntas o ajustar personajes, puedes hacerlo desde el panel admin.');
 
         return Command::SUCCESS;
+    }
+
+    private function resetSeedData(): void
+    {
+        $connection = $this->entityManager->getConnection();
+        $platform = $connection->getDatabasePlatform()->getName();
+
+        if ($platform === 'sqlite') {
+            $connection->executeStatement('DELETE FROM question');
+            $connection->executeStatement('DELETE FROM "character"');
+            $connection->executeStatement("DELETE FROM sqlite_sequence WHERE name IN ('question', 'character')");
+
+            return;
+        }
+
+        if ($platform === 'postgresql') {
+            $connection->executeStatement('TRUNCATE TABLE question RESTART IDENTITY CASCADE');
+            $connection->executeStatement('TRUNCATE TABLE "character" RESTART IDENTITY CASCADE');
+
+            return;
+        }
+
+        $this->entityManager->createQuery('DELETE FROM App\Entity\Question question')->execute();
+        $this->entityManager->createQuery('DELETE FROM App\Entity\Character character')->execute();
     }
 
     /**

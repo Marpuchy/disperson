@@ -7,15 +7,14 @@ export function SiteFooter() {
         <div>
           <p className="site-footer__title">Disperson</p>
           <p className="site-footer__copy">
-            Big Five / OCEAN, perfiles persistidos y una capa visual de personajes en la misma experiencia.
+            Big Five / OCEAN, lectura visual y personajes asociados en una misma experiencia de autoconocimiento.
           </p>
         </div>
 
         <div className="site-footer__links">
-          <Link href="/about">Proyecto</Link>
+          <Link href="/about">Enfoque</Link>
           <Link href="/contact">Contacto</Link>
           <Link href="/profile">Perfil</Link>
-          <Link href="/admin">Admin</Link>
         </div>
       </div>
     </footer>

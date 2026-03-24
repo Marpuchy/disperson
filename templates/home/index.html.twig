@@ -9,253 +9,295 @@
 {% endblock %}
 
 {% block content %}
-    {% set visual_panels = [
+    {% set hero_scores = [
+        { label: 'Experiencia', value: 78 },
+        { label: 'Responsabilidad', value: 64 },
+        { label: 'Amabilidad', value: 71 }
+    ] %}
+
+    {% set ocean_teasers = {
+        experiencia: 'Curiosidad, imaginacion y apertura ante lo nuevo.',
+        responsabilidad: 'Orden, constancia y capacidad para sostener compromisos.',
+        extraversion: 'Energia social, iniciativa y comodidad en contextos activos.',
+        amabilidad: 'Empatia, cooperacion y sensibilidad hacia los demas.',
+        emocional: 'Calma, regulacion y respuesta equilibrada ante la presion.'
+    } %}
+
+    {% set journey_steps = [
         {
-            image: '24.jpg',
-            eyebrow: 'Resultado principal',
-            title: 'Un retrato visual para el rasgo que mas define tu perfil.',
-            text: 'La primera lectura mezcla puntuacion, nivel y personaje asociado en una sola escena.'
+            index: '01',
+            title: 'Responde con naturalidad',
+            text: 'Cada bloque te invita a reaccionar ante situaciones cotidianas para captar como sueles pensar, sentir y actuar.'
         },
         {
-            image: '7.jpg',
-            eyebrow: 'Memoria del perfil',
-            title: 'Asociaciones faciles de recordar',
-            text: 'La capa Disney ayuda a volver a una lectura mas emocional sin quitarle peso al modelo.'
+            index: '02',
+            title: 'Observa tu mapa de rasgos',
+            text: 'La lectura transforma tus respuestas en un retrato OCEAN facil de entender, con matices y equilibrio entre dimensiones.'
         },
         {
-            image: '20.jpg',
-            eyebrow: 'Banco visual',
-            title: 'Mas de un resultado posible',
-            text: 'Cada combinacion de rasgo y nivel puede apuntar a un personaje diferente dentro del sistema.'
+            index: '03',
+            title: 'Reconoce tu reflejo visual',
+            text: 'El perfil final une interpretacion psicologica y una asociacion visual para que la experiencia deje una huella mas emocional.'
+        }
+    ] %}
+
+    {% set collaborators = [
+        {
+            eyebrow: 'Autoria',
+            title: 'Marc Ibanez Puchol',
+            text: 'Direccion creativa, narrativa visual y construccion de una experiencia centrada en personalidad, atmosfera y lectura interpretativa.'
+        },
+        {
+            eyebrow: 'Colaboracion UJI',
+            title: 'Base psicometrica',
+            text: 'La experiencia se apoya en una colaboracion real que aporta contexto academico al cuestionario y su narrativa.'
+        }
+    ] %}
+
+    {% set access_cards = [
+        {
+            index: '01',
+            title: 'Entrar en tu espacio',
+            text: 'Accede a una experiencia personal para comenzar o retomar tu lectura de rasgos.',
+            href: path('app_login'),
+            label: 'Entrar'
+        },
+        {
+            index: '02',
+            title: 'Test',
+            text: 'Responde el cuestionario y descubre como se distribuyen tus cinco dimensiones de personalidad.',
+            href: path('app_quiz_start'),
+            label: 'Ir al test'
+        },
+        {
+            index: '03',
+            title: 'Conocer el enfoque',
+            text: 'Explora la idea que une autoconocimiento, interpretacion y una capa visual inspirada en personajes.',
+            href: path('app_about'),
+            label: 'Saber mas'
         }
     ] %}
 
     <section class="hero-section">
-        <div class="container-xxl hero-showcase">
+        <div class="container-xxl hero-layout">
             <div class="hero-copy" data-reveal>
                 <span class="section-tag">Big Five / OCEAN / Perfil visual</span>
                 <h1>Descubre tu mezcla de rasgos y conviertela en un perfil visual con atmosfera propia.</h1>
                 <p class="lead-text">
-                    Disperson une psicologia interpretativa, preguntas dinamicas y una capa Disney que vuelve el resultado
-                    mas memorable sin sacar a OCEAN del centro.
+                    Disperson convierte la exploracion de la personalidad en una experiencia guiada, visual y facil de recordar.
                 </p>
 
                 <div class="hero-actions">
                     <a class="btn btn-primary site-btn" href="{{ path('app_quiz_start') }}">Empezar test</a>
-                    <a class="btn btn-outline-primary site-btn site-btn--ghost" href="{{ path('app_about') }}">Como funciona</a>
+                    <a class="btn btn-outline-primary site-btn site-btn--ghost" href="{{ path('app_about') }}">Conocer la experiencia</a>
                 </div>
 
-                <div class="hero-metrics">
-                    <div class="hero-metric">
+                <div class="hero-stats" aria-label="Indicadores clave del producto">
+                    <div class="hero-stat">
                         <strong>5</strong>
-                        <span>dimensiones OCEAN</span>
+                        <span>dimensiones de personalidad</span>
                     </div>
-                    <div class="hero-metric">
-                        <strong>BD</strong>
-                        <span>preguntas dinamicas</span>
+                    <div class="hero-stat">
+                        <strong>Lectura</strong>
+                        <span>interpretacion clara</span>
                     </div>
-                    <div class="hero-metric">
-                        <strong>1</strong>
-                        <span>perfil persistido por usuario</span>
+                    <div class="hero-stat">
+                        <strong>Perfil</strong>
+                        <span>visual unico</span>
                     </div>
-                </div>
-
-                <div class="signal-ribbon">
-                    <span class="signal-pill">Big Five en el centro</span>
-                    <span class="signal-pill">Preguntas dinamicas desde BD</span>
-                    <span class="signal-pill">Perfil visual persistido</span>
                 </div>
             </div>
 
-            <div class="hero-stage" data-reveal>
-                <article class="hero-card hero-card--primary hero-stage__panel">
-                    <div class="hero-stage__media">
-                        <img
-                            src="{{ asset('resources/characters/' ~ visual_panels[0].image) }}"
-                            alt="Resultado visual principal de Disperson"
-                            width="560"
-                            height="700"
-                            decoding="async"
-                            fetchpriority="high"
-                        >
+            <div class="hero-visual" data-reveal>
+                <article class="hero-showcase-card">
+                    <div class="hero-showcase-card__overview">
+                        <div class="hero-showcase-card__header">
+                            <p class="hero-card__eyebrow">Preview del resultado</p>
+                            <h2>Un retrato de personalidad que se entiende rapido y se recuerda mejor.</h2>
+                        </div>
+
+                        <p class="hero-showcase-card__summary">
+                            Rasgos, interpretacion y personaje asociado aparecen en una sola escena para que la lectura se sienta inmediata.
+                        </p>
                     </div>
 
-                    <div class="hero-stage__body">
-                        <div>
-                            <p class="hero-card__eyebrow">Resultado principal</p>
-                            <h2>Rasgo dominante, nivel y personaje asociado en una sola mirada.</h2>
-                            <p>
-                                El flujo cruza scoring, interpretacion y narrativa visual para que el perfil se vea mas cercano
-                                desde la primera pantalla.
-                            </p>
-                        </div>
-
-                        <div class="hero-stage__meta">
-                            <div class="hero-stage__metric">
-                                <span>Modelo</span>
-                                <strong>OCEAN</strong>
-                            </div>
-                            <div class="hero-stage__metric">
-                                <span>Salida</span>
-                                <strong>Radar + perfil</strong>
-                            </div>
-                            <div class="hero-stage__metric">
-                                <span>Lectura</span>
-                                <strong>Psico + visual</strong>
+                    <div class="hero-showcase-card__main">
+                        <div class="hero-showcase-card__media">
+                            <div class="hero-showcase-card__media-frame">
+                                <img
+                                    src="{{ asset('resources/characters/24.jpg') }}"
+                                    alt="Representacion visual del resultado de Disperson"
+                                    width="760"
+                                    height="940"
+                                    decoding="async"
+                                    fetchpriority="high"
+                                >
                             </div>
                         </div>
 
-                        <div class="hero-orbit">
-                            {% for trait in traits %}
-                                <div class="hero-orbit__node">
-                                    <strong>{{ trait.letter }}</strong>
-                                    <span>{{ trait.navigation_label }}</span>
-                                </div>
-                            {% endfor %}
+                        <div class="hero-radar-preview">
+                            <div class="hero-radar-preview__chart" aria-hidden="true">
+                                <svg viewBox="0 0 220 220" role="presentation">
+                                    <polygon class="hero-radar-preview__grid" points="110,22 192,83 160,184 60,184 28,83"></polygon>
+                                    <polygon class="hero-radar-preview__grid" points="110,48 167,90 145,160 75,160 53,90"></polygon>
+                                    <polygon class="hero-radar-preview__grid" points="110,74 142,98 131,136 89,136 78,98"></polygon>
+                                    <line class="hero-radar-preview__axis" x1="110" y1="110" x2="110" y2="22"></line>
+                                    <line class="hero-radar-preview__axis" x1="110" y1="110" x2="192" y2="83"></line>
+                                    <line class="hero-radar-preview__axis" x1="110" y1="110" x2="160" y2="184"></line>
+                                    <line class="hero-radar-preview__axis" x1="110" y1="110" x2="60" y2="184"></line>
+                                    <line class="hero-radar-preview__axis" x1="110" y1="110" x2="28" y2="83"></line>
+                                    <polygon class="hero-radar-preview__shape" points="110,41 163,94 145,150 82,164 70,89"></polygon>
+                                    <circle class="hero-radar-preview__point" cx="110" cy="41" r="5"></circle>
+                                    <circle class="hero-radar-preview__point" cx="163" cy="94" r="5"></circle>
+                                    <circle class="hero-radar-preview__point" cx="145" cy="150" r="5"></circle>
+                                    <circle class="hero-radar-preview__point" cx="82" cy="164" r="5"></circle>
+                                    <circle class="hero-radar-preview__point" cx="70" cy="89" r="5"></circle>
+                                </svg>
+                            </div>
+
+                            <div class="hero-radar-preview__scores">
+                                {% for score in hero_scores %}
+                                    <div class="hero-score-row">
+                                        <div class="hero-score-row__copy">
+                                            <span>{{ score.label }}</span>
+                                            <div class="hero-score-row__bar" style="--fill: {{ score.value }}%;"></div>
+                                        </div>
+                                        <strong>{{ score.value }}</strong>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hero-showcase-card__metrics">
+                        <div class="hero-showcase-card__metric">
+                            <strong>Lectura</strong>
+                            <span>Mapa de rasgos claro</span>
+                        </div>
+                        <div class="hero-showcase-card__metric">
+                            <strong>Interpretacion</strong>
+                            <span>Significado facil de recorrer</span>
+                        </div>
+                        <div class="hero-showcase-card__metric">
+                            <strong>Personaje</strong>
+                            <span>Asociacion emocional del perfil</span>
                         </div>
                     </div>
                 </article>
-
-                <div class="hero-stage__side">
-                    {% for panel in visual_panels|slice(1) %}
-                        <article class="hero-card hero-mini-card">
-                            <div class="hero-mini-card__thumb">
-                                <img
-                                    src="{{ asset('resources/characters/' ~ panel.image) }}"
-                                    alt="{{ panel.title }}"
-                                    width="320"
-                                    height="320"
-                                    loading="lazy"
-                                    decoding="async"
-                                >
-                            </div>
-                            <div>
-                                <p class="hero-card__eyebrow">{{ panel.eyebrow }}</p>
-                                <h3>{{ panel.title }}</h3>
-                                <p>{{ panel.text }}</p>
-                            </div>
-                        </article>
-                    {% endfor %}
-                </div>
             </div>
         </div>
     </section>
 
-    <section class="section-block section-block--dense" data-deferred>
-        <div class="container-xxl landing-mosaic">
-            <article class="feature-card landing-mosaic__wide" data-reveal>
-                <div class="section-heading section-heading--compact">
-                    <span class="section-tag">Recorrido</span>
-                    <h2>De respuestas guardadas a un perfil que se entiende rapido y se recuerda mejor.</h2>
-                </div>
+    <section class="section-block home-section home-section--clean" data-deferred>
+        <div class="container-xxl ocean-section">
+            <div class="ocean-section__intro" data-reveal>
+                <span class="section-tag">El nucleo de la experiencia</span>
+                <h2>Las cinco dimensiones OCEAN ordenan toda la experiencia.</h2>
+                <p>
+                    Cada rasgo ilumina una parte distinta de tu manera de estar en el mundo. La capa visual acompana, pero la lectura nace siempre del Big Five.
+                </p>
+            </div>
 
-                <div class="journey-strip">
-                    <article class="journey-step">
-                        <span class="journey-step__index">01</span>
-                        <div>
-                            <h3>Banco de preguntas real</h3>
-                            <p>Doctrine recupera preguntas editables en base de datos para que el test no dependa de arrays estaticos.</p>
-                        </div>
-                    </article>
-                    <article class="journey-step">
-                        <span class="journey-step__index">02</span>
-                        <div>
-                            <h3>Scoring fiel al proyecto</h3>
-                            <p>Las respuestas se traducen a una escala 0-100 con inversion de items, clamp y persistencia por usuario.</p>
-                        </div>
-                    </article>
-                    <article class="journey-step">
-                        <span class="journey-step__index">03</span>
-                        <div>
-                            <h3>Resultado memorable</h3>
-                            <p>El perfil combina interpretacion psicologica, radar y personajes como capa emocional del resultado.</p>
-                        </div>
-                    </article>
-                </div>
-            </article>
-
-            <article class="feature-card mosaic-note" data-reveal>
-                <p class="hero-card__eyebrow">Base psicologica</p>
-                <h3>OCEAN sigue siendo el nucleo de toda la experiencia.</h3>
-                <p>La capa visual hace mas recordable el resultado, pero no reemplaza el modelo ni el sentido interpretativo del proyecto.</p>
-            </article>
-
-            <article class="feature-card mosaic-note" data-reveal>
-                <p class="hero-card__eyebrow">Narrativa visual</p>
-                <h3>El personaje aparece como recompensa, no como maquillaje.</h3>
-                <p>Se ve pronto, se entiende rapido y convierte el perfil en algo mas facil de recordar y compartir.</p>
-            </article>
-        </div>
-    </section>
-
-    <section class="section-block section-block--dense" data-deferred>
-        <div class="container-xxl discovery-layout">
-            <article class="feature-card trait-wall" data-reveal>
-                <div class="section-heading section-heading--compact">
-                    <span class="section-tag">Modelo OCEAN</span>
-                    <h2>Cinco dimensiones visibles en una misma escena.</h2>
-                </div>
-
-                <div class="trait-wall__grid">
-                    {% for trait in traits %}
-                        <article class="trait-wall__card">
-                            <div class="trait-wall__top">
-                                <span class="trait-wall__letter">{{ trait.letter }}</span>
-                                <p class="hero-card__eyebrow">{{ trait.label }}</p>
+            <div class="ocean-grid">
+                <div class="ocean-grid__row ocean-grid__row--top">
+                    {% for trait in traits|slice(0, 3) %}
+                        <article class="ocean-card" data-reveal>
+                            <div class="ocean-card__top">
+                                <span class="ocean-card__letter">{{ trait.letter }}</span>
+                                <h3>{{ trait.label }}</h3>
                             </div>
-                            <p>{{ trait.summary }}</p>
-                            <div class="trait-wall__anchors">
+                            <p>{{ ocean_teasers[trait.key] }}</p>
+                            <div class="ocean-card__anchors">
                                 <span>{{ trait.low_anchor }}</span>
                                 <span>{{ trait.high_anchor }}</span>
                             </div>
                         </article>
                     {% endfor %}
                 </div>
-            </article>
 
-            <article class="feature-card gallery-panel" data-reveal>
-                <div class="section-heading section-heading--compact">
-                    <span class="section-tag">Capa Disney</span>
-                    <h2>El resultado no solo se lee: tambien se ve y se recuerda.</h2>
-                </div>
-
-                <div class="gallery-panel__grid">
-                    {% for panel in visual_panels %}
-                        <figure class="gallery-panel__card">
-                            <div class="gallery-panel__thumb">
-                                <img
-                                    src="{{ asset('resources/characters/' ~ panel.image) }}"
-                                    alt="{{ panel.title }}"
-                                    width="360"
-                                    height="420"
-                                    loading="lazy"
-                                    decoding="async"
-                                >
+                <div class="ocean-grid__row ocean-grid__row--bottom">
+                    {% for trait in traits|slice(3, 2) %}
+                        <article class="ocean-card" data-reveal>
+                            <div class="ocean-card__top">
+                                <span class="ocean-card__letter">{{ trait.letter }}</span>
+                                <h3>{{ trait.label }}</h3>
                             </div>
-                            <figcaption>
-                                <p class="hero-card__eyebrow">{{ panel.eyebrow }}</p>
-                                <h3>{{ panel.title }}</h3>
-                                <p>{{ panel.text }}</p>
-                            </figcaption>
-                        </figure>
+                            <p>{{ ocean_teasers[trait.key] }}</p>
+                            <div class="ocean-card__anchors">
+                                <span>{{ trait.low_anchor }}</span>
+                                <span>{{ trait.high_anchor }}</span>
+                            </div>
+                        </article>
                     {% endfor %}
                 </div>
-            </article>
+            </div>
+
+            <div class="ocean-support" data-reveal>
+                <strong>La capa visual no desplaza al modelo.</strong>
+                <p>Los personajes funcionan como eco emocional de la lectura, mientras que el sentido del perfil sigue organizado por rasgos, niveles y matices.</p>
+            </div>
         </div>
     </section>
 
-    <section class="section-block section-block--accent" data-deferred>
-        <div class="container-xxl cta-banner cta-banner--visual" data-reveal>
-            <div>
-                <span class="section-tag">Siguiente paso</span>
-                <h2>Entra al flujo real y deja que tu perfil tome forma.</h2>
-                <p class="cta-banner__note">
-                    Login, cuestionario y perfil final conviven dentro de la misma experiencia para que el recorrido se sienta continuo.
+    <section class="section-block section-block--dense" data-deferred>
+        <div class="container-xxl journey-layout">
+            <div class="journey-layout__intro" data-reveal>
+                <span class="section-tag">Como se vive la experiencia</span>
+                <h2>Un recorrido pensado para pasar de la intuicion a una lectura que deja huella.</h2>
+                <p>
+                    Cada etapa prepara la siguiente para que el resultado no se sienta como un numero, sino como una interpretacion personal y reconocible.
                 </p>
             </div>
-            <div class="cta-banner__actions">
-                <a class="btn btn-primary site-btn" href="{{ path('app_quiz_start') }}">Ir al cuestionario</a>
-                <a class="btn btn-outline-primary site-btn site-btn--ghost" href="{{ path('app_profile') }}">Abrir perfil</a>
+
+            <div class="journey-track" data-reveal>
+                {% for step in journey_steps %}
+                    <article class="journey-track__step">
+                        <span class="journey-track__index">{{ step.index }}</span>
+                        <div class="journey-track__body">
+                            <h3>{{ step.title }}</h3>
+                            <p>{{ step.text }}</p>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+
+            <aside class="journey-layout__side">
+                {% for collaborator in collaborators %}
+                    <article class="journey-note" data-reveal>
+                        <p class="hero-card__eyebrow">{{ collaborator.eyebrow }}</p>
+                        <h3>{{ collaborator.title }}</h3>
+                        <p>{{ collaborator.text }}</p>
+                    </article>
+                {% endfor %}
+            </aside>
+        </div>
+    </section>
+
+    <section class="section-block section-block--accent home-section home-section--closing" data-deferred>
+        <div class="container-xxl closing-layout">
+            <article class="closing-copy" data-reveal>
+                <span class="section-tag">Da el siguiente paso</span>
+                <h2>Entra en una lectura de personalidad hecha para quedarse contigo.</h2>
+                <p>
+                    Puedes empezar el cuestionario, volver a tu espacio personal o profundizar en el enfoque que da forma a Disperson.
+                </p>
+                <a class="btn btn-primary site-btn" href="{{ path('app_quiz_start') }}">Empezar test</a>
+            </article>
+
+            <div class="closing-actions" data-reveal>
+                {% for card in access_cards %}
+                    <article class="closing-action">
+                        <div class="closing-action__copy">
+                            <span class="closing-action__index">{{ card.index }}</span>
+                            <div>
+                                <h3>{{ card.title }}</h3>
+                                <p>{{ card.text }}</p>
+                            </div>
+                        </div>
+
+                        <a class="btn btn-outline-primary site-btn site-btn--ghost" href="{{ card.href }}">{{ card.label }}</a>
+                    </article>
+                {% endfor %}
             </div>
         </div>
     </section>

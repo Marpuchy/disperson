@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Service\Profile;
 
 use App\Domain\Personality\PersonalityTrait;
+use App\Entity\Character;
 use App\Entity\User;
 use App\Repository\CharacterRepository;
 
@@ -27,7 +28,7 @@ final class ProfileViewBuilder
      *     score: int,
      *     level: int,
      *     description: string,
-     *     character: mixed
+     *     character: array{id: int|null, name: string, description: string}|null
      * }>
      */
     public function build(User $user): array
@@ -55,7 +56,7 @@ final class ProfileViewBuilder
                 'score' => $score,
                 'level' => $trait->levelForScore($score),
                 'description' => $trait->description($score),
-                'character' => $characters[$trait->value] ?? null,
+                'character' => $this->normalizeCharacter($characters[$trait->value] ?? null),
             ];
         }
 
@@ -74,7 +75,7 @@ final class ProfileViewBuilder
      *     score: int,
      *     level: int,
      *     description: string,
-     *     character: mixed
+     *     character: array{id: int|null, name: string, description: string}|null
      * }> $traits
      *
      * @return array{
@@ -88,7 +89,7 @@ final class ProfileViewBuilder
      *     score: int,
      *     level: int,
      *     description: string,
-     *     character: mixed
+     *     character: array{id: int|null, name: string, description: string}|null
      * }|null
      */
     public function featuredTrait(array $traits): ?array
@@ -123,5 +124,18 @@ final class ProfileViewBuilder
         }
 
         return $featured;
+    }
+
+    private function normalizeCharacter(?Character $character): ?array
+    {
+        if ($character === null) {
+            return null;
+        }
+
+        return [
+            'id' => $character->getId(),
+            'name' => $character->getName(),
+            'description' => $character->getDescription(),
+        ];
     }
 }

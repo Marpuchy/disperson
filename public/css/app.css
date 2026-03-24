@@ -29,6 +29,10 @@
     --radius-md: 18px;
     --radius-sm: 12px;
     --container: 1240px;
+    --space-section: clamp(3.25rem, 5vw, 4.75rem);
+    --space-block: clamp(1rem, 1.8vw, 1.5rem);
+    --copy-max: 62ch;
+    --copy-narrow: 46ch;
     --transition: 240ms ease;
 }
 
@@ -123,13 +127,14 @@ ul {
 }
 
 .container-xxl {
-    width: min(var(--container), calc(100% - 2rem));
+    width: min(var(--container), calc(100% - clamp(1.25rem, 3vw, 2.75rem)));
 }
 
 .page-shell {
     position: relative;
     min-height: calc(100svh - 8.5rem);
     padding: 0 0 3.75rem;
+    overflow: clip;
 }
 
 .page-shell::before {
@@ -186,6 +191,12 @@ html.is-page-loading .nav-progress {
     padding: 0;
 }
 
+.site-navbar > .container-xxl {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
 .site-brand {
     display: inline-flex;
     align-items: center;
@@ -214,6 +225,10 @@ html.is-page-loading .nav-progress {
 
 .nav-link {
     position: relative;
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.85rem;
+    padding: 0.55rem 0.82rem;
     color: var(--muted);
     font-weight: 700;
     transition: color var(--transition), transform var(--transition);
@@ -240,13 +255,26 @@ html.is-page-loading .nav-progress {
 .nav-user {
     display: inline-flex;
     align-items: center;
-    padding: 0.72rem 1rem;
+    min-height: 2.85rem;
+    padding: 0.62rem 0.95rem;
     border-radius: 999px;
     background: rgba(255, 255, 255, 0.06);
     border: 1px solid var(--border);
     color: var(--muted-strong);
     font-weight: 700;
+    white-space: nowrap;
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.navbar-collapse {
+    align-items: center;
+}
+
+.navbar-nav {
+    width: 100%;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.2rem 0.35rem;
 }
 
 .navbar-toggler {
@@ -284,7 +312,8 @@ html.is-page-loading .nav-progress {
 
 .section-block {
     position: relative;
-    padding: 4.35rem 0;
+    padding: var(--space-section) 0;
+    overflow: clip;
 }
 
 .section-block[data-deferred] {
@@ -316,18 +345,16 @@ html.is-page-loading .nav-progress {
 }
 
 .section-heading {
-    max-width: 48rem;
-    margin-bottom: 1.6rem;
+    display: grid;
+    gap: 0.75rem;
+    max-width: min(44rem, 100%);
+    margin-bottom: clamp(1.2rem, 2vw, 1.8rem);
 }
 
-.section-heading h2,
-.lead-text,
-.content-hero h1,
-.results-header h1,
-.profile-hero h1,
-.quiz-intro h1,
-.auth-panel h1 {
-    max-width: 16ch;
+.section-heading h2 {
+    font-size: clamp(2.15rem, 4vw, 3.55rem);
+    line-height: 1.06;
+    text-wrap: balance;
 }
 
 .lead-text,
@@ -357,6 +384,21 @@ html.is-page-loading .nav-progress {
 .profile-spotlight__copy p,
 .profile-hero p {
     margin-top: 0.9rem;
+    max-width: var(--copy-max);
+}
+
+.lead-text {
+    max-width: var(--copy-max);
+    font-size: clamp(1rem, 1.15vw, 1.08rem);
+}
+
+.content-hero h1,
+.results-header h1,
+.quiz-intro h1,
+.auth-panel h1 {
+    max-width: 14ch;
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    text-wrap: balance;
 }
 
 .site-btn {
@@ -452,6 +494,7 @@ html.is-page-loading .nav-progress {
 .site-footer__content {
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
     gap: 2rem;
     padding: 1.5rem 0 0;
     border-top: 1px solid var(--border);
@@ -484,8 +527,9 @@ html.is-page-loading .nav-progress {
 
 .ocean-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
     gap: 1.25rem;
+    align-items: stretch;
 }
 
 .ocean-card,
@@ -632,6 +676,9 @@ html.is-page-loading .nav-progress {
 
 .trait-metric {
     padding: 1.2rem;
+    grid-template-rows: auto auto auto 1fr auto;
+    align-content: start;
+    height: 100%;
 }
 
 .trait-metric__header {
@@ -704,6 +751,30 @@ html.is-page-loading .nav-progress {
 
 .trait-metric__detail {
     margin-bottom: 0.8rem;
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+}
+
+:is(
+    .hero-showcase,
+    .intro-card-grid,
+    .landing-mosaic,
+    .discovery-layout,
+    .process-panel,
+    .content-showcase,
+    .contact-stage,
+    .about-mosaic,
+    .workflow-board,
+    .contact-board,
+    .profile-spotlight,
+    .profile-layout,
+    .profile-summary-grid,
+    .profile-panel__grid,
+    .quiz-question-grid
+) > * {
+    min-width: 0;
 }
 
 :is(.ocean-card, .trait-metric, .hero-card, .feature-card, .content-card, .team-card, .quiz-note-card, .question-card, .auth-panel, .profile-context-card):hover {
@@ -762,6 +833,10 @@ html.is-page-loading .nav-progress {
 }
 
 @media (max-width: 991px) {
+    .navbar-nav {
+        align-items: flex-start;
+    }
+
     .nav-link.is-active::after {
         left: 0;
         right: auto;

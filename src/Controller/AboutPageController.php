@@ -18,13 +18,13 @@ final class AboutPageController extends AbstractController
             'traits' => $personalityModelViewBuilder->buildOverview(),
             'team' => [
                 [
-                    'name' => 'Marc Ibáñez Puchol',
-                    'role' => 'Diseño, desarrollo del producto y experiencia web',
+                    'name' => 'Marc Ibanez Puchol',
+                    'role' => 'Diseno, desarrollo del producto y experiencia web',
                     'email' => 'mibanezp0709@gmail.com',
                 ],
                 [
-                    'name' => 'Colaboración académica',
-                    'role' => 'Apoyo en la formulación del cuestionario y revisión psicométrica desde UJI',
+                    'name' => 'Colaboracion academica',
+                    'role' => 'Apoyo en la formulacion del cuestionario y revision psicometrica desde UJI',
                     'email' => 'mibanezp0709@gmail.com',
                 ],
             ],

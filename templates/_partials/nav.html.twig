@@ -8,7 +8,7 @@
                 <span>Disperson</span>
             </a>
 
-            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#siteNav" aria-controls="siteNav" aria-expanded="false" aria-label="Abrir navegación">
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#siteNav" aria-controls="siteNav" aria-expanded="false" aria-label="Abrir navegacion">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -18,7 +18,7 @@
                         <a class="nav-link {{ currentRoute == 'app_home' ? 'is-active' }}" href="{{ path('app_home') }}">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ currentRoute == 'app_about' ? 'is-active' }}" href="{{ path('app_about') }}">Proyecto</a>
+                        <a class="nav-link {{ currentRoute == 'app_about' ? 'is-active' }}" href="{{ path('app_about') }}">Enfoque</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ currentRoute == 'app_contact' ? 'is-active' }}" href="{{ path('app_contact') }}">Contacto</a>
@@ -31,11 +31,6 @@
                         <li class="nav-item">
                             <a class="nav-link {{ currentRoute == 'app_profile' ? 'is-active' }}" href="{{ path('app_profile') }}">Perfil</a>
                         </li>
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <li class="nav-item">
-                                <a class="nav-link {{ currentRoute == 'admin' ? 'is-active' }}" href="{{ path('admin') }}">Admin</a>
-                            </li>
-                        {% endif %}
                         <li class="nav-item ms-lg-2">
                             <span class="nav-user">{{ app.user.username }}</span>
                         </li>

@@ -5,6 +5,9 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
+    const intro = root.querySelector('[data-quiz-intro]');
+    const stage = root.querySelector('[data-quiz-stage]');
+    const startButton = root.querySelector('[data-quiz-start]');
     const steps = Array.from(root.querySelectorAll('[data-quiz-step]'));
     const prevButton = root.querySelector('[data-quiz-prev]');
     const nextButton = root.querySelector('[data-quiz-next]');
@@ -14,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const answers = Array.from(root.querySelectorAll('.answer-scale__option'));
 
     let currentStep = 0;
-    let firstRender = true;
+    let hasStarted = false;
 
     if (steps.length === 0) {
         return;
@@ -27,18 +30,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    const render = ({ shouldScroll = false } = {}) => {
+    const render = () => {
         steps.forEach((step, index) => {
             const isActive = index === currentStep;
 
-            step.classList.remove('is-active');
+            step.classList.toggle('is-active', isActive);
             step.hidden = !isActive;
-
-            if (isActive) {
-                window.requestAnimationFrame(() => {
-                    step.classList.add('is-active');
-                });
-            }
         });
 
         const progress = ((currentStep + 1) / steps.length) * 100;
@@ -64,20 +61,34 @@ document.addEventListener('DOMContentLoaded', () => {
         if (submitButton) {
             submitButton.hidden = !isLastStep;
         }
+    };
 
-        if (shouldScroll && !firstRender) {
-            const bounds = root.getBoundingClientRect();
-            const isOutOfFocus = bounds.top < 72 || bounds.top > (window.innerHeight * 0.35);
-
-            if (isOutOfFocus) {
-                root.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start',
-                });
-            }
+    const startExperience = () => {
+        if (hasStarted) {
+            return;
         }
 
-        firstRender = false;
+        hasStarted = true;
+
+        if (intro) {
+            intro.classList.add('is-collapsing');
+        }
+
+        if (stage) {
+            stage.hidden = false;
+
+            window.requestAnimationFrame(() => {
+                stage.classList.add('is-active');
+            });
+        }
+
+        window.setTimeout(() => {
+            if (intro) {
+                intro.hidden = true;
+            }
+        }, 300);
+
+        render();
     };
 
     answers.forEach((option) => {
@@ -86,25 +97,31 @@ document.addEventListener('DOMContentLoaded', () => {
         input?.addEventListener('change', syncSelectionState);
     });
 
+    startButton?.addEventListener('click', startExperience);
+
     prevButton?.addEventListener('click', () => {
-        if (currentStep === 0) {
+        if (!hasStarted || currentStep === 0) {
             return;
         }
 
         currentStep -= 1;
-        render({ shouldScroll: true });
+        render();
     });
 
     nextButton?.addEventListener('click', () => {
-        if (currentStep >= steps.length - 1) {
+        if (!hasStarted || currentStep >= steps.length - 1) {
             return;
         }
 
         currentStep += 1;
-        render({ shouldScroll: true });
+        render();
     });
 
     document.addEventListener('keydown', (event) => {
+        if (!hasStarted) {
+            return;
+        }
+
         const target = event.target;
         const isTypingField = target instanceof HTMLElement
             && ['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName);
@@ -115,15 +132,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (event.key === 'ArrowRight' && currentStep < steps.length - 1) {
             currentStep += 1;
-            render({ shouldScroll: true });
+            render();
         }
 
         if (event.key === 'ArrowLeft' && currentStep > 0) {
             currentStep -= 1;
-            render({ shouldScroll: true });
+            render();
         }
     });
 
     syncSelectionState();
-    render();
 });

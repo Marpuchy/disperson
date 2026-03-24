@@ -1,17 +1,25 @@
-<article class="profile-panel {% if loop.first %}is-open{% endif %}" data-profile-panel data-reveal>
-    <button class="profile-panel__trigger" type="button" data-profile-trigger aria-expanded="{{ loop.first ? 'true' : 'false' }}">
-        <span>
-            <span class="profile-panel__eyebrow">{{ trait.ocean_letter }} · {{ trait.navigation_label }}</span>
+{% set isOpen = active_trait_key is defined and active_trait_key ? trait.key == active_trait_key : loop.first %}
+
+<article class="profile-panel {% if isOpen %}is-open is-linked{% endif %}" data-profile-panel data-profile-panel-key="{{ trait.key }}" data-reveal>
+    <button class="profile-panel__trigger" type="button" data-profile-trigger aria-expanded="{{ isOpen ? 'true' : 'false' }}">
+        <span class="profile-panel__trigger-copy">
+            <span class="profile-panel__eyebrow">{{ trait.ocean_letter }} / {{ trait.navigation_label }}</span>
             <strong>{{ trait.label }}</strong>
         </span>
-        <span class="profile-panel__score">{{ trait.score }}</span>
+        <span class="profile-panel__trigger-meta">
+            <span class="profile-panel__trigger-level">Nivel {{ trait.level }}</span>
+            <span class="profile-panel__score">{{ trait.score }}</span>
+        </span>
     </button>
 
-    <div class="profile-panel__content" {% if not loop.first %}hidden{% endif %} data-profile-content>
+    <div class="profile-panel__content" {% if not isOpen %}hidden{% endif %} data-profile-content>
         <div class="profile-panel__content-inner">
             <div class="profile-panel__grid">
                 <div class="profile-panel__summary">
-                    <span class="profile-panel__badge">Nivel {{ trait.level }}</span>
+                    <div class="profile-panel__summary-top">
+                        <span class="profile-panel__badge">Nivel {{ trait.level }}</span>
+                        <span class="profile-panel__summary-score">{{ trait.score }}/100</span>
+                    </div>
                     <p class="profile-panel__summary-copy">{{ trait.description }}</p>
                     <div class="profile-panel__scale" aria-label="Espectro del rasgo {{ trait.label }}">
                         <span>{{ trait.low_anchor }}</span>
@@ -21,27 +29,27 @@
 
                 {% if trait.character %}
                     <div class="profile-character">
+                        <div class="profile-character__media">
+                            <img
+                                src="{{ asset('resources/characters/' ~ trait.character.id ~ '.jpg') }}"
+                                alt="{{ trait.character.name }}"
+                                width="220"
+                                height="220"
+                                loading="lazy"
+                                decoding="async"
+                            >
+                        </div>
+
                         <div class="profile-character__copy">
                             <p class="profile-character__eyebrow">Personaje asociado</p>
                             <h3>{{ trait.character.name }}</h3>
                             <p>{{ trait.character.description }}</p>
                         </div>
-
-                        <div class="profile-character__media">
-                            <img
-                                src="{{ asset('resources/characters/' ~ trait.character.id ~ '.jpg') }}"
-                                alt="{{ trait.character.name }}"
-                                width="190"
-                                height="190"
-                                loading="lazy"
-                                decoding="async"
-                            >
-                        </div>
                     </div>
                 {% else %}
                     <div class="profile-character profile-character--empty">
                         <p>
-                            Todavía no hay personaje asociado para este nivel. La lectura psicológica del rasgo sigue disponible y la equivalencia visual
+                            Todavia no hay personaje asociado para este nivel. La lectura psicologica del rasgo sigue disponible y la equivalencia visual
                             puede completarse desde el panel admin.
                         </p>
                     </div>
